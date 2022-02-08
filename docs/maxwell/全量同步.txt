@@ -1,0 +1,5 @@
+1、先启动，初始化数据库maxwell
+./maxwell --config ../config.properties
+
+2、创建全量任务（注意client_id要与config.properties中配置的一样）
+insert into maxwell.bootstrap (database_name, table_name, client_id) values ('spartacus', 'tb_cos_resource', 'maxwell_client_id');

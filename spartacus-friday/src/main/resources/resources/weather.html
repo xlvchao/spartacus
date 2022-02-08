@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+
+	<head>
+
+		<title>Spartacus | 为自由而生</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<meta name="keywords" content="天气">
+		<meta name="description" content="天气">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- 移动设备 viewport -->
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+		<!-- 360浏览器默认使用Webkit内核 -->
+		<meta name="renderer" content="webkit">
+		<!-- 禁止百度SiteAPP转码 -->
+		<meta http-equiv="Cache-Control" content="no-siteapp">
+		<!-- Chrome浏览器添加桌面快捷方式（安卓） -->
+		<link rel="icon" type="image/png" href="http://demo.admui.com/public/images/favicon.png">
+		<meta name="mobile-web-app-capable" content="yes">
+		<!-- Safari浏览器添加到主屏幕（IOS） -->
+		<link rel="icon" sizes="192x192" href="http://demo.admui.com/public/images/apple-touch-icon.png">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Admui">
+		<!-- Win8标题栏及ICON图标 -->
+		<link rel="apple-touch-icon-precomposed" href="http://demo.admui.com/public/images/apple-touch-icon.png">
+		<meta name="msapplication-TileImage" content="/public/images/app-icon72x72@2x.png">
+		<meta name="msapplication-TileColor" content="#62a8ea">
+		
+		<!-- 样式 -->
+		<link rel="stylesheet" href="css/font-awesome.css?v=4.4.0">
+		<link rel="stylesheet" href="plugins/weather/bootstrap.css">
+		<link rel="stylesheet" href="plugins/weather/site.css" id="siteStyle">
+		<link rel="stylesheet" href="plugins/weather/weather-icons.css">
+		<link rel="stylesheet" href="plugins/weather/weather.css">
+		<link rel="stylesheet" href="css/plugins/blueimp/css/blueimp-gallery.min.css">
+
+		<link rel="stylesheet" href="plugins/jquery-ui-1.12.1/jquery-ui.min.css">
+
+	</head>
+
+	<body id="body_id">
+
+		<main class="site-page" style="height: 100%;">
+			<div class="page-container" id="admui-pageContent">
+
+				<div class="page animation-fade">
+					<div class="page-content page-content-example container-fluid">
+						<div class="row">
+							<div class="col-xs-12">
+
+	<div id="outer_div_id" class="widget widget-shadow weather">
+		<div id="weather_div_cover_id" class="widget-header cover overlay">
+			<img id="weather_img_id" class="cover-image img-responsive" src="plugins/weather/beach.jpg" alt="...">
+			<div class="overlay-panel">
+				<span id="city_name_id" class="font-size-40 white">深圳</span>
+				<div class="weather-location input-search pull-right margin-top-10">
+					<input id="search_city_input" type="text" autocomplete="off" style="border-radius:0px;" class="form-control input-sm grey-200" placeholder="搜索城市">
+
+					<button id="search_city_button" type="submit" class="input-search-btn">
+                        <i class="fa fa-search grey-400" aria-hidden="true"></i>
+                    </button>
+				</div>
+			</div>
+		</div>
+		<div id="weather_div_footer_id" class="widget-footer">
+				<div class="col-md-3 col-sm-5 padding-left-30 padding-vertical-30" style="float: left; padding-top: 20px !important;">
+					<div id="today" class="row">
+						<div class="col-xs-5" style="float: left;">
+							<div class="vertical-align">
+								<i class="vertical-align-middle font-size-50 margin-top-20">
+									<img height="50" src="plugins/weather/icons/00.png">
+									<font size="4" color="#2298D9">~</font>
+									<img height="50" src="plugins/weather/icons/00.png">
+								</i> </div>
+						</div>
+						<div class="col-xs-7" style="float: left;">
+<!--							<span class="font-size-40 blue-800">27℃</span>-->
+<!--							<span class="font-size-18 blue-grey-700">/</span>-->
+							<span class="font-size-40 blue-800">27℃~34℃</span>
+							<p class="font-size-14 margin-bottom-0">晴天&nbsp;&nbsp;2018年05月14日&nbsp;星期一</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-9 col-sm-7">
+					<div id="future" class="row no-space text-center">
+						<div class="col-xs-2">
+							<div class="weather-day vertical-align">
+								<div class="vertical-align-middle font-size-16">
+									<div class="margin-bottom-10">星期二</div>
+									<i class="font-size-24 margin-bottom-10">
+										<img height="50" src="plugins/weather/icons/00.png">
+										<font size='4' color='#2298D9'>~</font>
+										<img height="50" src="plugins/weather/icons/00.png">
+									</i>
+									<div>晴天&nbsp;17℃~20℃</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<div class="weather-day vertical-align">
+								<div class="vertical-align-middle font-size-16">
+									<div class="margin-bottom-10">星期三</div>
+									<i class="font-size-24 margin-bottom-10">
+										<img height="50" src="plugins/weather/icons/00.png">
+										<font size='4' color='#2298D9'>~</font>
+										<img height="50" src="plugins/weather/icons/00.png">
+									</i>
+									<div>晴天&nbsp;17℃~20℃</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<div class="weather-day vertical-align">
+								<div class="vertical-align-middle font-size-16">
+									<div class="margin-bottom-10">星期四</div>
+									<i class="font-size-24 margin-bottom-10">
+										<img height="50" src="plugins/weather/icons/00.png">
+										<font size='4' color='#2298D9'>~</font>
+										<img height="50" src="plugins/weather/icons/00.png">
+									</i>
+									<div>晴天&nbsp;17℃~20℃</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<div class="weather-day vertical-align">
+								<div class="vertical-align-middle font-size-16">
+									<div class="margin-bottom-10">星期五</div>
+									<i class="font-size-24 margin-bottom-10">
+										<img height="50" src="plugins/weather/icons/00.png">
+										<font size='4' color='#2298D9'>~</font>
+										<img height="50" src="plugins/weather/icons/00.png">
+									</i>
+									<div>晴天&nbsp;17℃~20℃</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<div class="weather-day vertical-align">
+								<div class="vertical-align-middle font-size-16">
+									<div class="margin-bottom-10">星期六</div>
+									<i class="font-size-24 margin-bottom-10">
+										<img height="50" src="plugins/weather/icons/00.png">
+										<font size='4' color='#2298D9'>~</font>
+										<img height="50" src="plugins/weather/icons/00.png">
+									</i>
+									<div>晴天&nbsp;17℃~20℃</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<div class="weather-day vertical-align">
+								<div class="vertical-align-middle font-size-16">
+									<div class="margin-bottom-10">星期日</div>
+									<i class="font-size-24 margin-bottom-10">
+										<img height="50" src="plugins/weather/icons/00.png">
+										<font size='4' color='#2298D9'>~</font>
+										<img height="50" src="plugins/weather/icons/00.png">
+									</i>
+									<div>晴天&nbsp;17℃~20℃</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--<i class="wi-day-cloudy"></i>
+	<i class="wi-day-cloudy-gusts"></i>
+	<i class="wi-day-cloudy-windy"></i>
+	<i class="wi-day-fog"></i>
+	<i class="wi-day-hail"></i>
+	<i class="wi-day-haze"></i>
+	<i class="wi-day-lightning"></i>
+	<i class="wi-day-rain"></i>
+	<i class="wi-day-rain-mix"></i>
+	<i class="wi-day-rain-wind"></i>
+	<i class="wi-day-showers"></i>
+	<i class="wi-day-sleet"></i>
+	<i class="wi-day-sleet-storm"></i>
+	<i class="wi-day-snow"></i>
+	<i class="wi-day-snow-thunderstorm"></i>
+	<i class="wi-day-snow-wind"></i>
+	<i class="wi-day-sprinkle"></i>
+	<i class="wi-day-storm-showers"></i>
+	<i class="wi-day-sunny"></i>
+	<i class="wi-day-sunny-overcast"></i>
+	<i class="wi-day-thunderstorm"></i>
+	<i class="wi-day-windy"></i>-->
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</main>
+
+<!-- 全局js -->
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/layer/layer.js"></script>
+<script src="js/coords-tool.js"></script>
+<script src="js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+<script src="plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/loadconfig.js"></script>
+
+<script>
+
+	var base_domain = getConfig('base_domain');
+var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+$(function() {
+	//固定高度，与父层iFrame高度保持一致
+	$('#body_id').height(parent.iFrame1_height);
+
+	//首页沙滩图片高度设置
+	var body = document.getElementById('body_id');
+	var img = document.getElementById('weather_img_id');
+	img.style.height = body.clientHeight * 0.78 +'px';
+
+	queryCityWeather("深圳");
+
+	$('#search_city_button').click(function () {
+		var cityname = $("#search_city_input").val();
+		if(!$.trim(cityname)){ // "",null,undefined
+			layer.tips('搜索城市不能为空！', '#search_city_input', {
+				tips: 1,
+				time: 1000
+			});
+
+			$("#search_city_input").val("");
+			$("#search_city_input").focus();
+		} else {
+			queryCityWeather(cityname);
+			$("#search_city_input").focus();
+		}
+	});
+
+	//加载输入框输入提示
+	$.getJSON("../plugins/weather/citys.json", function (data, status){
+		if( status=='success') {
+			//开启输入提示
+			$("#search_city_input").attr("autocomplete", "on");
+			var citys = data["citys"].split(",");
+			$("#search_city_input").autocomplete({
+				source: citys,
+				select: function( event, ui ) {
+					queryCityWeather(ui.item.value);
+				}
+			});
+
+		}else{
+			parent.layer.msg("没有读取citys.json：" + status, {
+				icon: 2,
+				time:1000
+			});
+		}
+	});
+
+});
+
+function queryCityWeather(cityname) {
+	$.ajax({
+		type : "POST",
+		url : base_domain+"/spartacus-monitor/wheather/queryCityWeather",
+		async : true,
+		data : { //使用Json格式进行透传
+			"cityname" : cityname
+		},
+		dataType:"json",
+		headers: {
+			"clientId":"spartacus-friday",
+			"Authorization":"bearer " + jwt.access_token//自定义请求头
+		},
+		success : function(result) {
+			if (result.code==0) {
+				var data = result.data;
+
+				$("#city_name_id").html(cityname);
+
+				var daytime = (new Date()).Format("yyyyMMdd");
+
+				var future_idx_start = 0;
+				var future_idx_end = 0;
+
+				$("#today").children().remove();
+				for(var i=0; i < data.length; i++) {
+					if(daytime == data[i].daytime) {
+						var temperatureRange = data[i].day_air_temperature+'℃~'+data[i].night_air_temperature+'℃';
+						var weather = data[i].day_weather+'~'+data[i].night_weather;
+						var date = yyyyMMddToYMD(data[i].daytime);
+						var week = yyyyMMddToWeek(data[i].daytime);
+						var fa = data[i].day_weather_code;
+						var fb = data[i].night_weather_code;
+						$("#today").append("<div class='col-xs-5' style='float: left;'> <div class='vertical-align'> <i class='vertical-align-middle font-size-50 margin-top-20'> <img height='50' src='plugins/weather/icons/"+fa+".png'><font size='4' color='#2298D9'>~</font><img height='50' src='plugins/weather/icons/"+fb+".png'> </i> </div> </div> <div class='col-xs-7' style='float: left;'> <span class='font-size-40 blue-800'>"+temperatureRange+"</span> <p class='font-size-14 margin-bottom-0'>"+weather+"</p><p class='font-size-14 margin-bottom-0'>"+date+"&nbsp;"+week+"</p> </div>");
+
+						future_idx_start = i + 1;
+						future_idx_end = i + 7;
+					}
+				}
+
+				$("#future").children().remove();
+				for(var i=future_idx_start; i < future_idx_end; i++) {
+					var temperatureRange = data[i].day_air_temperature+'℃~'+data[i].night_air_temperature+'℃';
+					var weather = data[i].day_weather+'~'+data[i].night_weather;
+					var date = yyyyMMddToYMD(data[i].daytime);
+					var week = yyyyMMddToWeek(data[i].daytime);
+					var fa = data[i].day_weather_code;
+					var fb = data[i].night_weather_code;
+
+					$("#future").append("<div class='col-xs-2'> <div class='weather-day vertical-align'> <div class='vertical-align-middle font-size-16'> <div class='margin-bottom-10'>"+week+"</div> <i class='font-size-24 margin-bottom-10'> <img height='50' src='plugins/weather/icons/"+fa+".png'><font size='4' color='#2298D9'>~</font><img height='50' src='plugins/weather/icons/"+fb+".png'> </i> <div>"+weather+"&nbsp;"+temperatureRange+"</div> </div> </div> </div>");
+				}
+
+			} else {
+				parent.layer.msg(result.message, {
+					icon: 2,
+					time:1000
+				});
+			}
+		}
+	});
+}
+
+</script>
+
+</body>
+</html>

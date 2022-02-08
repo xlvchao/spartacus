@@ -1,0 +1,49 @@
+version: "3.4"
+networks:
+  #可以自定义network名称，这里使用default表示如果不在service中单独配置就使用该设置 
+  default: 
+    external: 
+      name: app-net
+services:
+  auth1:
+    image: xlvchao/spartacus-auth:1.0.0
+    container_name: auth1
+    restart: always
+    environment:
+      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+      - instanceIp=10.0.0.10
+      - instancePort=3001
+      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+      - APOLLO_ACCESSKEY_SECRET=4ba97dd6c6c4434cb289dc19588988dc
+    volumes:
+      - /opt/settings:/opt/settings
+    ports:
+      - 3001:3001
+  auth2:
+    image: xlvchao/spartacus-auth:1.0.0
+    container_name: auth2
+    restart: always
+    environment:
+      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+      - instanceIp=10.0.0.4
+      - instancePort=3002
+      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+      - APOLLO_ACCESSKEY_SECRET=4ba97dd6c6c4434cb289dc19588988dc
+    volumes:
+      - /opt/settings:/opt/settings
+    ports:
+      - 3002:3002
+  auth3:
+    image: xlvchao/spartacus-auth:1.0.0
+    container_name: auth3
+    restart: always
+    environment:
+      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+      - instanceIp=10.0.0.14
+      - instancePort=3003
+      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+      - APOLLO_ACCESSKEY_SECRET=4ba97dd6c6c4434cb289dc19588988dc
+    volumes:
+      - /opt/settings:/opt/settings
+    ports:
+      - 3003:3003

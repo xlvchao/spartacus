@@ -1,0 +1,562 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="renderer" content="webkit"/>
+
+    <title>Spartacus | 为自由而生</title>
+
+    <meta name="keywords" content="响应式后台"/>
+    <meta name="description" content="响应式后台"/>
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet"/>
+    <link href="css/font-awesome.min.css?v=4.7.0" type='text/css' rel="stylesheet"/>
+    <link href="css/animate.css" rel="stylesheet"/>
+    <link href="css/style.css?v=4.1.0" rel="stylesheet"/>
+
+      <style type="text/css">
+          .top-notice-f {
+              height: 50px;
+              width: 50px;
+              display: block;
+              background: #2F4050;
+              padding: 14px 10px 11px 12px;
+              text-align: center;
+              color: #fff;
+              border-radius: 50%;
+          }
+          .top-notice-f:hover, .top-notice-f:focus {
+              color: #E0E0E0;
+          }
+          .top-notice-f .top-notice-s {
+              display: inline-block;
+              font: normal normal normal 20px/1 FontAwesome;
+              /*font-size: inherit;*/
+              text-rendering: auto;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+          }
+          .top-notice-f .label {
+              line-height: 12px;
+              padding: 1px 5px;
+              position: absolute;
+              margin: 5px -23px 0px 0px;
+              right: 25px;
+              top: 4px;
+          }
+
+          /*管理员信息下拉菜单悬停时自动展开*/
+          .dropdown:hover .dropdown-menu {
+              display: block;
+              margin-top: 0;
+          }
+
+          /*微信二维码*/
+          a#weixin {
+              position: relative;
+          }
+          #weixin img {
+              visibility: hidden;
+              opacity: 0;
+              transform: translate(0, 10px);
+              transition: all 0.3s ease-in-out;
+              position: absolute;
+              right: -50px;
+              bottom: -150px;
+              width: 150px;
+              height: 150px;
+              z-index: 100000;
+          }
+          #weixin:hover img {
+              visibility: visible;
+              transform: translate(0, 0px);
+              opacity: 1;
+          }
+
+          /*顶部banner*/
+          .banner{
+              display: flex;
+              width: 100%;
+              height: 60px;
+              position: relative;
+              background-color: #2f4050;
+          }
+          .banner_left{
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 220px;
+              height: 100%;
+              position: relative;
+          }
+          .banner_right{
+              justify-content: end;
+              width: calc(100% - 220px);
+              height: 100%;
+              position: relative;
+          }
+          .banner_left_icon{
+              height: 100%;
+          }
+          .banner_left_border{
+              position: absolute;
+              width: 0px ;
+              right: 0px;
+              height: 24px;
+          }
+          .banner_left_icon_small{
+              display: none;
+          }
+          @media screen and (max-width: 768px) {
+              .banner_left_icon_big{
+                  display: none;
+              }
+              .banner_left{
+                  width: 70px;
+              }
+              .banner_right{
+                  width: calc(100% - 70px);
+              }
+              .banner_left_icon_small{
+                  display: inline;
+              }
+          }
+</style>
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden;" id="index_id">
+<!--    <div id="banner_div_id" style="width: 100%; height: 60px;  text-align: center; background-image: url('../img/top_banner.png'); background-repeat: no-repeat; background-size: 100% 60px;">-->
+<!--        &lt;!&ndash; 管理员信息 &ndash;&gt;-->
+<!--        <div class="dropdown pull-right" style="margin: 15px 10px 0px 0px;">-->
+<!--            <a data-toggle="dropdown" class="dropdown-toggle" href="#">-->
+<!--                <span class="clear">-->
+<!--                    <span class="text-muted text-xs block">&nbsp;<strong id="admin_nickname_id"></strong><b class="caret"></b>&nbsp;&nbsp;<img id="admin_headImg_id" alt="image" width="25" height="25" style="border-radius: 20%;" />-->
+<!--                    </span>-->
+<!--                </span>-->
+<!--            </a>-->
+<!--            <ul class="dropdown-menu fadeInRight m-t-xs" style="min-width: 0px !important;">-->
+<!--                <li><a class="J_menuItem" href="profile.html">修改资料</a>-->
+<!--                </li>-->
+<!--                <li class="divider"></li>-->
+<!--                <li><a href="javascript:logOut()">安全退出</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; 在线聊天 &ndash;&gt;-->
+<!--        <div title="在线聊天" class="dropdown pull-right" style="margin: 3px 10px 0px 0px;">-->
+<!--            <a id="btnRight" class="dropdown-toggle top-notice-f" data-toggle="dropdown" href="javascript:void(0);">-->
+<!--                <i class="fa fa-group top-notice-s"></i> <span id="online_chat_user_num" class="label label-primary">8</span>-->
+<!--            </a>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; 项目地址 &ndash;&gt;-->
+<!--        <div title="Github" class="dropdown pull-right" style="margin: 3px 10px 0px 0px">-->
+<!--            <a class="dropdown-toggle top-notice-f" href="https://github.com" target="_blank">-->
+<!--                <i class="fa fa-github top-notice-s"></i> <span class="label label-primary" style="right: 13px">50k</span>-->
+<!--            </a>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; 公众号二维码 &ndash;&gt;-->
+<!--        <div class="dropdown pull-right" style="margin: 3px 0px 0px 0px">-->
+<!--            <a id="weixin" class="dropdown-toggle top-notice-f" href="javascript:void(0)">-->
+<!--                <i class="fa fa-qrcode top-notice-s"></i>-->
+<!--                <img src="img/spartacus_qrcode.jpg">-->
+<!--            </a>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<div class="banner">
+    <div class="banner_left">
+        <img class="banner_left_icon banner_left_icon_big" src="img/left_banner.png" />
+        <img class="banner_left_icon banner_left_icon_small" src="img/favicon.png"/>
+        <div class="banner_left_border"></div>
+    </div>
+    <div class="banner_right">
+        <div class="dropdown pull-right" style="margin: 15px 10px 0px 0px;">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <span class="clear">
+                        <span class="text-muted text-xs block">&nbsp;<strong id="admin_nickname_id"></strong><b class="caret"></b>&nbsp;&nbsp;<img id="admin_headImg_id" alt="image" width="25" height="25" style="border-radius: 20%;" />
+                        </span>
+                    </span>
+            </a>
+            <ul class="dropdown-menu fadeInRight m-t-xs" style="min-width: 0px !important;">
+                <li><a class="J_menuItem" href="profile.html">修改资料</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="javascript:logOut()">安全退出</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 在线聊天 -->
+        <div title="在线聊天" class="dropdown pull-right" style="margin: 3px 10px 0px 0px;">
+            <a id="btnRight" class="dropdown-toggle top-notice-f" data-toggle="dropdown" href="javascript:void(0);">
+                <i class="fa fa-group top-notice-s"></i> <span id="online_chat_user_num" class="label label-primary">8</span>
+            </a>
+        </div>
+
+        <!-- 项目地址 -->
+        <div title="Github" class="dropdown pull-right" style="margin: 3px 10px 0px 0px">
+            <a class="dropdown-toggle top-notice-f" href="https://github.com/xlvchao/spartacus" target="_blank">
+                <i class="fa fa-github top-notice-s"></i> <span class="label label-primary" style="right: 13px">50k</span>
+            </a>
+        </div>
+
+        <!-- 公众号二维码 -->
+        <div class="dropdown pull-right" style="margin: 3px 0px 0px 0px">
+            <a id="weixin" class="dropdown-toggle top-notice-f" href="javascript:void(0)">
+                <i class="fa fa-qrcode top-notice-s"></i>
+                <img src="img/spartacus_qrcode.jpg">
+            </a>
+        </div>
+    </div>
+</div>
+
+    <div id="wrapper">
+        <!--左侧导航开始-->
+        <nav class="navbar-default navbar-static-side" role="navigation" style="height: 94%;">
+            <div class="nav-close"><i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="active">
+                    	<a href="#">
+                        	<i class="fa fa-sitemap"></i>
+                        	<span class="nav-label">数据监控</span>
+                        	<span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                        	<li><a class="J_menuItem" href="main.html">流量总览</a></li>
+                            <li><a class="J_menuItem" href="access.html">访问统计</a></li>
+                            <li><a class="J_menuItem" href="access_forbid.html">封禁列表</a></li>
+                            <li><a class="J_menuItem" href="system_infos.html">系统状况</a></li>
+                        </ul>
+                     </li>
+                    
+                    <li class="active">
+                    	<a href="#">
+                        	<i class="fa fa-pencil-square"></i>
+                        	<span class="nav-label">文章管理</span>
+                        	<span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                        	<li><a class="J_menuItem" href="write_article.html">写一篇吧</a></li>
+                            <li><a class="J_menuItem" href="article_list.html?cp=1&ps=15&status=0">已经发表</a></li>
+                            <li><a class="J_menuItem" href="article_list.html?cp=1&ps=15&status=1">我的草稿</a></li>
+                            <li><a class="J_menuItem" href="article_list.html?cp=1&ps=15&status=2">撤回待修</a></li>
+                        </ul>
+                     </li>
+                     
+                     <li class="active">
+                    	<a href="#">
+                        	<i class="fa fa-comments"></i>
+                        	<span class="nav-label">评论管理</span>
+                        	<span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                        	<li><a class="J_menuItem" href="comment_list.html?status=0&cp=1&ps=15">等待审核</a></li>
+                            <li><a class="J_menuItem" href="comment_list.html?status=1&cp=1&ps=15">审核通过</a></li>
+                            <li><a class="J_menuItem" href="comment_list.html?status=2&cp=1&ps=15">违规评论</a></li>
+                            <li><a class="J_menuItem" href="comment_forbid.html">禁评列表</a></li>
+                        </ul>
+                     </li>
+
+                     <li class="active">
+                    	<a href="#">
+                        	<i class="fa fa-cloud"></i> 
+                        	<span class="nav-label">资源管理</span>
+                        	<span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                        	<li><a class="J_menuItem" href="file_manager.html?global_root_dir_path=image&fileNumLimit=50&fileSingleSizeLimit=10&fileSizeLimit=500">图片资源</a></li>
+                            <li><a class="J_menuItem" href="file_manager.html?global_root_dir_path=video&fileNumLimit=10&fileSingleSizeLimit=50&fileSizeLimit=500">视频资源</a></li>
+                            <li><a class="J_menuItem" href="file_manager.html?global_root_dir_path=other&fileNumLimit=10&fileSingleSizeLimit=50&fileSizeLimit=500">暂无分类</a></li>
+                            <li><a class="J_menuItem" href="file_manager.html?global_root_dir_path=recycle&fileNumLimit=10&fileSingleSizeLimit=50&fileSizeLimit=500">回收转盘</a></li>
+                        </ul>
+                     </li>
+
+                    <!--<li class="active">
+                        <a href="">
+                            <i class="fa fa-envelope"></i>
+                            <span class="nav-label">邮件管理 </span>
+                            <span class="fa arrow"></span>
+                            <span class="label label-warning pull-right">16</span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="mail_compose.html?i=1">写邮件</a></li>
+                            <li><a class="J_menuItem" href="mail_inbox.html?i=2">收件箱</a></li>
+                            <li><a class="J_menuItem" href="mail_inbox.html?i=3">草稿箱</a></li>
+                            <li><a class="J_menuItem" href="mail_inbox.html?i=4">已发送</a></li>
+                            <li><a class="J_menuItem" href="mail_inbox.html?i=5">已删除</a></li>
+                            <li><a class="J_menuItem" href="mail_inbox.html?i=6">垃圾箱</a></li>
+                            <li><a class="J_menuItem" href="mail_inbox.html?i=6">通讯录</a></li>
+                        </ul>
+                    </li>-->
+
+                    <!--<li>
+                        <a href="">
+                            <i class="fa fa-wechat"></i>
+                            <span class="nav-label">聊天管理</span>
+                            <span class="fa arrow"></span>
+                            <span class="label label-warning pull-right">99+</span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="doing.html?i=30">私聊</a></li>
+                            <li><a class="J_menuItem" href="doing.html?i=31">群聊</a></li>
+                            <li><a class="J_menuItem" href="doing.html?i=32">公告</a></li>
+                            <li><a class="J_menuItem" href="doing.html?i=33">禁言列表</a></li>
+                        </ul>
+                    </li>-->
+
+                    <li class="active">
+                        <a href="#">
+                            <i class="fa fa-cogs"></i>
+                            <span class="nav-label">系统功能</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="login_record.html">登录足迹</a></li>
+                            <li><a class="J_menuItem" href="notice.html">通知公告</a></li>
+                            <li><a class="J_menuItem" href="friend_link.html">友情链接</a></li>
+                            <li><a class="J_menuItem" href="system_user.html">系统用户</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+        <!--左侧导航结束-->
+
+        <!--右侧部分开始-->
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row content-tabs">
+                <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+                        <a href="javascript:void(0);" class="active J_menuTab" data-id="weather.html">首页</a>
+                    </div>
+                </nav>
+
+                <div class="btn-group roll-nav roll-right" id="close_tabs_group_id" style="right: 1px;">
+                    <button class="dropdown J_tabClose" id="close_tabs_btn_id" data-toggle="dropdown">
+                    	关闭<span class="caret"></span>
+                    </button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right" style="min-width: 0px !important; margin-top: 0;">
+                        <li class="J_tabCloseAll"><a>关闭全部</a></li>
+                        <li class="divider"></li>
+                        <li class="J_tabCloseOther"><a>关闭其他</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row J_mainContent" id="content-main">
+                <iframe id="iFrame1" class="J_iframe" scrolling="no" name="iFrame1" width="100%" height="100%"
+                        src="weather.html?v=4.0" frameborder="0" data-id="weather.html" seamless="seamless" ></iframe>
+            </div>
+
+            <!-- 群组聊天框 -->
+            <div id="chat_container">
+                <div id="chat_layer" class="chat_layer" style="height: 100%">
+
+                </div>
+            </div>
+
+            <div class="footer" id="footer" style="text-align: center; padding-top: 10px;">
+                All rights reserved &copy; since 2020 by spartacus
+            </div>
+
+        </div>
+        <!--右侧部分结束-->
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="js/plugins/layer-3.5.1/layer.js"></script>
+
+    <!-- 自定义js -->
+    <script src="js/hplus.js?v=4.1.0"></script>
+    <script src="js/contabs.js"></script>
+
+    <!-- 第三方插件 -->
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <script src="plugins/mslider/mSlider.min.js"></script>
+    <script src="js/loadconfig.js"></script>
+    <script src="js/authxxx.js"></script>
+
+    <script type="text/javascript" src="wechat/js/sockjs.js"></script>
+    <script type="text/javascript" src="wechat/js/stomp.umd.js"></script>
+
+<script>
+
+    var base_domain = getConfig('base_domain');
+
+    /**
+     * 关闭按钮：鼠标划过就展开子菜单，免得需要点击才能展开
+     */
+    $('#close_tabs_group_id').mouseover(function() {
+        $(this).addClass('open');
+        $('#close_tabs_btn_id').attr('aria-expanded', 'ture');
+    }).mouseout(function() {
+        $(this).removeClass('open');
+        $('#close_tabs_btn_id').attr('aria-expanded', 'false');
+    });
+
+    //定义子页面高度时，使用！！！
+    var iFrame1_height = $('#iFrame1').height();
+
+    //右侧iframe容器加载的子页面时，使用！！！
+    var right_container_height = $("#content-main").height();
+
+    window.onload = function () {
+        //移动端使用touchend
+        var event = navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i) ? 'touchend' : 'click';
+        document.getElementById("btnRight").addEventListener(event, function (e) {
+            openChatWindow();
+        }, {passive: false});
+
+        //立马检查token
+        checkJwtValid();
+
+        //定时检查token
+        window.setInterval(function () {
+            checkJwtValid();
+        }, 10000);
+
+        //获取用户信息
+        var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+        if(!$.isEmptyObject(jwt)) {
+            $("#admin_nickname_id").text("欢迎，"+jwt.nickname+"！");
+            $("#admin_headImg_id").attr("src", jwt.headimage);
+        }
+    }
+
+    /**
+     * 创建聊天窗口
+     */
+    var global_chat_window_iframe_index = null;
+    var global_chat_window_iframe_left = null;
+    var global_chat_window_iframe_top = null;
+    function openChatWindow() {
+        if(global_chat_window_iframe_index != null) {
+            layer.restore(global_chat_window_iframe_index);
+            $('.layui-layer-iframe').css("top", global_chat_window_iframe_top);
+            $('.layui-layer-iframe').css("left", global_chat_window_iframe_left);
+        } else {
+            global_chat_window_iframe_index = layer.open({
+                type: 2,
+                scrollbar: false,
+                minStack: false,
+                title: ['spartacus', 'font-size:20px;height:60px;background: linear-gradient(180deg,#E1E1E1 0,#E1E1E1 1%,hsla(0,0%,100%,0))'],
+                shadeClose: false,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['50%', '100%'],
+                offset: 'rt',
+                shade: [0.4, '#393D49'],
+                anim: 6,
+                content: 'wechat.html',
+                id: 'wechat-window',
+                success: function(layero, index){ //层弹出后的成功回调方法
+                    global_chat_window_iframe_left=$(layero).css('left');
+                    global_chat_window_iframe_top=$(layero).css('top');
+                },
+                cancel: function(index, layero){ //右上角关闭按钮触发的回调
+                    global_chat_window_iframe_index = null;
+                },
+                end: function(){ //层销毁后触发的回调
+                    global_chat_window_iframe_index = null;
+                },
+                min: function (layero, index){ //右上角最小化按钮触发的回调：设置堆叠位置
+                    var left=$('#index_id').width()-180;
+                    var top=$('#index_id').height()-60;
+
+                    $('.layui-layer-iframe').css("top", top+'px');
+                    $('.layui-layer-iframe').css("left", left+'px');
+                },
+                restore: function (layero, index){ //右上角回复按钮触发的回调：设置堆叠位置
+                    $('.layui-layer-iframe').css("top", global_chat_window_iframe_top);
+                    $('.layui-layer-iframe').css("left", global_chat_window_iframe_left);
+                }
+            });
+        }
+    }
+
+    // 点击遮罩时触发：最小化聊天窗口、设置堆叠位置
+    $(document).on('click', '.layui-layer-shade', function() {
+        //最小化聊天窗口
+        layer.min(global_chat_window_iframe_index);
+
+        //设置堆叠位置
+        var left=$('#index_id').width()-180;
+        var top=$('#index_id').height()-60;
+
+        $('.layui-layer-iframe').css("top", top+'px');
+        $('.layui-layer-iframe').css("left", left+'px');
+    });
+
+
+////////////////////////////////////////////////////////////
+var stompClient = null;
+function initConnect() {
+    var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+    var access_token = jwt.access_token;
+
+    stompClient = new StompJs.Client({
+        connectHeaders: {
+            accessToken: access_token
+        },
+        debug: function (str) {
+            console.log(str);
+        },
+        reconnectDelay: 3000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000,
+    });
+
+    stompClient.webSocketFactory = function () {
+        return new SockJS(base_domain+'/spartacus-chat/endpoint');
+    };
+
+    stompClient.onConnect = function (frame) {
+        console.log("onConnect-frame:" + frame)
+
+        //订阅实时在线用户推送
+        stompClient.subscribe('/topic/onlineUser', function (response) {
+            console.log("在线用户：");
+            var onLineUsers = JSON.parse(response.body);
+            $("#online_chat_user_num").html(onLineUsers.length);
+        });
+    };
+
+    stompClient.onStompError = function (frame) {
+        console.log('Broker reported error: ' + frame.headers['message']);
+        console.log('Additional details: ' + frame.body);
+    };
+
+    stompClient.activate();
+}
+
+initConnect();
+
+//刷新或者关闭页面时，断开链接
+window.onbeforeunload = function(){
+    if(stompClient != null && stompClient.connected) {
+        stompClient.deactivate();
+    }
+}
+</script>
+	
+</body>
+
+</html>

@@ -1,0 +1,627 @@
+/*--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+--*/
+
+/*-- Fonts --*/
+@font-face{
+	font-family: 'Bangers';
+	src:url(../login/Bangers.ttf) format('truetype');
+}
+@font-face{
+	font-family: 'Oswald-Regular';
+	src:url(../login/Oswald-Regular.ttf) format('truetype');
+}
+/*-- Fonts --*/
+
+/*-- Index-Page-Styling --*/
+
+body {
+    background: url('../login/bg.png');
+}
+h1 {
+    text-align: center;
+	color: #30D4E3;
+	font-size: 45px;
+	font-family: Bangers;
+}
+.contact-form {
+    margin: 0 auto;
+    width: 35%;
+    background: #2D3134;
+	border-radius: 5px;
+}
+.signin {
+    padding: 20px 20px 40px 20px;
+	text-align: center;
+	font-family: Oswald-Regular;
+}
+
+.signin input[type="text"] {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #74797C url('../login/1.png') no-repeat 98% 8px;
+    font-size: 14px;
+    padding: 10px 35px 10px 10px;
+    border: none;
+    border-radius: 4px;
+	font-family: Oswald-Regular;
+	color: #B4B6B7;
+	outline: none;
+}
+.signin input[type="password"] {
+    width: 100%;
+    margin-bottom: 20px;
+    background: #74797C url('../login/2.png') no-repeat 98% 8px;
+    font-size: 14px;
+    padding: 10px 35px 10px 10px;
+    border: none;
+    border-radius: 4px;
+    font-family: Oswald-Regular;
+    color: #B4B6B7;
+    outline: none;
+}
+
+.signin input[type="submit"] {
+    width: 100%;
+    height: 40px;
+	font-size: 17px;
+	font-family: Oswald-Regular;
+	margin-top: 20px;
+	margin-bottom: 5px;
+    background-color: #74797C;
+    border: none;
+    border-radius: 5px;
+	color: #c6cacd;
+	cursor: pointer;
+	outline: none;
+}
+input[type="submit"]:hover {
+	color: #FFF;
+    background-color: #30D4E3;
+	-webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.signin input[type="button"] {
+    width: 100%;
+    height: 40px;
+	font-size: 17px;
+	font-family: Oswald-Regular;
+	margin-top: 20px;
+	margin-bottom: 5px;
+    background-color: #74797C;
+    border: none;
+    border-radius: 5px;
+	color: #c6cacd;
+	cursor: pointer;
+	outline: none;
+}
+input[type="button"]:hover {
+	color: #FFF;
+    background-color: #30D4E3;
+	-webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+form p {
+    color: #C6CACD;
+    text-align: left;
+}
+label {
+    color: #C6CACD;
+}
+form p a {
+    float: right;
+    color: #74797C;
+    text-decoration: underline;
+}
+form {
+    text-align: left;
+	color: #CFD1D2;
+}
+.footer {
+    text-align: center;
+    margin-top: 80px;
+}
+.footer p {
+    font-family: Oswald-Regular;
+    color: #74797C;
+}
+.footer a {
+    font-family: Oswald-Regular;
+    color: #74797C;
+    text-decoration: none;
+}
+.footer a:hover {
+    color: #4dc47d;
+    text-decoration: underline;
+      -webkit-transition: all 0.5s ease-in-out;
+      -moz-transition: all 0.5s ease-in-out;
+      -o-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
+}
+
+/*-- Index-Page-Styling --*/
+
+/*--- Responsinator Code ---*/
+
+@media (max-width:1920px) {
+    .signin input[type="text"] {
+        width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 598px 8px;
+	}
+	.signin  input[type="password"] {
+        width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 598px 8px;
+	}
+}
+
+@media (max-width:1680px) {
+    .signin input[type="text"] {
+        width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 513px 9px;
+    }
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 510px 9px;
+	}
+}
+
+@media (max-width:1600px) {
+    .signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 485px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 485px 9px;
+	}
+}
+
+@media (max-width:1440px) {
+    .signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 430px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 430px 9px;
+	}
+}
+
+@media (max-width:1366px) {
+    .signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 400px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 400px 9px;
+	}
+}
+
+@media (max-width:1280px) {
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 375px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 373px 9px;
+	}
+}
+
+@media (max-width:1200px) {
+	.contact-form  {
+	    width: 40%;
+	}
+    .signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 405px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 403px 9px;
+	}
+}
+
+@media (max-width:1080px) {
+	.contact-form  {
+	    width: 45%;
+	}
+    .signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 400px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 400px 9px;
+	}
+}
+
+@media (max-width:1050px) {
+	.contact-form  {
+	    width: 45%;
+	}
+    .signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 395px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 395px 9px;
+	}
+}
+
+@media (max-width:1024px) {
+	.contact-form  {
+	    width: 50%;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 437px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 435px 9px;
+	}
+}
+
+@media (max-width:991px) {
+    .contact-form  {
+	    width: 50%;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 417px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 417px 9px;
+	}
+}
+
+@media (max-width:966px) {
+    .contact-form  {
+	    width: 50%;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 405px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 405px 9px;
+	}
+}
+
+@media (max-width:900px) {
+	.contact-form  {
+	    width: 50%;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 375px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 375px 9px;
+	}
+}
+
+@media (max-width:853px) {
+    .contact-form {
+	    width: 55%;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 385px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 385px 9px;
+	}
+}
+
+@media (max-width:800px) {
+	.contact-form {
+        width: 55%;
+    }
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 365px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 360px 9px;
+	}
+}
+
+@media (max-width:768px) {
+	.contact-form {
+        width: 60%;
+    }
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 382px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 380px 9px;
+	}
+}
+
+@media (max-width:736px) {
+    .contact-form {
+	    width: 65%;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 395px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 395px 9px;
+	}
+}
+
+@media (max-width:667px) {
+    .contact-form {
+        width: 65%;
+    }
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 345px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 343px 9px;
+	}
+}
+
+@media (max-width:640px) {
+    .contact-form {
+        width: 65%;
+    }
+	h1 {
+		font-size: 40px;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 328px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 328px 9px;
+	}
+	.footer p {
+		margin-top: -30px;
+	}
+}
+	
+@media (max-width:603px) {
+	.contact-form {
+        width: 70%;
+    }
+    .signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 345px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 343px 9px;
+	}
+}
+
+@media (max-width:600px) {
+	.contact-form {
+        width: 70%;
+    }
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 330px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 330px 9px;
+	}
+}
+
+@media (max-width:568px) {
+    .contact-form {
+	    width: 75%;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 330px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 330px 9px;
+	}
+}
+
+@media (max-width:533px) {
+	.contact-form {
+        width: 70%;
+    }
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 289px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 289px 9px;
+	}
+}
+
+@media (max-width:480px) {
+    .contact-form {
+        width: 80%;
+    }
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 285px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 285px 9px;
+	}
+}
+
+@media (max-width:414px) {
+    .contact-form {
+	    width: 90%;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 285px 9px;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 285px 9px;
+	}
+	.footer p {
+		margin-top: -30px;
+	}
+}
+
+@media (max-width:384px) {
+    .contact-form {
+	    width: 90%;
+	}
+	h1 {
+		font-size: 40px;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 250px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 250px 9px;
+	}
+	label {
+		font-size: 14px;
+	}
+	.footer p {
+	    font-size: 14px;
+	}
+}
+
+@media (max-width:375px) {
+    .contact-form {
+	    width: 90%;
+	}
+	h1 {
+	    font-size: 35px;
+	}
+	.signin input[type="text"] {
+		background: #74797B url('../login/1.png') no-repeat 256px 9px;
+	}
+	.signin input[type="password"] {
+		background: #74797B url('../login/2.png') no-repeat 256px 9px;
+	}
+	form p {
+	    font-size: 12px;
+	}
+	form p a {
+	    font-size: 12px;
+	}
+	.footer p {
+	    font-size: 14px;
+	}
+	.footer {
+		margin: 80px 10px 0 10px;
+	}
+}
+
+@media (max-width:360px) {
+    .contact-form {
+	    width: 90%;
+	}
+	h1 {
+		font-size: 40px;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797C url('../login/1.png') no-repeat 240px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 240px 9px;
+	}
+}
+	
+@media (max-width:320px) {
+    .contact-form {
+	    width: 90%;
+	}
+	h1 {
+	    font-size: 35px;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		background: #74797B url('../login/1.png') no-repeat 191px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		background: #74797C url('../login/2.png') no-repeat 191px 9px;
+	}
+	form p {
+	    font-size: 14px;
+	}
+	form p a {
+	    font-size: 12px;
+	}
+	label {
+		font-size: 14px;
+	}
+	.footer p {
+	    font-size: 13px;
+		line-height:1.7em;
+	}
+	.footer {
+		margin: 65px 10px 25px 10px;
+	}
+}
+
+@media (max-width:240px) {
+    .contact-form {
+        width: 95%;
+    }
+	h1 {
+		font-size: 30px;
+	}
+	.signin input[type="text"] {
+		width: 100%;
+		margin-bottom: 10px;
+		background: #74797B url('../login/1.png') no-repeat 130px 9px;
+	}
+	.signin input[type="password"] {
+		width: 100%;
+		margin-bottom: 10px;
+		background: #74797C url('../login/2.png') no-repeat 129px 9px;
+	}
+	form p {
+	    font-size: 12px;
+	}
+	form p a {
+		font-size: 11px;
+	}
+	label {
+		font-size: 14px;
+	}
+	.footer p {
+	    font-size: 12px;
+	}
+}
+
+/*--- Responsinator Code ---*/

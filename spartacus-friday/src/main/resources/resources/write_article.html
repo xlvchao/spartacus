@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Spartacus | 为自由而生</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台" />
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术" />
+
+	<!-- 全局css -->
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/style.css?v=4.1.0" rel="stylesheet" />
+    <link href="plugins/summernote/summernote.css" rel="stylesheet" />
+    <link href="plugins/summernote/summernote-bs4.css" rel="stylesheet" />
+    <link href="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.css" rel="stylesheet" />
+    
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="js/content.js?v=1.0.0"></script>
+    <script src="js/plugins/layer/laydate/laydate.js"></script>
+    <script src="js/common.js"></script>
+    
+
+    <!-- SUMMERNOTE -->
+    <script src="plugins/summernote/summernote.js"></script>
+    <script src="plugins/summernote/lang/summernote-zh-CN.js"></script>
+    <script src="plugins/summernote/plugin/draft/store2.min.js"></script>
+    <script src="plugins/summernote/plugin/draft/summernoteDrafts.js"></script>
+    <script src="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.js"></script>
+	<script src="js/loadconfig.js"></script>
+    
+    
+    <!--<style type="text/css">  
+		.note-alarm {
+		float: right;  
+		margin-top: 10px;  
+		margin-right: 10px;  
+		}  
+	</style>-->
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title" style="padding: 10px 5px 10px 5px;">
+                        <table width="100%" style="border-collapse: collapse;">
+                        	<tr>
+                        		<td  colspan="2" align="left">
+	                            	<div class="input-group" style="width: 100%;">
+										<span class="input-group-addon" style="background: #E5E5E5;">标题：</span>
+										<input id="title_id" type="text" autocomplete="off" class="form-control" placeholder="标题..." />
+									</div>
+	                            </td>
+	                            <td width="40%" colspan="2" align="left">
+	                            	<div class="input-group" style="width: 100%;">
+										<span class="input-group-addon" style="background: #E5E5E5;">标签：</span>
+										<input id="labels_id" type="text" autocomplete="off" class="form-control" placeholder="标签..." />
+									</div>
+	                            </td>
+	                            <td width="20%" align="center">
+			                        <button id="save" class="btn btn-primary  btn-xs" onclick="release()" type="button" style="padding: 6px 6px; width: 80%;">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+		                        </td>
+	                        </tr>
+	                        <tr>
+	                            <td width="20%" align="left">
+	                            	<div class="input-group">
+										<span class="input-group-addon" style="background: #E5E5E5;">作者：</span>
+										<input id="author_id" type="text" class="form-control" placeholder="作者..." />
+									</div>
+	                            </td>
+	                            <td width="20%" align="left">
+	                            	<div class="input-group">
+										<span class="input-group-addon" style="background: #E5E5E5;">时间：</span>
+										<input id="publishTime_id" type="text" autocomplete="off" class="form-control" placeholder="请选择..." onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
+									</div>
+	                            </td>
+	                            <td width="20%" align="left">
+	                            	<div class="input-group">
+										<span class="input-group-addon" style="background: #E5E5E5;">分类：</span>
+										<select id="cname_id" class="form-control" name="account">
+											<option value="请选择..." selected="selected">请选择...</option>
+	                                    </select>
+	                            	</div>
+	                            </td>
+	                            <td width="20%" align="left">
+	                            	<div class="input-group">
+										<span class="input-group-addon" style="background: #E5E5E5;">来源：</span>
+	                                    <select id="fromWhere_id" class="form-control" name="account">
+	                                    	<option value="请选择..." selected="selected">请选择...</option>
+	                                        <option value="原创">原创</option>
+	                                        <option value="摘抄">摘抄</option>
+	                                        <option value="转载">转载</option>
+	                                    </select>
+	                            	</div>
+	                            </td>
+	                            <td width="20%" align="center">
+			                        <button id="edit" class="btn btn-primary btn-xs" onclick="draft()" type="button" style="padding: 6px 6px; width: 80%; height: 100%;">存草稿</button>
+		                        </td>
+	                        </tr>
+                        </table>
+                    </div>
+                    <div class="ibox-content no-padding">
+                        <div id="summernote"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script>
+
+	var base_domain = getConfig('base_domain');
+	var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+$.ajax({
+	type : "GET",
+    url : base_domain+"/spartacus-article/article/getCategory",
+    async : false,
+    dataType:"json",
+	headers: {
+		"clientId":"spartacus-friday",
+		"Authorization":"bearer " + jwt.access_token//自定义请求头
+	},
+    success : function(result) {
+        if (result.code==0) {
+//      	console.log(result);
+			$("#cname_id").children().remove();
+			$("#cname_id").append("<option value='请选择...' selected='selected'>请选择...</option>");
+        	var categories = result.data;
+        	for(var i=0; i<categories.length; i++) {
+        		$("#cname_id").append("<option value='"+categories[i].cname+"'>"+categories[i].cname+"</option>");
+        	}
+        } else {
+			parent.layer.msg(result.message, {
+				icon: 2,
+				time:1000
+			});
+		}
+    }
+});
+	
+$(document).ready(function () {
+    $('#summernote').summernote({
+        lang: 'zh-CN',
+        height: 635,   //set editable area's height
+	    codemirror: { // codemirror options
+	    	theme: 'monokai'
+		},
+		toolbar: [
+		     	// [groupName, [list of button]]
+		     	['style', ['style']],
+		     	['font', ['fontname', 'fontsize', 'color']],
+		     	['fontstyle', ['italic', 'bold', 'underline', 'height', 'clear']],
+		     	['paragrah', ['ul', 'ol', 'strikethrough', 'superscript', 'subscript', 'paragraph']],
+		     	['insert', ['emoji', 'hr', 'picture', 'link', 'video', 'table', 'codeview']],
+		     	['misc', ['undo', 'redo', 'sDraftsSave', 'sDraftsLoad', 'help', 'fullscreen']]
+		  	],
+		focus: true,
+		//调用图片上传
+		callbacks: {
+			onImageUpload: function (files) {
+				uploadFile(files[0]);
+			}
+		}
+
+	});
+        
+});
+  
+  
+function checkNull() {
+	var re1 = /(^\s*)|(\s*$)|( )/g; //空格正则表达式
+	var re2 = /<[^>]+>/g; //html标签正则表达式
+	var re3 = /&nbsp;/g; //&nbsp;正则表达式
+	
+	var title = $("#title_id").val();
+	var labels = $("#labels_id").val();
+	var author = $("#author_id").val();
+	var publishTime = $("#publishTime_id").val();
+	var cname = $("#cname_id").val();
+	var fromWhere = $("#fromWhere_id").val();
+	var content = $('#summernote').summernote('code');
+	
+	if(title.replace(re1,'')=='') {
+		parent.layer.msg('标题不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(labels.replace(re1,'')=='') {
+		parent.layer.msg('标签不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(author.replace(re1,'')=='') {
+		parent.layer.msg('作者不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(publishTime.replace(re1,'')=='') {
+		parent.layer.msg('时间不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(cname=='请选择...') {
+		parent.layer.msg('分类不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(fromWhere=='请选择...') {
+		parent.layer.msg('来源不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(content.replace(re1,'').replace(re2,'').replace(re3,'')=='') {
+		parent.layer.msg('文章内容不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	
+	return true;
+}
+      
+function uploadFile(file) {
+	// 构造Form表单
+	var fromData = new FormData();
+	fromData.append("file", file);
+
+	$.ajax({
+		data: fromData,
+		type: "POST",
+		url: base_domain+"/spartacus-resource/cos/fileUpload",
+		cache: false,
+		contentType: false, //这里千万不要设置，否则无法上传
+		processData: false,
+		headers: {
+			"clientId":"spartacus-friday",
+			"Authorization":"bearer " + jwt.access_token//自定义请求头
+		},
+		success: function(result) {
+			if(result.code == 0) {
+				parent.layer.msg('上传成功！', {
+				    icon: 1,
+					time:1000
+				});
+				$('#summernote').summernote('insertImage', result.data);
+			} else {
+				parent.layer.msg(result.message, {
+					icon: 2,
+					time:1000
+				});
+			}
+		}
+	});
+}
+
+function release() {
+	if(checkNull() == true) {
+	    var content = $('#summernote').summernote('code');
+		var urlStr = base_domain+"/spartacus-article/article/release";
+		$.ajax({
+	            type : "POST",
+	            url : urlStr,
+	            async : false,
+	            data : { //使用Json格式进行透传
+	                "title" : $('#title_id').val(),
+	                "labels" : $('#labels_id').val(),
+	                "author" : $('#author_id').val(),
+	                "publishTime" : $('#publishTime_id').val(),
+	                "cname" : $('#cname_id').val(),
+	                "fromWhere" : $('#fromWhere_id').val(),
+	                "status" : 0,
+					"content" : content
+	            },
+	            dataType:"json",
+				headers: {
+					"clientId":"spartacus-friday",
+					"Authorization":"bearer " + jwt.access_token//自定义请求头
+				},
+	            success : function(result) {
+	                if (result.code== 0) {
+						parent.layer.msg('发布成功！', {
+						    icon: 1,
+							time:1000
+						});
+//	                  $('#summernote').summernote('reset');
+	                } else {
+						parent.layer.msg(result.message, {
+							icon: 2,
+							time:1000
+						});
+	                }
+	            }
+	        });
+   }
+};
+
+function draft() {
+	if(checkNull() == true) {
+	    var content = $('#summernote').summernote('code');
+		var urlStr = base_domain+"/spartacus-article/article/draft";
+		$.ajax({
+			type : "POST",
+			url : urlStr,
+			async : false,
+			data : { //使用Json格式进行透传
+				"title" : $('#title_id').val(),
+				"labels" : $('#labels_id').val(),
+				"author" : $('#author_id').val(),
+				"publishTime" : $('#publishTime_id').val(),
+				"cname" : $('#cname_id').val(),
+				"fromWhere" : $('#fromWhere_id').val(),
+				"pictures" : $('#pictures_id').val(),
+				"status" : 1,
+				"content" : content
+			},
+			dataType:"json",
+			headers: {
+				"clientId":"spartacus-friday",
+				"Authorization":"bearer " + jwt.access_token//自定义请求头
+			},
+			success : function(result) {
+				if (result.code==0) {
+					parent.layer.msg('保存成功！', {
+						icon: 1,
+						time:1000
+					});
+//						$('#summernote').summernote('reset');
+				} else {
+					parent.layer.msg(result.message, {
+						icon: 2,
+						time:1000
+					});
+				}
+			}
+		});
+	}
+};
+</script>
+   
+</body>
+
+</html>

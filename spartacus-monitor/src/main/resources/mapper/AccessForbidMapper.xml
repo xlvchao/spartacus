@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.monitor.mapper.AccessForbidMapper">
+
+    <insert id="save" parameterType="com.xlc.spartacus.monitor.pojo.AccessForbid">
+        insert into tb_access_forbid
+        (
+        id,
+        ip,
+        ip_city,
+        forbid_type,
+        day_count,
+        month_count,
+        year_count,
+        total_count,
+        operate_time
+        )
+        values
+        (
+        #{id},
+        #{ip},
+        #{ipCity},
+        #{forbidType},
+        #{dayCount},
+        #{monthCount},
+        #{yearCount},
+        #{totalCount},
+        #{operateTime}
+        )
+    </insert>
+
+    <select id="findAll" resultType="com.xlc.spartacus.monitor.pojo.AccessForbid">
+        SELECT
+            t.id "id",
+            t.ip "ip",
+            t.ip_city "ipCity",
+            t.forbid_type "forbidType",
+            t.day_count "dayCount",
+            t.month_count "monthCount",
+            t.year_count "yearCount",
+            t.total_count "totalCount",
+            t.operate_time "operateTime"
+        FROM
+            tb_access_forbid t
+    </select>
+
+    <select id="findAllIp" resultType="java.lang.String">
+        SELECT
+            t.ip "ip"
+        FROM
+            tb_access_forbid t
+    </select>
+
+    <delete id="deleteByIp" parameterType="java.lang.String">
+        delete FROM tb_access_forbid WHERE ip=#{ip}
+    </delete>
+
+    <delete id="batchDelete">
+        delete FROM tb_access_forbid WHERE ip IN
+        <foreach collection="ips" item="ip" open="(" separator="," close=")" >
+            #{ip}
+        </foreach>
+    </delete>
+
+    <select id="countByIp" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT count(*) FROM tb_access_forbid t WHERE t.ip=#{ip}
+    </select>
+
+
+</mapper>

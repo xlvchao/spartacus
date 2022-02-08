@@ -1,0 +1,878 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Spartacus | 为自由而生</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    
+    <link href="plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+    <link href="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+        	<div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">今日</span>
+                        <h5>浏览量</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 id="totalScan" class="no-margins">1024</h1>
+                        <div id="todayScan" class="stat-percent font-bold text-success">520 <i class="fa fa-bolt"></i>
+                        </div>
+                        <small>总数</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-right">今日</span>
+                        <h5>访客</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 id="totalVisitor" class="no-margins">1024</h1>
+                        <div id="todayVisitor" class="stat-percent font-bold text-navy">520 <i class="fa fa-bolt"></i>
+                        </div>
+                        <small>总数</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-info pull-right">今日</span>
+                        <h5>IP</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 id="totalIP" class="no-margins">1024</h1>
+                        <div id="todayIP" class="stat-percent font-bold text-info">520 <i class="fa fa-bolt"></i>
+                        </div>
+                        <small>总数</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right" style="background-color: #2F4050;">今日</span>
+                        <h5>评论</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 id="totalComment" class="no-margins">1024</h1>
+                        <div id="todayComment" class="stat-percent font-bold text-danger" style="color: #2F4050;">520 <i class="fa fa-bolt"></i>
+                        </div>
+                        <small>总数</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5 id="chart_title_id">浏览量</h5>
+                        <div class="pull-right">
+							<select id="chart_select_id" class="selectpicker" data-style="btn-success btn-xs" data-width="fit">
+								<option value="0" selected="selected">浏览量</option>
+								<option value="1">访客量</option>
+								<option value="2">IP</option>
+								<option value="3">评论</option>
+							</select>
+                    	</div>
+                    	<div class="pull-right" style="margin-right: 10px;">
+                            <div class="btn-group">
+                                <button id="chart_day_id" type="button" class="btn btn-xs btn-white active">日</button>
+                                <button id="chart_month_id" type="button" class="btn btn-xs btn-white">月</button>
+                                <button id="chart_year_id" type="button" class="btn btn-xs btn-white">年</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div id="col-sm-9_id" class="col-sm-9">
+								<div id="main"></div>
+                            </div>
+                            <div id="col-sm-3_id" class="col-sm-3">
+                                <ul class="stat-list">
+                                    <li id="scan_id">
+                                        <h2 class="no-margins">1024</h2>
+                                        <small>今日浏览量</small>
+                                        <div class="stat-percent">较昨日上涨50% <i class="fa fa-level-up text-navy"></i>
+                                        </div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 48%;" class="progress-bar"></div>
+                                        </div>
+                                    </li>
+                                    <li id="visitor_id">
+                                        <h2 class="no-margins ">1024</h2>
+                                        <small>今日访客</small>
+                                        <div class="stat-percent">较昨日上涨50% <i class="fa fa-level-down text-navy"></i>
+                                        </div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 60%;" class="progress-bar"></div>
+                                        </div>
+                                    </li>
+                                    <li id="IP_id">
+                                        <h2 class="no-margins ">1024</h2>
+                                        <small>今日IP</small>
+                                        <div class="stat-percent">较昨日上涨50% <i class="fa fa-bolt text-navy"></i>
+                                        </div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 22%;" class="progress-bar"></div>
+                                        </div>
+                                    </li>
+                                    <li id="comment_id">
+                                        <h2 class="no-margins ">1024</h2>
+                                        <small>今日评论</small>
+                                        <div class="stat-percent">较昨日上涨50% <i class="fa fa-bolt text-navy"></i>
+                                        </div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 22%;" class="progress-bar"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>最近任务</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="clients-list">
+                            <div class="tab-content" style="height: 400px;">
+                                <div class="tab-pane active">
+                                    <div class="full-height-scroll">
+                                        <div class="table-responsive">
+                        <table class="table table-hover no-margins">
+                            <thead>
+                                <tr>
+                                    <th>执行器</th>
+                                    <th>执行时间</th>
+                                    <th>重试次数</th>
+                                    <th>执行结果</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent_task_id">
+                                <tr>
+                                    <td><small>任务1</small></td>
+                                    <td><i class="fa fa-clock-o"></i> 11:20</td>
+                                    <td><small>2</small></td>
+                                    <td class="text-navy"><span class="label label-danger">失败了</span></td>
+                                </tr>
+                                <tr>
+                                    <td><small>任务2</small></td>
+                                    <td><i class="fa fa-clock-o"></i> 10:40</td>
+                                    <td><small>0</small></td>
+                                    <td class="text-navy"><span class="label label-default">已执行</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                                		</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>最近评论</h5>
+                        <!--<span class="label label-warning pull-left">16</span>-->
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+	                    <div class="clients-list">
+	                            <div class="tab-content" style="height: 400px;">
+	                                <div class="tab-pane active">
+	                                    <div class="full-height-scroll">
+	                                        <div class="table-responsive">
+                        <div id="recent_comment_id" class="feed-activity-list">
+
+                    <div class="feed-element">
+                        <div>
+                            <small class="pull-right text-navy">1月前</small>
+                            <strong>井幽幽</strong>
+                            <div>有人说：“一辈子很长，要跟一个有趣的人在一起”。我想关注我的人，应该是那种喜欢找乐子也乐意分享乐趣的人，你们一定挺优秀的。所以单身的应该在这条留言，互相勾搭一下。特别有钱人又帅可以直接私信我！</div>
+                            <small class="text-muted">4月11日 00:00</small>
+                        </div>
+                    </div>
+
+                    <div class="feed-element">
+                        <div>
+                            <small class="pull-right text-info">2月前</small>
+                            <strong>马伯庸 </strong>
+                            <div>又方便，又防水，手感又好，还可以用手机遥控。简直是拍戏利器，由其是跟老师们搭戏的时候…想想还有点小激动啊，嘿嘿。</div>
+                            <small class="text-muted">11月8日 20:08 </small>
+                        </div>
+                    </div>
+					
+					<div class="feed-element">
+                        <div>
+                            <small class="pull-right text-info">2月前</small>
+                            <strong>张诗然 </strong>
+                            <div>又方便，又防水，手感又好，还可以用手机遥控。简直是拍戏利器，由其是跟老师们搭戏的时候…想想还有点小激动啊，嘿嘿。</div>
+                            <small class="text-muted">11月8日 20:08 </small>
+                        </div>
+                    </div>
+
+                </div>
+                    </div>
+                </div>
+                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>最近登录</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="clients-list">
+                            <div class="tab-content" style="height: 400px;">
+                                <div class="tab-pane active">
+                                    <div class="full-height-scroll">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover no-margins">
+                                                <thead>
+                                                <tr>
+                                                    <th>用户名</th>
+                                                    <th>用户类型</th>
+                                                    <th>登录时间</th>
+                                                    <th>客户端</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="recent_login_id">
+                                                <tr>
+                                                    <td><small>spartacus</small></td>
+                                                    <td><small>spartacus</small></td>
+                                                    <td><i class="fa fa-clock-o"></i>2021-10-11 11:20</td>
+                                                    <td class="text-navy"><span class="label label-primary">spartacus-friday</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><small>C</small></td>
+                                                    <td><small>weixin</small></td>
+                                                    <td><i class="fa fa-clock-o"></i>2021-10-11 11:20</td>
+                                                    <td class="text-navy"><span class="label label-success">spartacus-sunday</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><small>Charse</small></td>
+                                                    <td><small>qq</small></td>
+                                                    <td><i class="fa fa-clock-o"></i>2021-10-11 11:20</td>
+                                                    <td class="text-navy"><span class="label label-success">spartacus-sunday</span></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- 全局js -->
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/common.js"></script>
+<script src="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.js"></script>
+
+<!-- 自定义js -->
+<script src="js/content.js?v=1.0.0"></script>
+<script type="text/javascript" src="js/echarts/echarts.min.js"></script>
+<script src="js/loadconfig.js"></script>
+
+<script>
+
+    var base_domain = getConfig('base_domain');
+    var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+//最下面3个框框的滚动条
+$(function () {
+    $('.full-height-scroll').slimScroll({
+        height: '100%'
+    });
+});
+        
+//基于准备好的dom, 自适应宽高, 初始化echarts实例
+var div9 = document.getElementById('col-sm-9_id');
+var div3 = document.getElementById('col-sm-3_id');
+var chartContainer = document.getElementById('main');
+var resizeMyChartContainer = function () {
+    chartContainer.style.width = div9.clientWidth+'px';
+    chartContainer.style.height = div3.clientHeight+'px';
+};
+resizeMyChartContainer();
+var myChart = echarts.init(chartContainer);
+
+//监听窗口大小变化，使chart自适应窗口的高度和宽度
+window.onresize = function () {
+    resizeMyChartContainer();
+    myChart.resize();
+};
+
+function drawChart(datas, isDay, name) {
+	var datax = new Array();
+	var datay = new Array();
+	if(isDay == true) {
+		for(var key in datas){
+			var k = key.length==1 ? "0" + key + ":00" : key + ":00";
+			datax.push(k);
+			datay.push(datas[key]);
+		}
+	} else {
+		for(var key in datas){
+			datax.push(key);
+			datay.push(datas[key]);
+		}
+	}
+	//访问统计报表
+    var option = {
+	    grid: {
+	    	top:'10%',
+	    	bottom:'10%',
+	    	left:'4%',
+	    	right:'4%',
+	    	
+	    },
+	    tooltip: {
+	        trigger: 'axis',
+	        axisPointer: {
+	            type: 'cross'
+	        }
+	    },
+	    xAxis:  {
+	        type: 'category',
+	        boundaryGap: false,
+	        data: datax
+	    },
+	    yAxis: {
+	        type: 'value',
+	        axisLabel: {
+	            formatter: '{value}'
+	        },
+	        axisPointer: {
+	            snap: true
+	        }
+	    },
+	    visualMap: {
+	        show: false,
+	        dimension: 1,
+	        pieces: [{
+	        	gte: 0,
+	            lte: 1000,
+	            color: '#1AB394'
+	        }, {
+	            gt: 1000,
+	            color: '#ED5565'
+	        }]
+	    },
+	    series: [
+	        {
+	            name: name,
+	            type: 'line',
+	            smooth: true,
+	            data: datay
+	        }
+	    ]
+	};
+	
+	myChart.setOption(option);
+}
+
+//全局变量
+var totalScan;
+var todayScan;
+var yestodayScan;
+var todayScanDetails;
+var monthScan;
+var lastMonthScan;
+var monthScanDetails;
+var yearScan;
+var lastYearScan;
+var yearScanDetails;
+
+var totalVisitor;
+var todayVisitor;
+var yestodayVisitor;
+var todayVisitorDetails;
+var monthVisitor;
+var lastMonthVisitor;
+var monthVisitorDetails;
+var yearVisitor;
+var lastYearVisitor;
+var yearVisitorDetails;
+
+var totalIP;
+var todayIP;
+var yestodayIP;
+var todayIPDetails;
+var monthIP;
+var lastMonthIP;
+var monthIPDetails;
+var yearIP;
+var lastYearIP;
+var yearIPDetails;
+
+var totalComment;
+var todayComment;
+var yestodayComment;
+var todayCommentDetails;
+var monthComment;
+var lastMonthComment;
+var monthCommentDetails;
+var yearComment;
+var lastYearComment;
+var yearCommentDetails;
+
+var recentMissions;
+var recentComments;
+var recentMessages;
+
+function compareLine(flag) { //0表示日，1表示月，2表示年
+	var date;
+	var compareDate;
+	var scan;
+	var compareScan;
+	var visitor;
+	var compareVisitor;
+	var IP;
+	var compareIP;
+	var comment;
+	var compareComment;
+	if(flag==0) {
+		date = "今日";
+		compareDate = "昨日";
+		scan = todayScan;
+		compareScan = yestodayScan;
+		visitor = todayVisitor;
+		compareVisitor = yestodayVisitor;
+		IP = todayIP;
+		compareIP = yestodayIP;
+		comment = todayComment;
+		compareComment = yestodayComment;
+	} else if(flag==1) {
+		date = "本月";
+		compareDate = "上月";
+		scan = monthScan;
+		compareScan = lastMonthScan;
+		visitor = monthVisitor;
+		compareVisitor = lastMonthVisitor;
+		IP = monthIP;
+		compareIP = lastMonthIP;
+		comment = monthComment;
+		compareComment = lastMonthComment;
+	} else if(flag==2) {
+		date = "今年";
+		compareDate = "去年";
+		scan = yearScan;
+		compareScan = lastYearScan;
+		visitor = yearVisitor;
+		compareVisitor = lastYearVisitor;
+		IP = yearIP;
+		compareIP = lastYearIP;
+		comment = yearComment;
+		compareComment = lastYearComment;
+	}
+	
+	$("#scan_id").children().remove();
+	var scanPercent = ((scan-compareScan)/compareScan).toFixed(4) * 100.00;
+	if(scan == compareScan) {
+		$("#scan_id").append("<h2 class='no-margins'>"+scan+"</h2> <small>"+date+"浏览量</small> <div class='stat-percent'>较"+compareDate+"上涨0% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: 0%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+	} else if(compareScan == 0) {
+		$("#scan_id").append("<h2 class='no-margins'>"+scan+"</h2> <small>"+date+"浏览量</small> <div class='stat-percent'>较"+compareDate+"上涨∞% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: 100%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+	} else {
+		if(scanPercent < 0) {
+			$("#scan_id").append("<h2 class='no-margins'>"+scan+"</h2> <small>"+date+"浏览量</small> <div class='stat-percent'>较"+compareDate+"下降"+Math.abs(scanPercent)+"% <i class='fa fa-bolt text-navy' style='color: rgb(237, 85, 101);'></i> </div> <div class='progress progress-mini'> <div style='width: "+Math.abs(scanPercent)+"%; background-color: rgb(237, 85, 101);' class='progress-bar'></div> </div>");
+		} else {
+			$("#scan_id").append("<h2 class='no-margins'>"+scan+"</h2> <small>"+date+"浏览量</small> <div class='stat-percent'>较"+compareDate+"上涨"+scanPercent+"% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: "+scanPercent+"%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+		}
+	}
+	
+	$("#visitor_id").children().remove();
+	var visitorPercent = ((visitor-compareVisitor)/compareVisitor).toFixed(4) * 100.00;
+	if(visitor == compareVisitor) {
+		$("#visitor_id").append("<h2 class='no-margins'>"+visitor+"</h2> <small>"+date+"访客量</small> <div class='stat-percent'>较"+compareDate+"上涨0% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: 0%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+	} else if(compareVisitor == 0) {
+		$("#visitor_id").append("<h2 class='no-margins'>"+visitor+"</h2> <small>"+date+"访客量</small> <div class='stat-percent'>较"+compareDate+"上涨∞% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: 100%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+	} else {
+		if(visitorPercent < 0) {
+			$("#visitor_id").append("<h2 class='no-margins'>"+visitor+"</h2> <small>"+date+"访客量</small> <div class='stat-percent'>较"+compareDate+"下降"+Math.abs(visitorPercent)+"% <i class='fa fa-bolt text-navy' style='color: rgb(237, 85, 101);'></i> </div> <div class='progress progress-mini'> <div style='width: "+Math.abs(visitorPercent)+"%; background-color: rgb(237, 85, 101);' class='progress-bar'></div> </div>");
+		} else {
+			$("#visitor_id").append("<h2 class='no-margins'>"+visitor+"</h2> <small>"+date+"访客量</small> <div class='stat-percent'>较"+compareDate+"上涨"+visitorPercent+"% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: "+visitorPercent+"%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+		}
+	}
+	
+	$("#IP_id").children().remove();
+	var IPPercent = ((IP-compareIP)/compareIP).toFixed(4) * 100.00;
+	if(IP == compareIP) {
+		$("#IP_id").append("<h2 class='no-margins'>"+IP+"</h2> <small>"+date+"IP</small> <div class='stat-percent'>较"+compareDate+"上涨0% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: 0%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+	} else if(compareIP == 0) {
+		$("#IP_id").append("<h2 class='no-margins'>"+IP+"</h2> <small>"+date+"IP</small> <div class='stat-percent'>较"+compareDate+"上涨∞% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: 100%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+	} else {
+		if(IPPercent < 0) {
+			$("#IP_id").append("<h2 class='no-margins'>"+IP+"</h2> <small>"+date+"IP</small> <div class='stat-percent'>较"+compareDate+"下降"+Math.abs(IPPercent)+"% <i class='fa fa-bolt text-navy' style='color: rgb(237, 85, 101);'></i> </div> <div class='progress progress-mini'> <div style='width: "+Math.abs(IPPercent)+"%; background-color: rgb(237, 85, 101);' class='progress-bar'></div> </div>");
+		} else {
+			$("#IP_id").append("<h2 class='no-margins'>"+IP+"</h2> <small>"+date+"IP</small> <div class='stat-percent'>较"+compareDate+"上涨"+IPPercent+"% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: "+IPPercent+"%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+		}
+	}
+	
+	$("#comment_id").children().remove();
+	var commentPercent = ((comment-compareComment)/compareComment).toFixed(4) * 100.00;
+	if(comment == compareComment) {
+		$("#comment_id").append("<h2 class='no-margins'>"+comment+"</h2> <small>"+date+"评论</small> <div class='stat-percent'>较"+compareDate+"上涨0% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: 0%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+	} else if(compareComment == 0) {
+		$("#comment_id").append("<h2 class='no-margins'>"+comment+"</h2> <small>"+date+"评论</small> <div class='stat-percent'>较"+compareDate+"上涨∞% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: 100%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+	} else {
+		if(commentPercent < 0) {
+			$("#comment_id").append("<h2 class='no-margins'>"+comment+"</h2> <small>"+date+"评论</small> <div class='stat-percent'>较"+compareDate+"下降"+Math.abs(commentPercent)+"% <i class='fa fa-bolt text-navy' style='color: rgb(237, 85, 101);'></i> </div> <div class='progress progress-mini'> <div style='width: "+Math.abs(commentPercent)+"%; background-color: rgb(237, 85, 101);' class='progress-bar'></div> </div>");
+		} else {
+			$("#comment_id").append("<h2 class='no-margins'>"+comment+"</h2> <small>"+date+"评论</small> <div class='stat-percent'>较"+compareDate+"上涨"+commentPercent+"% <i class='fa fa-bolt text-navy'></i> </div> <div class='progress progress-mini'> <div style='width: "+commentPercent+"%; background-color: rgb(26, 179, 148);' class='progress-bar'></div> </div>");
+		}
+	}
+}
+
+$.ajax({
+    type : "GET",
+    url : base_domain+"/spartacus-monitor/access/getStatistics",
+    async : true,
+    dataType:"json",
+    headers: {
+        "clientId":"spartacus-friday",
+        "Authorization":"bearer " + jwt.access_token//自定义请求头
+    },
+    success : function(result) {
+        if (result.code==0) {
+        	var data = result.data;
+			totalScan = data.totalScan;
+			todayScan = data.todayScan;
+			yestodayScan = data.yestodayScan;
+			todayScanDetails = data.todayScanDetails;
+			monthScan = data.monthScan;
+			lastMonthScan = data.lastMonthScan;
+			monthScanDetails = data.monthScanDetails;
+			yearScan = data.yearScan;
+			lastYearScan = data.lastYearScan;
+			yearScanDetails = data.yearScanDetails;
+			
+			totalVisitor = data.totalVisitor;
+			todayVisitor = data.todayVisitor;
+			yestodayVisitor = data.yestodayVisitor;
+			todayVisitorDetails = data.todayVisitorDetails;
+			monthVisitor = data.monthVisitor;
+			lastMonthVisitor = data.lastMonthVisitor;
+			monthVisitorDetails = data.monthVisitorDetails;
+			yearVisitor = data.yearVisitor;
+			lastYearVisitor = data.lastYearVisitor;
+			yearVisitorDetails = data.yearVisitorDetails;
+			
+			totalIP = data.totalIP;
+			todayIP = data.todayIP;
+			yestodayIP = data.yestodayIP;
+			todayIPDetails = data.todayIPDetails;
+			monthIP = data.monthIP;
+			lastMonthIP = data.lastMonthIP;
+			monthIPDetails = data.monthIPDetails;
+			yearIP = data.yearIP;
+			lastYearIP = data.lastYearIP;
+			yearIPDetails = data.yearIPDetails;
+			
+			totalComment = data.totalComment;
+			todayComment = data.todayComment;
+			yestodayComment = data.yestodayComment;
+			todayCommentDetails = data.todayCommentDetails;
+			monthComment = data.monthComment;
+			lastMonthComment = data.lastMonthComment;
+			monthCommentDetails = data.monthCommentDetails;
+			yearComment = data.yearComment;
+			lastYearComment = data.lastYearComment;
+			yearCommentDetails = data.yearCommentDetails;
+			
+			$("#totalScan").html(totalScan);
+			$("#todayScan").html(todayScan+"&nbsp;<i class='fa fa-bolt'></i>");
+			
+			$("#totalVisitor").html(totalVisitor);
+			$("#todayVisitor").html(todayVisitor+"&nbsp;<i class='fa fa-bolt'></i>");
+			
+			$("#totalIP").html(totalIP);
+			$("#todayIP").html(todayIP+"&nbsp;<i class='fa fa-bolt'></i>");
+			
+			$("#totalComment").html(totalComment);
+			$("#todayComment").html(todayComment+"&nbsp;<i class='fa fa-bolt'></i>");
+			
+			compareLine(0);
+			drawChart(todayScanDetails, true, '浏览量');
+        
+	        $("#chart_select_id").change(function(){//为Select添加事件，当选择其中一项时触发
+	        	compareLine(0);
+	        	var checkValue=$("#chart_select_id").val(); //获取Select选择的Value
+				var checkText=$("#chart_select_id").find("option:selected").text(); //获取Select选择的text
+				$("#chart_title_id").html(checkText);
+				$("#chart_day_id").addClass("active");
+				$("#chart_month_id").removeClass("active");
+				$("#chart_year_id").removeClass("active");
+				if(checkValue == 0) {
+					drawChart(todayScanDetails, true, checkText);
+				} else if(checkValue == 1) {
+					drawChart(todayVisitorDetails, true, checkText);
+				} else if(checkValue == 2) {
+					drawChart(todayIPDetails, true, checkText);
+				} else if(checkValue == 3) {
+					drawChart(todayCommentDetails, true, checkText);
+				}
+			});
+			
+			$("#chart_day_id").click(function() {
+				compareLine(0);
+				$("#chart_day_id").addClass("active");
+				$("#chart_month_id").removeClass("active");
+				$("#chart_year_id").removeClass("active");
+				var checkValue=$("#chart_select_id").val(); //获取Select选择的Value
+				var checkText=$("#chart_select_id").find("option:selected").text(); //获取Select选择的text
+				if(checkValue == 0) {
+					drawChart(todayScanDetails, true, checkText);
+				} else if(checkValue == 1) {
+					drawChart(todayVisitorDetails, true, checkText);
+				} else if(checkValue == 2) {
+					drawChart(todayIPDetails, true, checkText);
+				} else if(checkValue == 3) {
+					drawChart(todayCommentDetails, true, checkText);
+				}
+			});
+			
+			$("#chart_month_id").click(function() {
+				compareLine(1);
+				$("#chart_day_id").removeClass("active");
+				$("#chart_month_id").addClass("active");
+				$("#chart_year_id").removeClass("active");
+				var checkValue=$("#chart_select_id").val(); //获取Select选择的Value
+				var checkText=$("#chart_select_id").find("option:selected").text(); //获取Select选择的text
+				if(checkValue == 0) {
+					drawChart(monthScanDetails, false, checkText);
+				} else if(checkValue == 1) {
+					drawChart(monthVisitorDetails, false, checkText);
+				} else if(checkValue == 2) {
+					drawChart(monthIPDetails, false, checkText);
+				} else if(checkValue == 3) {
+					drawChart(monthCommentDetails, false, checkText);
+				}
+			});
+			
+			$("#chart_year_id").click(function() {
+				compareLine(2);
+				$("#chart_day_id").removeClass("active");
+				$("#chart_month_id").removeClass("active");
+				$("#chart_year_id").addClass("active");
+				var checkValue=$("#chart_select_id").val(); //获取Select选择的Value
+				var checkText=$("#chart_select_id").find("option:selected").text(); //获取Select选择的text
+				if(checkValue == 0) {
+					drawChart(yearScanDetails, false, checkText);
+				} else if(checkValue == 1) {
+					drawChart(yearVisitorDetails, false, checkText);
+				} else if(checkValue == 2) {
+					drawChart(yearIPDetails, false, checkText);
+				} else if(checkValue == 3) {
+					drawChart(yearCommentDetails, false, checkText);
+				}
+			});
+			
+		} else {
+            parent.layer.msg(result.message, {
+                icon: 2,
+                time:1000
+            });
+        }
+    }
+});
+
+$.ajax({
+    type : "GET",
+    url : base_domain+"/spartacus-monitor/task/getRecentTaskExeRecords",
+    async : true,
+    dataType:"json",
+    headers: {
+        "clientId":"spartacus-friday",
+        "Authorization":"bearer " + jwt.access_token//自定义请求头
+    },
+    success : function(result) {
+        console.log(result);
+        if (result.code==200) {
+            var recentTaskExeRecords = result.data;
+
+            $("#recent_task_id").children().remove();
+            for(var i=0; i<recentTaskExeRecords.length; i++) {
+                var executorHandler = recentTaskExeRecords[i]['executorHandler'];
+                var triggerTime = millisecondsToLocalDate(recentTaskExeRecords[i]['triggerTime']);
+                var triggerCode = recentTaskExeRecords[i]['triggerCode'];
+                var handleTime = millisecondsToLocalDate(recentTaskExeRecords[i]['handleTime']);
+                var handleCode = recentTaskExeRecords[i]['handleCode'];
+                var executorFailRetryCount = recentTaskExeRecords[i]['executorFailRetryCount'];
+
+                if(triggerCode==200 && handleCode==200) {
+                    $("#recent_task_id").append("<tr> <td><small>"+executorHandler+"</small> </td><td><i class='fa fa-clock-o'></i>&nbsp;"+triggerTime+"</td> <td><small>"+executorFailRetryCount+"</small> </td> <td class='text-navy'><span class='label label-primary'>成功了</span></td> </tr>");
+                } else {
+                    $("#recent_task_id").append("<tr> <td><small>"+executorHandler+"</small> </td><td><i class='fa fa-clock-o'></i>&nbsp;"+triggerTime+"</td> <td><small>"+executorFailRetryCount+"</small> </td> <td class='text-navy'><span class='label label-danger'>失败了</span></td> </tr>");
+                }
+            }
+        } else {
+            parent.layer.msg(result.message, {
+                icon: 2,
+                time:1000
+            });
+        }
+    },
+    error: function (data, status, e) {
+        parent.layer.msg("网络错误！", {
+            icon: 2,
+            time:1000
+        });
+    }
+});
+
+$.ajax({
+    type : "GET",
+    url : base_domain+"/spartacus-comment/comment/getRecentComments",
+    async : true,
+    dataType:"json",
+    headers: {
+        "clientId":"spartacus-friday",
+        "Authorization":"bearer " + jwt.access_token//自定义请求头
+    },
+    success : function(result) {
+        if (result.code==0) {
+        	var recentComments = result.data;
+			
+			$("#recent_comment_id").children().remove();
+			for(var i=0; i<recentComments.length; i++) {
+				var nickname = recentComments[i]['nickname'];
+				var content = recentComments[i]['content'];
+				var publishTime = millisecondsToLocalDate(recentComments[i]['publishTime']);
+				var disTime = displayTime(publishTime);
+				$("#recent_comment_id").append("<div class='feed-element'> <div> <small class='pull-right text-navy'>"+disTime+"</small> <strong>"+nickname+"</strong> <div>"+content+"</div> <small class='text-muted'>"+publishTime+"</small> </div> </div>");
+			}
+		} else {
+            parent.layer.msg(result.message, {
+                icon: 2,
+                time:1000
+            });
+        }
+    },
+    error: function (data, status, e) {
+        parent.layer.msg("网络错误！", {
+            icon: 2,
+            time:1000
+        });
+    }
+});
+
+$.ajax({
+    type : "POST",
+    url : base_domain+"/spartacus-system/system/queryLoginRecord",
+    async : true,
+    dataType:"json",
+    data: {"currentPage": 1, "pageSize": 20},
+    headers: {
+        "clientId":"spartacus-friday",
+        "Authorization":"bearer " + jwt.access_token//自定义请求头
+    },
+    success : function(result) {
+        console.log(result);
+        if (result.code==200) {
+            var recentLoginInfos = result.data.records;
+
+            $("#recent_login_id").children().remove();
+            for(var i=0; i<recentLoginInfos.length; i++) {
+                var username = recentLoginInfos[i]['username'];
+                var loginTime = recentLoginInfos[i]['loginTime'];
+                var userType = recentLoginInfos[i]['userType'];
+                var client = recentLoginInfos[i]['client'];
+
+                if(userType==='spartacus') {
+                    $("#recent_login_id").append("<tr> <td><small>"+username+"</small> </td><td><small>"+userType+"</small> </td> <td><i class='fa fa-clock-o'></i>&nbsp;"+loginTime+"</td> <td class='text-navy'><span class='label label-warning'>"+client+"</span></td> </tr>");
+                } else {
+                    $("#recent_login_id").append("<tr> <td><small>"+username+"</small> </td><td><small>"+userType+"</small> </td> <td><i class='fa fa-clock-o'></i>&nbsp;"+loginTime+"</td> <td class='text-navy'><span class='label label-info'>"+client+"</span></td> </tr>");
+                }
+            }
+        } else {
+            parent.layer.msg(result.message, {
+                icon: 2,
+                time:1000
+            });
+        }
+    },
+    error: function (data, status, e) {
+        parent.layer.msg("网络错误！", {
+            icon: 2,
+            time:1000
+        });
+    }
+});
+</script>
+
+
+</body>
+
+</html>

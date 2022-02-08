@@ -1,0 +1,705 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>超人.FM|Superman.fm</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.7.0" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+	
+	<link href="plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+	<link type="text/css" href="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+	
+	<style>
+		.float-e-margins .btn {
+     		margin-bottom: 0;
+     	} 
+     	
+     	.table {
+		    table-layout: fixed;
+		    border: 1px solid #e7eaec;
+		}
+		
+		.table tr td {
+		    text-overflow: ellipsis; /* for IE */
+		    -moz-text-overflow: ellipsis; /* for Firefox,mozilla */
+		    overflow: hidden;
+		    white-space: nowrap;
+		}
+	</style>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>通知公告</h5>
+                    </div>
+                    
+                    <div class="ibox-content">
+                    	<div class="row m-b-sm m-t-sm" >
+	                        <div id="botton_group_id" class="col-lg-5" style="padding: 0 15px 0 15px;">
+	                            <button type="button" id="refresh_id" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>&nbsp;Refresh</button>
+	                            <button type="button" id="all_none_select_id" class="btn btn-white btn-sm"><i class="fa fa-signing"></i>&nbsp;全选/全不选</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchSetFriendLink(1)"><i class="fa fa-telegram"></i>&nbsp;批量生效</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchSetFriendLink(0)"><i class="fa fa-telegram"></i>&nbsp;批量失效</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchDeleteFriendLink()"><i class="fa fa-telegram"></i>&nbsp;批量删除</button>
+                                <button type="button" class="btn btn-success btn-sm" onclick="addOrEditFriendLink()" data-toggle='modal' data-target='#myModal'><i class="fa fa-telegram"></i>&nbsp;新增</button>
+							</div>
+
+                            <div class="form-inline pull-right" style="text-align: right !important; width: 55% !important;">
+                                <input type="text" placeholder="网站名称..." class="form-control" id="search_siteNameId" style="width: 25%; height: 30px;">
+                                <input type="text" placeholder="主页地址..." class="form-control" id="search_siteAddressId" style="width: 35%; height: 30px;">
+                                <select class="form-control"  id="search_isValidId" style="width: 12%; height: 30px;">
+                                    <option selected value="">是否有效...</option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                                <button type="button" id="searchId" class="btn btn-primary btn-sm" onclick="searchFriendLink(1,15)" style="margin-right: 15px;"><i class="fa fa-telegram"></i>&nbsp;查询</button>
+                            </div>
+	                    </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center; width: 5%; border-right: 1px solid #e7eaec;">选择</th>
+                                    <th style="text-align: center; width: 25%;">网站名称</th>
+                                    <th style="text-align: center; width: 30%;">主页地址</th>
+                                    <th style="text-align: center; width: 10%;">是否有效</th>
+                                    <th style="text-align: center; width: 10%;">添加时间</th>
+                                    <th style="text-align: center; width: 20%;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_id">
+                                <tr>
+                                    <td style="text-align: center; border-right: 1px solid #e7eaec;"><input type='checkbox' name='checkbox'></td>
+                                    <td style="text-align: center;">spartacus官方网站</td>
+                                    <td style="text-align: center;">https://www.spartacus.run</td>
+                                    <td style="text-align: center;"><ins style="background-color: #c6ffc6;">是</ins></td>
+                                    <td style="text-align: center;">2018-09-11 18:17</td>
+									<td style="text-align: center;">
+                                    	<a onclick='unForbid(this)'><span class='badge badge-primary' style='border-radius: 5px;'>编辑</span></a>
+                                        <a onclick='unForbid(this)'><span class='badge badge-primary' style='border-radius: 5px;'>删除</span></a>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                        <!--分页-->
+						<div class="text-center">
+							<!-- 下面是控制分页控件，必须要是ul元素才行 -->
+							<ul id='page_element_id' class="pagination pagination-lg" style="margin: 0 0;"></ul>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--弹出窗口（模态窗口）-->
+    <div class="modal inmodal" id="myModal" tabindex="-1" data-backdrop="false" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <table id="table_id" class="table table-hover">
+                        <tbody>
+                        <tr align="left">
+                            <td width="20%">
+                                <small class="font-bold" style="font-size: 16px;">网站名称：</small>
+                            </td>
+                            <td width="80%">
+                                <input type="text" class="form-control" id="input_siteNameId" style="height: 30px;">
+                            </td>
+                        </tr>
+                        <tr align="left">
+                            <td width="20%">
+                                <small class="font-bold" style="font-size: 16px;">主页地址：</small>
+                            </td>
+                            <td width="80%">
+                                <input type="text" class="form-control" id="input_siteAddressId" style="height: 30px;">
+                            </td>
+                        </tr>
+                        <tr align="left">
+                            <td width="20%">
+                                <small class="font-bold" style="font-size: 16px;">是否有效：</small>
+                            </td>
+                            <td width="80%">
+                                <select class="form-control"  id="select_isValidId" style="height: 30px;">
+                                    <option selected value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <table style="border-top:none ; width: 100%;" align="center">
+                        <tbody>
+                        <tr align="center">
+                            <td width="50%" align="center">
+                                <button style="width: 99%;" onclick="confirm()" type="button" class="btn btn-primary">确定</button>
+                            </td>
+                            <td width="50%" align="center">
+                                <button style="width: 99%;" onclick="closeModal()" type="button" class="btn btn-primary">关闭</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- 全局js -->
+<script type="text/javascript" charset="utf-8" src="js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js?v=3.3.6"></script>
+<script type="text/javascript" charset="utf-8" src="js/layer/layer.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/laydate-5.3.1/laydate.js"></script>
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+
+<!-- 自定义js -->
+<script src="js/content.js?v=1.0.0"></script>
+<script src="js/common.js"></script>
+<script src="js/loadconfig.js"></script>
+
+<script>
+
+    var base_domain = getConfig('base_domain');
+var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+var origin_currentPage = 1;
+var origin_pageSize = 15;
+
+var global_currentPage = origin_currentPage;
+var global_pageSize = origin_pageSize;
+
+var global_records = {};
+
+var global_addOrEdit_flag = 0; //0表示添加、1表示修改
+var global_edit_id = null;
+
+//监听模态窗口动作，添加、移除遮罩
+$(document).on("show.bs.modal", ".modal", function() {
+    $("body").append("<div class='modal-backdrop in' id='myBackdrop'></div>");
+});
+$(document).on("hide.bs.modal", ".modal", function() {
+    $("#myBackdrop").remove();
+});
+function closeModal() {
+    $("#myModal").modal('hide');
+}
+
+queryFriendLink(global_currentPage, global_pageSize);
+
+//刷新按钮
+$('#refresh_id').click(function () {
+    btn = $(this);
+    btn.children().addClass('fa-spin');
+    btn.contents().last().replaceWith(" Loading");
+    queryFriendLink(origin_currentPage, origin_pageSize);
+    window.setTimeout(function () {
+        btn.children().removeClass('fa-spin');
+        btn.contents().last().replaceWith(" Refresh");
+    }, 1000);
+});
+
+//全选/全不选
+var select_all_flag = 'all';
+$('#all_none_select_id').click(function () {
+    // 获取所有的复选框
+    var checkElements=document.getElementsByName('checkbox');
+    if(select_all_flag == 'all') {
+        for(var i=0;i<checkElements.length;i++) {
+            var checkElement=checkElements[i];
+            checkElement.checked="checked";
+        }
+        select_all_flag = 'none';
+    } else if(select_all_flag == 'none') {
+        for(var i=0;i<checkElements.length;i++) {
+            var checkElement=checkElements[i];
+            checkElement.checked=null;
+        }
+        select_all_flag = 'all';
+    }
+});
+
+function deleteFriendLink(obj) {
+    layer.confirm('确定删除吗？', {
+        title:'重要提示！',
+        icon: 3,
+        btn: ['确定','算了']
+    }, function(){
+        var id = $(obj).attr("id");
+
+        $.ajax({
+            type : "POST",
+            url : base_domain+"/spartacus-system/system/deleteFriendLink",
+            async : true,
+            data : { //使用Json格式进行透传
+                "id" : id
+            },
+            dataType:"json",
+            headers: {
+                "clientId":"spartacus-friday",
+                "Authorization":"bearer " + jwt.access_token//自定义请求头
+            },
+            success : function(result) {
+                if (result.code==200) {
+                    queryFriendLink(global_currentPage, global_pageSize);
+                    layer.msg('删除成功！', {
+                        icon: 1,
+                        time:1000
+                    });
+                } else {
+                    layer.msg(result.message, {
+                        icon: 2,
+                        time:1000
+                    });
+                }
+            }
+        });
+
+    }, function(){
+        //
+    });
+
+}
+
+function confirm() {
+    var params = {};
+    params['id'] = global_edit_id;
+    params['siteName'] = $("#input_siteNameId").val();
+    params['siteAddress'] = $("#input_siteAddressId").val();
+    params['isValid'] = $("#select_isValidId option:selected").val();
+
+    if(isNullOrEmpty(params['siteName']) || isNullOrEmpty(params['siteAddress']) || isNullOrEmpty(params['isValid'])) {
+        layer.msg("不允许空值，请重新填写！", {
+            icon: 2,
+            time:1000
+        });
+        return;
+    }
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-system/system/addOrEditFriendLink",
+        async : true,
+        data : params,
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==200) {
+                queryFriendLink(global_currentPage, global_pageSize);
+
+                if(global_addOrEdit_flag == 0) {
+                    layer.msg('添加成功！', {
+                        icon: 1,
+                        time:1000
+                    });
+                } else if(global_addOrEdit_flag == 1) {
+                    layer.msg('修改成功！', {
+                        icon: 1,
+                        time:1000
+                    });
+                }
+                closeModal();
+
+            } else {
+                layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+function addOrEditFriendLink(obj) {
+    if(obj != null) { //编辑
+        var id = $(obj).attr("id");
+        var siteName = global_records[id]['siteName'];
+        var siteAddress = global_records[id]['siteAddress'];
+        var isValid = global_records[id]['isValid'];
+        var addTime = global_records[id]['addTime'];
+
+        global_addOrEdit_flag = 1;
+        global_edit_id = id;
+
+        $("#input_siteNameId").val(siteName);
+        $("#input_siteAddressId").val(siteAddress);
+        $("#select_isValidId").val(isValid);
+    } else { //新增
+        global_addOrEdit_flag = 0;
+        global_edit_id = null;
+
+        $("#input_siteNameId").val(null);
+        $("#input_siteAddressId").val(null);
+        $("#select_isValidId").val(null);
+    }
+}
+
+function batchSetFriendLink(isValid) {
+    // 获取所有的复选框
+    var count = 0;
+    var ids = [];
+
+    $("#tbody_id input").each(function() {
+        if($(this).is(':checked')) {
+            count++;
+            var id = $(this).attr("id");
+            ids.push(id);
+        }
+    });
+
+    console.log(ids);
+
+    var params = {};
+    params['isValid'] = isValid;
+    params['ids'] = ids;
+
+    console.log(params);
+
+    if(count == 0) {
+        layer.msg('请至少选中一条数据！', {
+            icon: 2,
+            time:1000
+        });
+    } else {
+        $.ajax({
+            type : "POST",
+            contentType : 'application/json;charset=utf-8',
+            url : base_domain+"/spartacus-system/system/batchSetFriendLink",
+            async : true,
+            data : JSON.stringify(params),
+            dataType:"json",
+            headers: {
+                "clientId":"spartacus-friday",
+                "Authorization":"bearer " + jwt.access_token//自定义请求头
+            },
+            success : function(result) {
+                if (result.code==200) {
+                    layer.msg('设置成功！', {
+                        icon: 1,
+                        time:1200
+                    }, function () {
+                        queryFriendLink(global_currentPage, global_pageSize);
+                    });
+
+                } else {
+                    layer.msg(result.message, {
+                        icon: 2,
+                        time:1000
+                    });
+                }
+            }
+        });
+    }
+}
+
+function batchDeleteFriendLink() {
+    // 获取所有的复选框
+    var count = 0;
+    var ids = [];
+
+    $("#tbody_id input").each(function() {
+        if($(this).is(':checked')) {
+            count++;
+            var id = $(this).attr("id");
+            ids.push(id);
+        }
+    });
+    console.log(ids);
+
+    if(count == 0) {
+        layer.msg('请至少选中一条数据！', {
+            icon: 2,
+            time:1000
+        });
+    } else {
+        layer.confirm('确定删除吗？', {
+            title:'重要提示！',
+            icon: 3,
+            btn: ['确定','算了']
+        }, function(){
+            $.ajax({
+                type : "POST",
+                contentType: 'application/json; charset=utf-8', //必须要加contentType
+                url : base_domain+"/spartacus-system/system/batchDeleteFriendLink",
+                async : true,
+                data : JSON.stringify(ids),
+                dataType:"json",
+                headers: {
+                    "clientId":"spartacus-friday",
+                    "Authorization":"bearer " + jwt.access_token//自定义请求头
+                },
+                success : function(result) {
+                    if (result.code==200) {
+                        layer.msg('删除成功！', {
+                            icon: 1,
+                            time:1200
+                        }, function () {
+                            queryFriendLink(global_currentPage, global_pageSize);
+                        });
+
+                    } else {
+                        layer.msg(result.message, {
+                            icon: 2,
+                            time:1000
+                        });
+                    }
+                }
+            });
+
+        }, function(){
+            //
+        });
+
+    }
+}
+
+function queryFriendLink(_cp, _ps) {
+    global_currentPage = _cp;
+    global_pageSize = _ps;
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-system/system/queryFriendLink",
+        async : true,
+        data : { //使用Json格式进行透传
+            "currentPage" : _cp,
+            "pageSize" : _ps
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==200) {
+//          	console.log(result);
+                select_all_flag = 'all';
+                $("#tbody_id").children().remove();
+
+                var records = result.data.records;
+                for(var i = 0; i < records.length; i++) {
+                    var id = records[i]['id'];
+                    var siteName = records[i]['siteName'];
+                    var siteAddress = records[i]['siteAddress'];
+                    var isValid = records[i]['isValid'];
+                    var addTime = records[i]['addTime'];
+
+                    global_records[id] = records[i];
+
+                    var isValidHtml;
+                    if(isValid==1) {
+                        isValidHtml = "<ins style='background-color: #c6ffc6;'>是</ins>";
+                    } else {
+                        isValidHtml = "<ins style='background-color: #ffc6c6;'>否</ins>";
+                    }
+
+                    $("#tbody_id").append("<tr><td style='text-align: center; border-right: 1px solid #e7eaec;'><input id='"+id+"'type='checkbox'name='checkbox'></td><td style='text-align: center;'>"+siteName+"</td><td style='text-align: center;'>"+siteAddress+"</td><td style='text-align: center;'>"+isValidHtml+"</td><td style='text-align: center;'>"+addTime+"</td><td style='text-align: center;'><a onclick='addOrEditFriendLink(this)'id='"+id+"'data-toggle='modal'data-target='#myModal'><span class='badge badge-primary'style='border-radius: 5px;'>编辑</span></a><a onclick='deleteFriendLink(this)'id='"+id+"'><span class='badge badge-primary'style='border-radius: 5px;'>删除</span></a></td>");
+                }
+
+                //点击行，选中checkbox
+                $("#tbody_id tr").click(function () {
+                    var srcElement = window.event.srcElement;
+                    if(srcElement.tagName.toLowerCase() == "td") {
+                        if ($(this).find(":checkbox").prop("checked")) {
+                            $(this).find(":checkbox").removeAttr("checked");
+                        } else {
+                            $(this).find(":checkbox").prop("checked", true);
+                        }
+                    }
+                });
+
+                //构造分页按钮组
+                var total = parseInt(result.data.total);
+                var page_element = BootstrapPagination($("#page_element_id"), {
+                    layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+                    //记录总数。
+                    total: total,
+                    //分页尺寸。指示每页最多显示的记录数量。
+                    pageSize: _ps,
+                    //当前页索引编号。从0开始的整数。
+                    pageIndex: _cp-1,
+                    //指示分页导航栏中最多显示的页索引数量。
+                    pageGroupSize: 10,
+                    //位于导航条左侧的输出信息格式化字符串
+                    //leftFormateString: "本页{count}条记录/共{total}条记录",
+                    //位于导航条右侧的输出信息格式化字符串
+                    rightFormateString: "共{totalPages}页",
+                    //页码文本格式化字符串。
+                    pageNumberFormateString: "{pageNumber}",
+                    //分页尺寸输出格式化字符串
+                    pageSizeListFormateString: "{pageSize}条/页",
+                    //上一页导航按钮文本。
+                    prevPageText: "上一页",
+                    //下一页导航按钮文本。
+                    nextPageText: "下一页",
+                    //上一组分页导航按钮文本。
+                    prevGroupPageText: "上一组",
+                    //下一组分页导航按钮文本。
+                    nextGroupPageText: "下一组",
+                    //首页导航按钮文本。
+                    firstPageText: "首页",
+                    //尾页导航按钮文本。
+                    lastPageText: "尾页",
+                    //设置页码输入框中显示的提示文本。
+                    pageInputPlaceholder: "go",
+                    //接受用户输入内容的延迟时间。单位：毫秒
+                    pageInputTimeout: 1000,
+                    //分页尺寸列表。
+                    pageSizeList: [15, 20, 30, 45, 50],
+                    //当分页更改后引发此事件。
+                    pageChanged: function (pageIndex, pageSize) {
+                        queryFriendLink(pageIndex+1, pageSize);
+                    },
+                });
+            } else {
+                layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+function searchFriendLink(_cp, _ps) {
+    global_currentPage = _cp;
+    global_pageSize = _ps;
+
+    var siteName = $('#search_siteNameId').val();
+    var siteAddress = $('#search_siteAddressId').val();
+    var isValid = $("#search_isValidId").val();
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-system/system/searchFriendLink",
+        async : true,
+        data : { //使用Json格式进行透传
+            "currentPage" : _cp,
+            "pageSize" : _ps,
+            "siteName" : siteName,
+            "siteAddress": siteAddress,
+            "isValid" : isValid
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==200) {
+//          	console.log(result);
+                select_all_flag = 'all';
+                $("#tbody_id").children().remove();
+
+                var records = result.data.records;
+                for(var i = 0; i < records.length; i++) {
+                    var id = records[i]['id'];
+                    var siteName = records[i]['siteName'];
+                    var siteAddress = records[i]['siteAddress'];
+                    var isValid = records[i]['isValid'];
+                    var addTime = records[i]['addTime'];
+
+                    global_records[id] = records[i];
+
+                    var isValidHtml;
+                    if(isValid==1) {
+                        isValidHtml = "<ins style='background-color: #c6ffc6;'>是</ins>";
+                    } else {
+                        isValidHtml = "<ins style='background-color: #ffc6c6;'>否</ins>";
+                    }
+
+                    $("#tbody_id").append("<tr><td style='text-align: center; border-right: 1px solid #e7eaec;'><input id='"+id+"'type='checkbox'name='checkbox'></td><td style='text-align: center;'>"+siteName+"</td><td style='text-align: center;'>"+siteAddress+"</td><td style='text-align: center;'>"+isValidHtml+"</td><td style='text-align: center;'>"+addTime+"</td><td style='text-align: center;'><a onclick='addOrEditFriendLink(this)'id='"+id+"'data-toggle='modal'data-target='#myModal'><span class='badge badge-primary'style='border-radius: 5px;'>编辑</span></a><a onclick='deleteFriendLink(this)'id='"+id+"'><span class='badge badge-primary'style='border-radius: 5px;'>删除</span></a></td>");
+                }
+
+                //点击行，选中checkbox
+                $("#tbody_id tr").click(function () {
+                    var srcElement = window.event.srcElement;
+                    if(srcElement.tagName.toLowerCase() == "td") {
+                        if ($(this).find(":checkbox").prop("checked")) {
+                            $(this).find(":checkbox").removeAttr("checked");
+                        } else {
+                            $(this).find(":checkbox").prop("checked", true);
+                        }
+                    }
+                });
+
+                //构造分页按钮组
+                var total = parseInt(result.data.total);
+                var page_element = BootstrapPagination($("#page_element_id"), {
+                    layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+                    //记录总数。
+                    total: total,
+                    //分页尺寸。指示每页最多显示的记录数量。
+                    pageSize: _ps,
+                    //当前页索引编号。从0开始的整数。
+                    pageIndex: _cp-1,
+                    //指示分页导航栏中最多显示的页索引数量。
+                    pageGroupSize: 10,
+                    //位于导航条左侧的输出信息格式化字符串
+                    //leftFormateString: "本页{count}条记录/共{total}条记录",
+                    //位于导航条右侧的输出信息格式化字符串
+                    rightFormateString: "共{totalPages}页",
+                    //页码文本格式化字符串。
+                    pageNumberFormateString: "{pageNumber}",
+                    //分页尺寸输出格式化字符串
+                    pageSizeListFormateString: "{pageSize}条/页",
+                    //上一页导航按钮文本。
+                    prevPageText: "上一页",
+                    //下一页导航按钮文本。
+                    nextPageText: "下一页",
+                    //上一组分页导航按钮文本。
+                    prevGroupPageText: "上一组",
+                    //下一组分页导航按钮文本。
+                    nextGroupPageText: "下一组",
+                    //首页导航按钮文本。
+                    firstPageText: "首页",
+                    //尾页导航按钮文本。
+                    lastPageText: "尾页",
+                    //设置页码输入框中显示的提示文本。
+                    pageInputPlaceholder: "go",
+                    //接受用户输入内容的延迟时间。单位：毫秒
+                    pageInputTimeout: 1000,
+                    //分页尺寸列表。
+                    pageSizeList: [15, 20, 30, 45, 50],
+                    //当分页更改后引发此事件。
+                    pageChanged: function (pageIndex, pageSize) {
+                        searchFriendLink(pageIndex+1, pageSize);
+                    },
+                });
+            } else {
+                layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+</script>
+
+</body>
+
+</html>

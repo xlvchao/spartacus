@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.article.mapper.ArticleMapper">
+
+    <update id="updateArticleScanNumber" parameterType="com.xlc.spartacus.article.pojo.Article">
+        UPDATE tb_article t
+        SET t.scan_number=#{scanNumber}
+        where t.id=#{id}
+    </update>
+
+    <select id="getArticleScanNumber" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        SELECT
+            t.scan_number
+        FROM
+            tb_article t
+        where t.id=#{id}
+    </select>
+
+    <select id="getAllArticleId" resultType="java.lang.Long">
+        SELECT
+        t.id
+        FROM
+        tb_article t
+    </select>
+
+    <select id="findByCriteria" resultType="com.xlc.spartacus.article.pojo.Article">
+        SELECT
+            t.id "id",
+            t.author "author",
+            t.brief "brief",
+            t.cname "cname",
+            t.like_number "likeNumber",
+            t.comment_number "commentNumber",
+            t.from_where "fromWhere",
+            t.is_top "isTop",
+            t.labels "labels",
+            t.month_day "monthDay",
+            t.pictures "pictures",
+            t.publish_time "publishTime",
+            t.scan_number "scanNumber",
+            t.status "status",
+            t.title "title",
+            t.year "year"
+        FROM
+            tb_article t
+        WHERE
+            t.status=0
+        <if test="(isLikeMost != null and isLikeMost==1) and (isReadMost == null or isReadMost!=1)">
+            order by like_number desc
+        </if>
+        <if test="(isLikeMost == null or isLikeMost!=1) and (isReadMost != null and isReadMost==1)">
+            order by scan_number desc
+        </if>
+        <if test="(isLikeMost != null and isLikeMost==1) and (isReadMost != null and isReadMost==1)">
+            order by like_number desc,scan_number desc
+        </if>
+        limit 20
+    </select>
+
+    <insert id="save" parameterType="com.xlc.spartacus.article.pojo.Article">
+        insert into tb_article
+        (
+        id,
+        author,
+        brief,
+        cname,
+        like_number,
+        comment_number,
+        content,
+        from_where,
+        is_top,
+        labels,
+        month_day,
+        pictures,
+        publish_time,
+        scan_number,
+        `status`,
+        title,
+        `year`
+        )
+        values
+        (
+        #{id},
+        #{author},
+        #{brief},
+        #{cname},
+        #{likeNumber},
+        #{commentNumber},
+        #{content},
+        #{fromWhere},
+        #{isTop},
+        #{labels},
+        #{monthDay},
+        #{pictures},
+        #{publishTime},
+        #{scanNumber},
+        #{status},
+        #{title},
+        #{year}
+        )
+    </insert>
+
+
+    <update id="update" parameterType="com.xlc.spartacus.article.pojo.Article">
+        UPDATE tb_article t
+        SET
+            t.author=#{author},
+            t.brief=#{brief},
+            t.cname=#{cname},
+            t.like_number=#{likeNumber},
+            t.comment_number=#{commentNumber},
+            t.content=#{content},
+            t.from_where=#{fromWhere},
+            t.is_top=#{isTop},
+            t.labels=#{labels},
+            t.month_day=#{monthDay},
+            t.pictures=#{pictures},
+            t.publish_time=#{publishTime},
+            t.scan_number=#{scanNumber},
+            t.status=#{status},
+            t.title=#{title},
+            t.year=#{year}
+        where t.id=#{id}
+    </update>
+
+    <update id="updateLikeNumber" parameterType="com.xlc.spartacus.article.pojo.Article">
+        UPDATE tb_article t
+        SET
+            t.like_number=#{likeNumber}
+        where t.id=#{id}
+    </update>
+
+    <select id="findById" parameterType="java.lang.Long" resultType="com.xlc.spartacus.article.pojo.Article">
+        SELECT
+            t.id "id",
+            t.author "author",
+            t.brief "brief",
+            t.cname "cname",
+            t.like_number "likeNumber",
+            t.comment_number "commentNumber",
+            t.content "content",
+            t.from_where "fromWhere",
+            t.is_top "isTop",
+            t.labels "labels",
+            t.month_day "monthDay",
+            t.pictures "pictures",
+            t.publish_time "publishTime",
+            t.scan_number "scanNumber",
+            t.status "status",
+            t.title "title",
+            t.year "year"
+        FROM
+            tb_article t
+        WHERE
+            t.id=#{id}
+    </select>
+
+    <select id="findByCategory" parameterType="java.lang.String" resultType="com.xlc.spartacus.article.pojo.Article">
+        SELECT
+            t.id "id",
+            t.author "author",
+            t.brief "brief",
+            t.cname "cname",
+            t.like_number "likeNumber",
+            t.comment_number "commentNumber",
+            t.from_where "fromWhere",
+            t.is_top "isTop",
+            t.labels "labels",
+            t.month_day "monthDay",
+            t.pictures "pictures",
+            t.publish_time "publishTime",
+            t.scan_number "scanNumber",
+            t.status "status",
+            t.title "title",
+            t.year "year"
+        FROM
+            tb_article t
+        WHERE
+            t.status=0
+        <if test="isTop != null">
+            AND t.is_top=#{isTop}
+        </if>
+        <if test="cname != null and cname != ''">
+            AND t.cname=#{cname}
+        </if>
+    </select>
+
+    <select id="findByStatus" parameterType="java.lang.Integer" resultType="com.xlc.spartacus.article.pojo.Article">
+        SELECT
+            t.id "id",
+            t.author "author",
+            t.brief "brief",
+            t.cname "cname",
+            t.like_number "likeNumber",
+            t.comment_number "commentNumber",
+            t.from_where "fromWhere",
+            t.is_top "isTop",
+            t.labels "labels",
+            t.month_day "monthDay",
+            t.pictures "pictures",
+            t.publish_time "publishTime",
+            t.scan_number "scanNumber",
+            t.status "status",
+            t.title "title",
+            t.year "year"
+        FROM
+            tb_article t
+        WHERE
+            t.status=#{status}
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete
+        FROM
+            tb_article
+        WHERE
+            id=#{id}
+    </delete>
+
+
+</mapper>

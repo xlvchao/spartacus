@@ -1,0 +1,22 @@
+a#mpQrcode {
+    position: relative;
+}
+#mpQrcode img {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(0, 10px);
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    right: -50px;
+    bottom: 25px;
+    width: 150px;
+    height: 150px;
+    z-index: 100000;
+}
+#mpQrcode:hover img {
+    display: block;
+    visibility: visible;
+    transform: translate(0, 0px);
+    opacity: 1;
+}

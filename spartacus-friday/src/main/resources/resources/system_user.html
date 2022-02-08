@@ -1,0 +1,865 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>超人.FM|Superman.fm</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.7.0" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+
+	<link href="plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+	<link type="text/css" href="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+
+
+    <style>
+        .float-e-margins .btn {
+            margin-bottom: 0;
+        }
+
+        .table {
+            table-layout: fixed;
+            border: 1px solid #e7eaec;
+        }
+
+        .table tr td {
+            text-overflow: ellipsis; /* for IE */
+            -moz-text-overflow: ellipsis; /* for Firefox,mozilla */
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .table_flex{
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            border-bottom: 1px solid #e7eaec;
+        }
+        .table_flex:hover{
+            background-color: #f5f5f5;
+        }
+        .table_flex:last-child{
+            border-bottom: unset;
+        }
+        .table_flex > div {
+            display: flex;
+            align-items: center;
+        }
+        .table_flex > div:first-child{
+            width: 20%;
+        }
+        .table_flex > div:last-child{
+            width: 80%;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>通知公告</h5>
+                    </div>
+
+                    <div class="ibox-content">
+                    	<div class="row m-b-sm m-t-sm" >
+	                        <div id="botton_group_id" class="col-lg-5" style="padding: 0 15px 0 15px;">
+	                            <button type="button" id="refresh_id" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>&nbsp;Refresh</button>
+	                            <button type="button" id="all_none_select_id" class="btn btn-white btn-sm"><i class="fa fa-signing"></i>&nbsp;全选/全不选</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchSetSystemUserStatus(0)"><i class="fa fa-telegram"></i>&nbsp;批量可用</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchSetSystemUserStatus(1)"><i class="fa fa-telegram"></i>&nbsp;批量禁用</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchDeleteSystemUser()"><i class="fa fa-telegram"></i>&nbsp;批量删除</button>
+                                <button type="button" class="btn btn-success btn-sm" onclick="addOrEditSystemUser()" data-toggle='modal' data-target='#myModal'><i class="fa fa-telegram"></i>&nbsp;新增</button>
+							</div>
+
+                            <div class="form-inline pull-right" style="text-align: right !important; width: 55% !important;">
+                                <input type="text" placeholder="用户名..." class="form-control" id="search_usernameId" style="width: 25%; height: 30px;">
+                                <select class="form-control"  id="search_statusId" style="width: 12%; height: 30px;">
+                                    <option selected value="">是否可用...</option>
+                                    <option value="0">是</option>
+                                    <option value="1">否</option>
+                                </select>
+                                <button type="button" id="searchId" class="btn btn-primary btn-sm" onclick="searchSystemUser(1,15)" style="margin-right: 15px;"><i class="fa fa-telegram"></i>&nbsp;查询</button>
+                            </div>
+	                    </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center; width: 5%; border-right: 1px solid #e7eaec;">选择</th>
+                                    <th style="text-align: center; width: 10%;">用户名</th>
+                                    <th style="text-align: center; width: 10%;">昵称</th>
+                                    <th style="text-align: center; width: 10%;">头像</th>
+                                    <th style="text-align: center; width: 15%;">角色</th>
+                                    <th style="text-align: center; width: 10%;">状态</th>
+                                    <th style="text-align: center; width: 15%;">添加时间</th>
+                                    <th style="text-align: center; width: 20%;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_id">
+                                <tr>
+                                    <td style="text-align: center; border-right: 1px solid #e7eaec;"><input type='checkbox' name='checkbox'></td>
+                                    <td style="text-align: center;">spartacus</td>
+                                    <td style="text-align: center;">spartacus</td>
+                                    <td style="text-align: center;"><img src="https://ae01.alicdn.com/kf/Hdbfb7cec3bb149d8bc9aa5c980d5c474F.png" alt="image" width="25" height="25" style="border-radius: 20%;" /></td>
+                                    <td style="text-align: center;">超级管理员、监控管理员</td>
+                                    <td style="text-align: center;"><ins style="background-color: #c6ffc6;">可用</ins></td>
+                                    <td style="text-align: center;">2018-09-11 18:17</td>
+									<td style="text-align: center;">
+                                    	<a onclick='unForbid(this)'><span class='badge badge-primary' style='border-radius: 5px;'>编辑</span></a>
+                                        <a onclick='unForbid(this)'><span class='badge badge-primary' style='border-radius: 5px;'>删除</span></a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <!--分页-->
+						<div class="text-center">
+							<!-- 下面是控制分页控件，必须要是ul元素才行 -->
+							<ul id='page_element_id' class="pagination pagination-lg" style="margin: 0 0;"></ul>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--弹出窗口（模态窗口）-->
+    <div class="modal inmodal" id="myModal" tabindex="-1" data-backdrop="false" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <div id="table_id" class="table table-hover">
+                        <div class="table_flex">
+                            <div><small class="font-bold" style="font-size: 16px;">用户名：</small></div>
+                            <div><input type="text" class="form-control" id="input_userNameId" style="height: 30px;"></div>
+                        </div>
+                        <div class="table_flex">
+                            <div><small id="small_pwdId" class="font-bold" style="font-size: 16px;">密码：</small></div>
+                            <div><input type="password" class="form-control" id="input_passwordId" style="height: 30px;"></div>
+                        </div>
+                        <div class="table_flex">
+                            <div><small id="small_confirmPwdId" class="font-bold" style="font-size: 16px;">确认密码：</small></div>
+                            <div><input type="password" class="form-control" id="input_confirmPasswordId" style="height: 30px;"></div>
+                        </div>
+                        <div class="table_flex">
+                            <div><small class="font-bold" style="font-size: 16px;">昵称：</small></div>
+                            <div><input type="text" class="form-control" id="input_nickNameId" style="height: 30px;"></div>
+                        </div>
+                        <div class="table_flex">
+                            <div><small class="font-bold" style="font-size: 16px;">头像：</small></div>
+                            <div><input type="text" placeholder="图片url..." class="form-control" id="input_imageUrlId" style="height: 30px;"></div>
+                        </div>
+                        <div class="table_flex">
+                            <div><small class="font-bold" style="font-size: 16px;">角色：</small></div>
+                            <div>
+                                <select class="form-control selectpicker" title="选择角色..." multiple id="select_userRoleId" style="height: 30px;">
+                                    <option value="ROLE_SUPER_ADMIN">超级管理员</option>
+                                    <option value="ROLE_ACTUATOR">监控管理员</option>
+                                    <option value="ROLE_ADMIN">管理员</option>
+                                    <option value="ROLE_USER">普通用户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table_flex">
+                            <div><small class="font-bold" style="font-size: 16px;">状态：</small></div>
+                            <div>
+                                <select class="form-control"  id="select_statusId" style="height: 30px;">
+                                    <option selected value="0">可用</option>
+                                    <option value="1">禁用</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <table style="border-top:none ; width: 100%;" align="center">
+                        <tbody>
+                        <tr align="center">
+                            <td width="50%" align="center">
+                                <button id="btn_confirmId" style="width: 99%;" onclick="confirmAdd()" type="button" class="btn btn-primary">确定</button>
+                            </td>
+                            <td width="50%" align="center">
+                                <button style="width: 99%;" onclick="closeModal()" type="button" class="btn btn-primary">关闭</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- 全局js -->
+<script type="text/javascript" charset="utf-8" src="js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js?v=3.3.6"></script>
+<script type="text/javascript" charset="utf-8" src="js/layer/layer.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/laydate-5.3.1/laydate.js"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+
+
+
+    <!-- 自定义js -->
+<script src="js/content.js?v=1.0.0"></script>
+<script src="js/common.js"></script>
+<script src="js/loadconfig.js"></script>
+
+<script>
+
+    var base_domain = getConfig('base_domain');
+var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+var origin_currentPage = 1;
+var origin_pageSize = 15;
+
+var global_currentPage = origin_currentPage;
+var global_pageSize = origin_pageSize;
+
+var global_records = {};
+
+var global_addOrEdit_flag = 0; //0表示添加、1表示修改
+var global_edit_id = null;
+
+var global_select_user_roles = "";
+
+//监听模态窗口动作，添加、移除遮罩
+$(document).on("show.bs.modal", ".modal", function() {
+    $("body").append("<div class='modal-backdrop in' id='myBackdrop'></div>");
+});
+$(document).on("hide.bs.modal", ".modal", function() {
+    $("#myBackdrop").remove();
+});
+function closeModal() {
+    $("#myModal").modal('hide');
+}
+
+//赋值
+// $('#select_userRoleId').selectpicker('val', ['1','3']);
+// $('#select_userRoleId').selectpicker('refresh');
+
+//取值
+$('#select_userRoleId').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+    global_select_user_roles = "";
+    $("#select_userRoleId option:selected").each(function () {
+        global_select_user_roles += $(this).val() + ","
+    })
+    if(!isNullOrEmpty(global_select_user_roles)) {
+        global_select_user_roles = global_select_user_roles.slice(0,-1);
+    }
+});
+
+
+querySystemUser(global_currentPage, global_pageSize);
+
+//刷新按钮
+$('#refresh_id').click(function () {
+    btn = $(this);
+    btn.children().addClass('fa-spin');
+    btn.contents().last().replaceWith(" Loading");
+    querySystemUser(origin_currentPage, origin_pageSize);
+    window.setTimeout(function () {
+        btn.children().removeClass('fa-spin');
+        btn.contents().last().replaceWith(" Refresh");
+    }, 1000);
+});
+
+//全选/全不选
+var select_all_flag = 'all';
+$('#all_none_select_id').click(function () {
+    // 获取所有的复选框
+    var checkElements=document.getElementsByName('checkbox');
+    if(select_all_flag == 'all') {
+        for(var i=0;i<checkElements.length;i++) {
+            var checkElement=checkElements[i];
+            checkElement.checked="checked";
+        }
+        select_all_flag = 'none';
+    } else if(select_all_flag == 'none') {
+        for(var i=0;i<checkElements.length;i++) {
+            var checkElement=checkElements[i];
+            checkElement.checked=null;
+        }
+        select_all_flag = 'all';
+    }
+});
+
+function deleteSystemUser(obj) {
+    layer.confirm('确定删除吗？', {
+        title:'重要提示！',
+        icon: 3,
+        btn: ['确定','算了']
+    }, function(){
+        var id = $(obj).attr("id");
+        $.ajax({
+            type : "POST",
+            url : base_domain+"/spartacus-system/system/deleteSystemUser",
+            async : true,
+            data : { //使用Json格式进行透传
+                "userId" : id
+            },
+            dataType:"json",
+            headers: {
+                "clientId":"spartacus-friday",
+                "Authorization":"bearer " + jwt.access_token//自定义请求头
+            },
+            success : function(result) {
+                if (result.code==200) {
+                    querySystemUser(global_currentPage, global_pageSize);
+                    layer.msg('删除成功！', {
+                        icon: 1,
+                        time:1000
+                    });
+                } else {
+                    layer.msg(result.message, {
+                        icon: 2,
+                        time:1000
+                    });
+                }
+            }
+        });
+    }, function(){
+        //
+    });
+}
+
+function confirmAdd() {
+    var params = {};
+    params['userId'] = $("#input_userNameId").val();
+    params['secret'] = $("#input_passwordId").val();
+    params['displayName'] = $("#input_nickNameId").val();
+    params['imageUrl'] = $("#input_imageUrlId").val();
+    params['roles'] = global_select_user_roles;
+    params['status'] = $("#select_statusId option:selected").val();
+
+    if(isNullOrEmpty(params['userId']) || isNullOrEmpty(params['secret']) || isNullOrEmpty($("#input_confirmPasswordId").val()) || isNullOrEmpty(params['displayName'])
+        || isNullOrEmpty(params['imageUrl']) || isNullOrEmpty(params['roles']) || isNullOrEmpty(params['status'])) {
+        layer.msg("不允许空值，请重新填写！", {
+            icon: 2,
+            time:1000
+        });
+        return;
+    }
+
+    var secret = $("#input_passwordId").val();
+    var confirmSecret = $("#input_confirmPasswordId").val();
+    if(secret != confirmSecret) {
+        layer.msg('两次输入的密码不同！', {
+            icon: 2,
+            time:1000
+        });
+        return;
+    }
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-system/system/addSystemUser",
+        async : true,
+        data : params,
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==200) {
+                querySystemUser(global_currentPage, global_pageSize);
+                layer.msg('添加成功！', {
+                    icon: 1,
+                    time:1000
+                });
+                closeModal();
+
+            } else {
+                layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+function confirmEdit() {
+    var params = {};
+    params['userId'] = $("#input_userNameId").val();
+    params['secret'] = $("#input_passwordId").val();
+    params['displayName'] = $("#input_nickNameId").val();
+    params['imageUrl'] = $("#input_imageUrlId").val();
+
+    var roles = global_records[global_edit_id]['roles'];
+    params['roles'] = isNullOrEmpty(global_select_user_roles) ? roles : global_select_user_roles;
+
+    params['status'] = $("#select_statusId option:selected").val();
+
+    console.log(params);
+
+    if(isNullOrEmpty(params['userId']) || isNullOrEmpty(params['displayName'])
+        || isNullOrEmpty(params['imageUrl']) || isNullOrEmpty(params['roles']) || isNullOrEmpty(params['status'])) {
+        layer.msg("除了密码外，不允许其他空值，请重新填写！", {
+            icon: 2,
+            time:1000
+        });
+        return;
+    }
+
+    var secret = $("#input_passwordId").val();
+    var confirmSecret = $("#input_confirmPasswordId").val();
+    if(secret != confirmSecret) {
+        layer.msg('两次输入的密码不同！', {
+            icon: 2,
+            time:1000
+        });
+        return;
+    }
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-system/system/editSystemUser",
+        async : true,
+        data : params,
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==200) {
+                querySystemUser(global_currentPage, global_pageSize);
+                layer.msg('修改成功！', {
+                    icon: 1,
+                    time:1000
+                });
+                closeModal();
+
+            } else {
+                layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+function addOrEditSystemUser(obj) {
+    global_select_user_roles = "";
+
+    if(obj != null) { //编辑
+        var userId = $(obj).attr("id");
+        var providerId = global_records[userId]['providerId'];
+        var providerUserId = global_records[userId]['providerUserId'];
+        var status = global_records[userId]['status'];
+        var roles = global_records[userId]['roles'];
+        var displayName = global_records[userId]['displayName'];
+        var imageUrl = global_records[userId]['imageUrl'];
+        var addTime = global_records[userId]['addTime'];
+
+        global_addOrEdit_flag = 1;
+        global_edit_id = userId;
+
+        $("#input_userNameId").attr('readonly', 'readonly');
+        $("#small_pwdId").html('新密码：');
+        $("#small_confirmPwdId").html('确认新密码：');
+
+        $("#input_passwordId").attr('placeholder', '可留空...');
+        $("#input_confirmPasswordId").attr('placeholder', '可留空...');
+
+        $("#input_userNameId").val(userId);
+        $("#input_passwordId").val(null);
+        $("#input_confirmPasswordId").val(null);
+        $("#input_nickNameId").val(displayName);
+        $("#input_imageUrlId").val(imageUrl);
+        $("#select_statusId").val(status);
+
+        $('#select_userRoleId').selectpicker('val', roles.split(','));
+        $('#select_userRoleId').selectpicker('refresh');
+
+        $('#btn_confirmId').attr('onclick', 'confirmEdit()');
+
+    } else { //新增
+        global_addOrEdit_flag = 0;
+        global_edit_id = null;
+
+        $("#input_userNameId").removeAttr('readonly')
+        $("#small_pwdId").html('密码：');
+        $("#small_confirmPwdId").html('确认密码：');
+
+        $("#input_passwordId").removeAttr('placeholder');
+        $("#input_confirmPasswordId").removeAttr('placeholder');
+
+        $("#input_userNameId").val(null);
+        $("#input_passwordId").val(null);
+        $("#input_confirmPasswordId").val(null);
+        $("#input_nickNameId").val(null);
+        $("#input_imageUrlId").val(null);
+        $("#select_statusId").val(null);
+
+        $('#select_userRoleId').selectpicker('val', null);
+        $('#select_userRoleId').selectpicker('refresh');
+
+        $('#btn_confirmId').attr('onclick', 'confirmAdd()');
+    }
+}
+
+function batchSetSystemUserStatus(status) {
+    // 获取所有的复选框
+    var count = 0;
+    var userIds = [];
+
+    $("#tbody_id input").each(function() {
+        if($(this).is(':checked')) {
+            count++;
+            var id = $(this).attr("id");
+            userIds.push(id);
+        }
+    });
+
+    console.log(userIds);
+
+    var params = {};
+    params['status'] = status;
+    params['userIds'] = userIds;
+
+    console.log(params);
+
+    if(count == 0) {
+        layer.msg('请至少选中一条数据！', {
+            icon: 2,
+            time:1000
+        });
+    } else {
+        $.ajax({
+            type : "POST",
+            contentType : 'application/json;charset=utf-8',
+            url : base_domain+"/spartacus-system/system/batchSetSystemUserStatus",
+            async : true,
+            data : JSON.stringify(params),
+            dataType:"json",
+            headers: {
+                "clientId":"spartacus-friday",
+                "Authorization":"bearer " + jwt.access_token//自定义请求头
+            },
+            success : function(result) {
+                if (result.code==200) {
+                    layer.msg('设置成功！', {
+                        icon: 1,
+                        time:1200
+                    }, function () {
+                        querySystemUser(global_currentPage, global_pageSize);
+                    });
+
+                } else {
+                    layer.msg(result.message, {
+                        icon: 2,
+                        time:1000
+                    });
+                }
+            }
+        });
+    }
+}
+
+function batchDeleteSystemUser() {
+    // 获取所有的复选框
+    var count = 0;
+    var userIds = [];
+
+    $("#tbody_id input").each(function() {
+        if($(this).is(':checked')) {
+            count++;
+            var id = $(this).attr("id");
+            userIds.push(id);
+        }
+    });
+    console.log(userIds);
+
+    if(count == 0) {
+        layer.msg('请至少选中一条数据！', {
+            icon: 2,
+            time:1000
+        });
+    } else {
+        layer.confirm('确定删除吗？', {
+            title:'重要提示！',
+            icon: 3,
+            btn: ['确定','算了']
+        }, function(){
+            $.ajax({
+                type : "POST",
+                contentType: 'application/json; charset=utf-8', //必须要加contentType
+                url : base_domain+"/spartacus-system/system/batchDeleteSystemUser",
+                async : true,
+                data : JSON.stringify(userIds),
+                dataType:"json",
+                headers: {
+                    "clientId":"spartacus-friday",
+                    "Authorization":"bearer " + jwt.access_token//自定义请求头
+                },
+                success : function(result) {
+                    if (result.code==200) {
+                        layer.msg('删除成功！', {
+                            icon: 1,
+                            time:1200
+                        }, function () {
+                            querySystemUser(global_currentPage, global_pageSize);
+                        });
+
+                    } else {
+                        layer.msg(result.message, {
+                            icon: 2,
+                            time:1000
+                        });
+                    }
+                }
+            });
+
+        }, function(){
+            //
+        });
+    }
+}
+
+function querySystemUser(_cp, _ps) {
+    global_currentPage = _cp;
+    global_pageSize = _ps;
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-system/system/querySystemUser",
+        async : true,
+        data : { //使用Json格式进行透传
+            "currentPage" : _cp,
+            "pageSize" : _ps
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==200) {
+//          	console.log(result);
+                select_all_flag = 'all';
+                $("#tbody_id").children().remove();
+
+                var records = result.data.records;
+                for(var i = 0; i < records.length; i++) {
+                    var userId = records[i]['userId'];
+                    var providerId = records[i]['providerId'];
+                    var providerUserId = records[i]['providerUserId'];
+                    var status = records[i]['status'];
+                    var roles = records[i]['roles'];
+                    var displayName = records[i]['displayName'];
+                    var imageUrl = records[i]['imageUrl'];
+                    var addTime = records[i]['addTime'];
+
+                    global_records[userId] = records[i];
+
+                    var statusHtml;
+                    if(status==0) {
+                        statusHtml = "<ins style='background-color: #c6ffc6;'>可用</ins>";
+                    } else {
+                        statusHtml = "<ins style='background-color: #ffc6c6;'>禁用</ins>";
+                    }
+
+                    $("#tbody_id").append("<tr><td style='text-align: center; border-right: 1px solid #e7eaec;'><input id='"+userId+"'type='checkbox'name='checkbox'></td><td style='text-align: center;'>"+userId+"</td><td style='text-align: center;'>"+displayName+"</td><td style='text-align: center;'><img src='"+imageUrl+"'alt='image'width='25'height='25'style='border-radius: 20%;'/></td><td style='text-align: center;'>"+roles+"</td><td style='text-align: center;'>"+statusHtml+"</td><td style='text-align: center;'>"+addTime+"</td><td style='text-align: center;'><a id='"+userId+"'onclick='addOrEditSystemUser(this)'data-toggle='modal'data-target='#myModal'><span class='badge badge-primary'style='border-radius: 5px;'>编辑</span></a><a id='"+userId+"'onclick='deleteSystemUser(this)'><span class='badge badge-primary'style='border-radius: 5px;'>删除</span></a></td></tr>");
+                }
+
+                //点击行，选中checkbox
+                $("#tbody_id tr").click(function () {
+                    var srcElement = window.event.srcElement;
+                    if(srcElement.tagName.toLowerCase() == "td") {
+                        if ($(this).find(":checkbox").prop("checked")) {
+                            $(this).find(":checkbox").removeAttr("checked");
+                        } else {
+                            $(this).find(":checkbox").prop("checked", true);
+                        }
+                    }
+                });
+
+                //构造分页按钮组
+                var total = parseInt(result.data.total);
+                var page_element = BootstrapPagination($("#page_element_id"), {
+                    layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+                    //记录总数。
+                    total: total,
+                    //分页尺寸。指示每页最多显示的记录数量。
+                    pageSize: _ps,
+                    //当前页索引编号。从0开始的整数。
+                    pageIndex: _cp-1,
+                    //指示分页导航栏中最多显示的页索引数量。
+                    pageGroupSize: 10,
+                    //位于导航条左侧的输出信息格式化字符串
+                    //leftFormateString: "本页{count}条记录/共{total}条记录",
+                    //位于导航条右侧的输出信息格式化字符串
+                    rightFormateString: "共{totalPages}页",
+                    //页码文本格式化字符串。
+                    pageNumberFormateString: "{pageNumber}",
+                    //分页尺寸输出格式化字符串
+                    pageSizeListFormateString: "{pageSize}条/页",
+                    //上一页导航按钮文本。
+                    prevPageText: "上一页",
+                    //下一页导航按钮文本。
+                    nextPageText: "下一页",
+                    //上一组分页导航按钮文本。
+                    prevGroupPageText: "上一组",
+                    //下一组分页导航按钮文本。
+                    nextGroupPageText: "下一组",
+                    //首页导航按钮文本。
+                    firstPageText: "首页",
+                    //尾页导航按钮文本。
+                    lastPageText: "尾页",
+                    //设置页码输入框中显示的提示文本。
+                    pageInputPlaceholder: "go",
+                    //接受用户输入内容的延迟时间。单位：毫秒
+                    pageInputTimeout: 1000,
+                    //分页尺寸列表。
+                    pageSizeList: [15, 20, 30, 45, 50],
+                    //当分页更改后引发此事件。
+                    pageChanged: function (pageIndex, pageSize) {
+                        querySystemUser(pageIndex+1, pageSize);
+                    },
+                });
+            } else {
+                layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+function searchSystemUser(_cp, _ps) {
+    global_currentPage = _cp;
+    global_pageSize = _ps;
+
+    var userId = $('#search_usernameId').val();
+    var status = $("#search_statusId").val();
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-system/system/searchSystemUser",
+        async : true,
+        data : { //使用Json格式进行透传
+            "currentPage" : _cp,
+            "pageSize" : _ps,
+            "userId" : userId,
+            "status" : status
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==200) {
+//          	console.log(result);
+                select_all_flag = 'all';
+                $("#tbody_id").children().remove();
+
+                var records = result.data.records;
+                for(var i = 0; i < records.length; i++) {
+                    var userId = records[i]['userId'];
+                    var providerId = records[i]['providerId'];
+                    var providerUserId = records[i]['providerUserId'];
+                    var status = records[i]['status'];
+                    var roles = records[i]['roles'];
+                    var displayName = records[i]['displayName'];
+                    var imageUrl = records[i]['imageUrl'];
+                    var addTime = records[i]['addTime'];
+
+                    global_records[userId] = records[i];
+
+                    var statusHtml;
+                    if(status==0) {
+                        statusHtml = "<ins style='background-color: #c6ffc6;'>可用</ins>";
+                    } else {
+                        statusHtml = "<ins style='background-color: #ffc6c6;'>禁用</ins>";
+                    }
+
+                    $("#tbody_id").append("<tr><td style='text-align: center; border-right: 1px solid #e7eaec;'><input id='"+userId+"'type='checkbox'name='checkbox'></td><td style='text-align: center;'>"+userId+"</td><td style='text-align: center;'>"+displayName+"</td><td style='text-align: center;'><img src='"+imageUrl+"'alt='image'width='25'height='25'style='border-radius: 20%;'/></td><td style='text-align: center;'>"+roles+"</td><td style='text-align: center;'>"+statusHtml+"</td><td style='text-align: center;'>"+addTime+"</td><td style='text-align: center;'><a id='"+userId+"'onclick='addOrEditSystemUser(this)'data-toggle='modal'data-target='#myModal'><span class='badge badge-primary'style='border-radius: 5px;'>编辑</span></a><a id='"+userId+"'onclick='deleteSystemUser(this)'><span class='badge badge-primary'style='border-radius: 5px;'>删除</span></a></td></tr>");
+                }
+
+                //点击行，选中checkbox
+                $("#tbody_id tr").click(function () {
+                    var srcElement = window.event.srcElement;
+                    if(srcElement.tagName.toLowerCase() == "td") {
+                        if ($(this).find(":checkbox").prop("checked")) {
+                            $(this).find(":checkbox").removeAttr("checked");
+                        } else {
+                            $(this).find(":checkbox").prop("checked", true);
+                        }
+                    }
+                });
+
+                //构造分页按钮组
+                var total = parseInt(result.data.total);
+                var page_element = BootstrapPagination($("#page_element_id"), {
+                    layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+                    //记录总数。
+                    total: total,
+                    //分页尺寸。指示每页最多显示的记录数量。
+                    pageSize: _ps,
+                    //当前页索引编号。从0开始的整数。
+                    pageIndex: _cp-1,
+                    //指示分页导航栏中最多显示的页索引数量。
+                    pageGroupSize: 10,
+                    //位于导航条左侧的输出信息格式化字符串
+                    //leftFormateString: "本页{count}条记录/共{total}条记录",
+                    //位于导航条右侧的输出信息格式化字符串
+                    rightFormateString: "共{totalPages}页",
+                    //页码文本格式化字符串。
+                    pageNumberFormateString: "{pageNumber}",
+                    //分页尺寸输出格式化字符串
+                    pageSizeListFormateString: "{pageSize}条/页",
+                    //上一页导航按钮文本。
+                    prevPageText: "上一页",
+                    //下一页导航按钮文本。
+                    nextPageText: "下一页",
+                    //上一组分页导航按钮文本。
+                    prevGroupPageText: "上一组",
+                    //下一组分页导航按钮文本。
+                    nextGroupPageText: "下一组",
+                    //首页导航按钮文本。
+                    firstPageText: "首页",
+                    //尾页导航按钮文本。
+                    lastPageText: "尾页",
+                    //设置页码输入框中显示的提示文本。
+                    pageInputPlaceholder: "go",
+                    //接受用户输入内容的延迟时间。单位：毫秒
+                    pageInputTimeout: 1000,
+                    //分页尺寸列表。
+                    pageSizeList: [15, 20, 30, 45, 50],
+                    //当分页更改后引发此事件。
+                    pageChanged: function (pageIndex, pageSize) {
+                        searchSystemUser(pageIndex+1, pageSize);
+                    },
+                });
+            } else {
+                layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+</script>
+
+</body>
+
+</html>

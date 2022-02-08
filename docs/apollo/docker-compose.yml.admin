@@ -1,0 +1,41 @@
+version: "3.4"
+services:
+  adminservice1:
+    image: xlvchao/apollo-adminservice:1.8.1
+    container_name: adminservice1
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://10.0.0.3:3306/ApolloConfigDB?characterEncoding=utf8&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=Pwd@123
+      - eureka.instance.ip-address=10.0.0.11
+    volumes:
+      - /data/apollo/adminservice/1/logs:/opt/logs
+    ports:
+      - 8090:8090
+  adminservice2:
+    image: xlvchao/apollo-adminservice:1.8.1
+    container_name: adminservice2
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://10.0.0.3:3306/ApolloConfigDB?characterEncoding=utf8&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=Pwd@123
+      - eureka.instance.ip-address=10.0.0.9
+    volumes:
+      - /data/apollo/adminservice/2/logs:/opt/logs
+    ports:
+      - 8091:8090
+  adminservice3:
+    image: xlvchao/apollo-adminservice:1.8.1
+    container_name: adminservice3
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://10.0.0.3:3306/ApolloConfigDB?characterEncoding=utf8&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=Pwd@123
+      - eureka.instance.ip-address=10.0.0.16
+    volumes:
+      - /data/apollo/adminservice/3/logs:/opt/logs
+    ports:
+      - 8092:8090

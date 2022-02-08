@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.chat.mapper.UserContactMapper">
+
+    <insert id="saveContact" parameterType="com.xlc.spartacus.chat.model.UserContact">
+        INSERT INTO tb_user_contact(id, provider_user_id, contact_provider_user_id)
+        SELECT #{id}, #{providerUserId}, #{contactProviderUserId} FROM DUAL
+        WHERE
+        NOT EXISTS
+          (SELECT * FROM tb_user_contact
+            WHERE provider_user_id=#{providerUserId} and contact_provider_user_id=#{contactProviderUserId})
+    </insert>
+
+    <select id="queryContacts" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT
+            t.providerId "providerId",
+            t.providerUserId "providerUserId",
+            t.displayName "nickname",
+            t.imageUrl "headimage"
+        FROM
+            tb_UserConnection t
+        WHERE
+            t.providerUserId
+        in (SELECT contact_provider_user_id from tb_user_contact where provider_user_id=#{providerUserId})
+    </select>
+
+
+</mapper>

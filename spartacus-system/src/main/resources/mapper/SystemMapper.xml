@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.system.mapper.SystemMapper">
+
+    <select id="loadBlogProfile" resultType="com.xlc.spartacus.system.pojo.Profile">
+        SELECT
+            t.head_img "headImg",
+            t.nickname "nickname",
+            t.title "title",
+            t.github "github",
+            t.age "age",
+            t.experience "experience"
+        FROM tb_blog_profile t where t.id_code='profile'
+    </select>
+
+    <update id="updateBlogProfile" parameterType="com.xlc.spartacus.system.pojo.Profile">
+        update tb_blog_profile
+        <trim prefix="set" suffixOverrides=",">
+            add_time=now(),
+            <if test="headImg!=null and headImg!=''"> head_img = #{headImg},</if>
+            <if test="nickname!=null and nickname!=''"> nickname = #{nickname},</if>
+            <if test="title!=null and title!=''"> title = #{title},</if>
+            <if test="github!=null and github!=''"> github = #{github},</if>
+            <if test="age!=null and age!=''"> age = #{age},</if>
+            <if test="experience!=null and experience!=''"> experience = #{experience},</if>
+        </trim>
+        where
+        id_code='profile'
+    </update>
+
+    <select id="searchSystemUser" resultType="com.xlc.spartacus.system.pojo.UserConnection">
+        SELECT
+            t.userId,
+            t.providerId,
+            t.providerUserId,
+            t.status,
+            t.roles,
+            t.displayName,
+            t.imageUrl,
+            t.addTime
+        FROM tb_UserConnection t
+        <where>
+            t.providerId='spartacus'
+            <if test="userId != null and userId != ''">
+                AND userId = #{userId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+        ORDER BY t.addTime DESC
+    </select>
+
+    <update id="batchSetSystemUserStatus">
+        UPDATE tb_UserConnection
+        set status=#{status}
+        WHERE userId IN
+        <foreach collection="userIds"  item="userId" open="(" separator="," close=")"  >
+            #{userId}
+        </foreach>
+    </update>
+
+    <delete id="batchDeleteSystemUser" parameterType="java.util.Arrays">
+        DELETE FROM tb_UserConnection WHERE userId IN
+        <foreach collection="array" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteSystemUser" parameterType="java.lang.String">
+        DELETE FROM tb_UserConnection WHERE userId = #{userId}
+    </delete>
+
+    <select id="querySystemUser" resultType="com.xlc.spartacus.system.pojo.UserConnection">
+        SELECT
+            t.userId,
+            t.providerId,
+            t.providerUserId,
+            t.status,
+            t.roles,
+            t.displayName,
+            t.imageUrl,
+            t.addTime
+        FROM tb_UserConnection t where t.providerId='spartacus' ORDER BY t.addTime DESC
+    </select>
+
+    <update id="updateSystemUser" parameterType="com.xlc.spartacus.system.pojo.UserConnection">
+        update tb_UserConnection
+        <trim prefix="set" suffixOverrides=",">
+            rank = null,
+            <if test="displayName!=null and displayName!=''"> displayName = #{displayName},</if>
+            <if test="imageUrl!=null and imageUrl!=''"> imageUrl = #{imageUrl},</if>
+            <if test="secret!=null and secret!=''"> secret = #{secret},</if>
+            <if test="roles!=null and roles!=''"> roles = #{roles},</if>
+            <if test="status!=null"> status = #{status},</if>
+        </trim>
+        where
+        userId=#{userId}
+    </update>
+
+    <select id="findSystemUserByUsername" parameterType="java.lang.String" resultType="com.xlc.spartacus.system.pojo.UserConnection">
+        SELECT
+            t.userId,
+            t.providerId,
+            t.providerUserId,
+            t.status,
+            t.roles,
+            t.displayName,
+            t.imageUrl,
+            t.secret
+        FROM tb_UserConnection t WHERE t.userId = #{username}
+    </select>
+
+    <insert id="addSystemUser" parameterType="com.xlc.spartacus.system.pojo.UserConnection">
+        insert into tb_UserConnection
+        (userId,
+         providerId,
+         providerUserId,
+         status,
+         roles,
+         displayName,
+         imageUrl,
+         secret,
+         addTime)
+        values
+        (#{userId},
+         #{providerId},
+         #{providerUserId},
+         #{status},
+         #{roles},
+         #{displayName},
+         #{imageUrl},
+         #{secret},
+         #{addTime})
+    </insert>
+
+    <select id="searchFriendLink" resultType="com.xlc.spartacus.system.pojo.FriendLink">
+        SELECT
+        t.id "id",
+        t.site_name "siteName",
+        t.site_address "siteAddress",
+        t.is_valid "isValid",
+        t.add_time "addTime"
+        FROM tb_friend_link t
+        <where>
+            <if test="siteName != null and siteName != ''">
+                site_name = #{siteName}
+            </if>
+            <if test="siteAddress != null and siteAddress != ''">
+                AND site_address = #{siteAddress}
+            </if>
+            <if test="isValid != null">
+                AND is_valid = #{isValid}
+            </if>
+        </where>
+        ORDER BY t.add_time DESC
+    </select>
+
+    <delete id="batchDeleteFriendLink" parameterType="java.util.Arrays">
+        DELETE FROM tb_friend_link WHERE id IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="batchSetFriendLink">
+        UPDATE tb_friend_link
+            set is_valid=#{isValid}
+        WHERE id IN
+        <foreach collection="ids"  item="item" open="(" separator="," close=")"  >
+            #{item}
+        </foreach>
+    </update>
+
+    <delete id="deleteFriendLink" parameterType="java.lang.Long">
+        DELETE FROM tb_friend_link WHERE id = #{id}
+    </delete>
+
+    <insert id="updateFriendLink" parameterType="com.xlc.spartacus.system.pojo.FriendLink">
+        update tb_friend_link set
+          site_name=#{siteName},
+          site_address=#{siteAddress},
+          is_valid=#{isValid}
+        where id = #{id}
+    </insert>
+
+    <insert id="addFriendLink" parameterType="com.xlc.spartacus.system.pojo.FriendLink">
+        INSERT INTO tb_friend_link
+        (id,
+         site_name,
+         site_address,
+         is_valid,
+         add_time)
+        VALUES
+        (#{id},
+         #{siteName},
+         #{siteAddress},
+         #{isValid},
+         #{addTime})
+    </insert>
+
+    <select id="queryFriendLink" resultType="com.xlc.spartacus.system.pojo.FriendLink">
+        SELECT
+            t.id "id",
+            t.site_name "siteName",
+            t.site_address "siteAddress",
+            t.is_valid "isValid",
+            t.add_time "addTime"
+        FROM tb_friend_link t ORDER BY t.add_time DESC
+    </select>
+
+    <select id="findNoticeByCriteria" resultType="com.xlc.spartacus.system.pojo.Notice">
+        SELECT
+        t.id "id",
+        t.content "content",
+        t.is_for_site "isForSite",
+        t.is_for_chat "isForChat",
+        t.is_enabled "isEnabled",
+        t.create_time "createTime"
+        FROM tb_notice t
+        <where>
+            is_enabled = 1
+            <if test="isForSite != null">
+                AND is_for_site = #{isForSite}
+            </if>
+            <if test="isForChat != null">
+                AND is_for_chat = #{isForChat}
+            </if>
+        </where>
+        ORDER BY t.create_time DESC
+    </select>
+
+    <select id="searchNotice" resultType="com.xlc.spartacus.system.pojo.Notice">
+        SELECT
+            t.id "id",
+            t.content "content",
+            t.is_for_site "isForSite",
+            t.is_for_chat "isForChat",
+            t.is_enabled "isEnabled",
+            t.create_time "createTime"
+        FROM tb_notice t
+        <where>
+            <if test="isForSite != null">
+                is_for_site = #{isForSite}
+            </if>
+            <if test="isForChat != null">
+                AND is_for_chat = #{isForChat}
+            </if>
+            <if test="isEnabled != null">
+                AND is_enabled = #{isEnabled}
+            </if>
+        </where>
+        ORDER BY t.create_time DESC
+    </select>
+
+    <delete id="batchDeleteNotice" parameterType="java.util.Arrays">
+        DELETE FROM tb_notice WHERE id IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="batchSetNotice">
+        UPDATE tb_notice
+            <set>
+                <if test='field != null and field == "isForSite"'>
+                    is_for_site = #{value},
+                </if>
+                <if test='field != null and field == "isForChat"'>
+                    is_for_chat = #{value},
+                </if>
+                <if test='field != null and field == "isEnabled"'>
+                    is_enabled = #{value}
+                </if>
+            </set>
+        WHERE id IN
+            <foreach collection="ids"  item="item" open="(" separator="," close=")"  >
+                #{item}
+            </foreach>
+    </update>
+
+    <delete id="deleteNotice" parameterType="java.lang.Long">
+        DELETE FROM tb_notice WHERE id = #{id}
+    </delete>
+
+    <insert id="updateNotice" parameterType="com.xlc.spartacus.system.pojo.Notice">
+        update tb_notice set
+            content=#{content},
+            is_for_site=#{isForSite},
+            is_for_chat=#{isForChat},
+            is_enabled=#{isEnabled}
+        where id = #{id}
+    </insert>
+
+    <insert id="addNotice" parameterType="com.xlc.spartacus.system.pojo.Notice">
+        INSERT INTO tb_notice
+            (id,
+            content,
+            is_for_site,
+            is_for_chat,
+            is_enabled,
+            create_time)
+            VALUES
+            (#{id},
+             #{content},
+             #{isForSite},
+             #{isForChat},
+             #{isEnabled},
+             #{createTime})
+    </insert>
+
+    <select id="queryNotice" resultType="com.xlc.spartacus.system.pojo.Notice">
+        SELECT
+            t.id "id",
+            t.content "content",
+            t.is_for_site "isForSite",
+            t.is_for_chat "isForChat",
+            t.is_enabled "isEnabled",
+            t.create_time "createTime"
+        FROM tb_notice t ORDER BY t.create_time DESC
+    </select>
+
+    <delete id="batchDeleteLoginRecord" parameterType="java.util.Arrays">
+        DELETE FROM tb_login_record WHERE id IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteLoginRecord" parameterType="java.lang.Long">
+        DELETE FROM tb_login_record WHERE id = #{id}
+    </delete>
+
+    <select id="queryLoginRecord" resultType="com.xlc.spartacus.system.pojo.LoginRecord">
+        SELECT
+            t.id "id",
+            t.username "username",
+            t.user_type "userType",
+            t.ip "ip",
+            t.province "province",
+            t.city "city",
+            t.client "client",
+            t.login_time "loginTime"
+        FROM tb_login_record t ORDER BY t.login_time DESC
+    </select>
+
+</mapper>

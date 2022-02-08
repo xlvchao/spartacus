@@ -1,0 +1,763 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>超人.FM|Superman.fm</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.7.0" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+	
+	<link href="plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+	<link type="text/css" href="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.css" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+	
+	<style>
+		.float-e-margins .btn {
+     		margin-bottom: 0;
+     	} 
+     	
+     	.table {
+		    table-layout: fixed;
+		    border: 1px solid #e7eaec;
+		}
+		
+		.table tr td {
+		    text-overflow: ellipsis; /* for IE */
+		    -moz-text-overflow: ellipsis; /* for Firefox,mozilla */
+		    overflow: hidden;
+		    white-space: nowrap;
+		}
+	</style>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>通知公告</h5>
+                    </div>
+                    
+                    <div class="ibox-content">
+                    	<div class="row m-b-sm m-t-sm" >
+	                        <div id="botton_group_id" class="form-inline" style="padding: 0 15px 0 15px; width: 100%">
+	                            <button type="button" id="refresh_id" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>&nbsp;Refresh</button>
+	                            <button type="button" id="all_none_select_id" class="btn btn-white btn-sm"><i class="fa fa-signing"></i>&nbsp;全选/全不选</button>
+	                            <button type="button" class="btn btn-white btn-sm" onclick="batchSetNotice('isForSite',1)"><i class="fa fa-telegram"></i>&nbsp;批量适用网站</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchSetNotice('isForSite',0)"><i class="fa fa-telegram"></i>&nbsp;批量禁用网站</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchSetNotice('isForChat',1)"><i class="fa fa-telegram"></i>&nbsp;批量适用聊天</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchSetNotice('isForChat',0)"><i class="fa fa-telegram"></i>&nbsp;批量禁用聊天</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchSetNotice('isEnabled',1)"><i class="fa fa-telegram"></i>&nbsp;批量启用</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchSetNotice('isEnabled',0)"><i class="fa fa-telegram"></i>&nbsp;批量禁用</button>
+                                <button type="button" class="btn btn-white btn-sm" onclick="batchDeleteNotice()"><i class="fa fa-telegram"></i>&nbsp;批量删除</button>
+                                <button type="button" class="btn btn-success btn-sm" onclick="addOrEditNotice(null)" data-toggle='modal' data-target='#myModal'><i class="fa fa-telegram"></i>&nbsp;新增</button>
+
+                                <button type="button" id="searchId" class="btn btn-primary btn-sm pull-right" onclick="searchNotice(1,15)" style="margin-left: 5px;"><i class="fa fa-telegram"></i>&nbsp;查询</button>
+                                <select class="form-control pull-right"  id="search_isEnabledId" style="height: 30px; width: 150px;margin-left: 5px;">
+                                    <option selected value="">是否启用...</option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                                <select class="form-control pull-right"  id="search_isForChatId" style="height: 30px; width: 150px;margin-left: 5px;">
+                                    <option selected value="">适用聊天...</option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                                <select class="form-control pull-right"  id="search_isForSiteId" style="height: 30px; width: 150px;">
+                                    <option selected value="">适用网站...</option>
+                                    <option value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+
+                            </div>
+	                    </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center; width: 5%; border-right: 1px solid #e7eaec;">选择</th>
+                                    <th style="text-align: center; width: 35%;">通知内容</th>
+                                    <th style="text-align: center; width: 10%;">适用网站</th>
+                                    <th style="text-align: center; width: 10%;">适用聊天</th>
+                                    <th style="text-align: center; width: 10%;">是否启用</th>
+                                    <th style="text-align: center; width: 15%;">创建时间</th>
+                                    <th style="text-align: center; width: 20%;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_id">
+                                <tr>
+                                    <td style="text-align: center; border-right: 1px solid #e7eaec;"><input type='checkbox' name='checkbox'></td>
+                                    <td style="text-align: center;">大家好，初次见面，请多关照！</td>
+                                    <td style="text-align: center;"><ins style="background-color: #c6ffc6;">是</ins></td>
+                                    <td style="text-align: center;"><ins style="background-color: #ffc6c6;">否</ins></td>
+                                    <td style="text-align: center;"><ins style="background-color: #c6ffc6;">是</ins></td>
+                                    <td style="text-align: center;">2018-09-11 18:17</td>
+									<td style="text-align: center;">
+                                    	<a onclick=''><span class='badge badge-primary' style='border-radius: 5px;'>编辑</span></a>
+                                        <a onclick=''><span class='badge badge-primary' style='border-radius: 5px;'>删除</span></a>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                        <!--分页-->
+						<div class="text-center">
+							<!-- 下面是控制分页控件，必须要是ul元素才行 -->
+							<ul id='page_element_id' class="pagination pagination-lg" style="margin: 0 0;"></ul>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--弹出窗口（模态窗口）-->
+    <div class="modal inmodal" id="myModal" tabindex="-1" data-backdrop="false" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <table id="table_id" class="table table-hover">
+                        <tbody>
+                        <tr align="left">
+                            <td width="20%">
+                                <small class="font-bold" style="font-size: 16px;">适用网站：</small>
+                            </td>
+                            <td width="80%">
+                                <select class="form-control"  id="select_isForSiteId" style="height: 30px;">
+                                    <option selected value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr align="left">
+                            <td width="20%">
+                                <small class="font-bold" style="font-size: 16px;">适用聊天：</small>
+                            </td>
+                            <td width="80%">
+                                <select class="form-control"  id="select_isForChatId" style="height: 30px;">
+                                    <option selected value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr align="left">
+                            <td width="20%">
+                                <small class="font-bold" style="font-size: 16px;">是否启用：</small>
+                            </td>
+                            <td width="80%">
+                                <select class="form-control"  id="select_isEnabledId" style="height: 30px;">
+                                    <option selected value="1">是</option>
+                                    <option value="0">否</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr align="left">
+                            <td width="20%">
+                                <small class="font-bold" style="font-size: 16px;">通知内容：</small>
+                            </td>
+                            <td width="80%">
+                                <textarea id="textarea_content_id" type="text" rows="5" style="width: 100%" class="form-control"></textarea>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <table style="border-top:none ; width: 100%;" align="center">
+                        <tbody>
+                        <tr align="center">
+                            <td width="50%" align="center">
+                                <button style="width: 99%;" id="edit_notice_id" onclick="confirm()" type="button" class="btn btn-primary">确定</button>
+                            </td>
+                            <td width="50%" align="center">
+                                <button style="width: 99%;" id="close_id" onclick="closeModal()" type="button" class="btn btn-primary">关闭</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- 全局js -->
+<script type="text/javascript" charset="utf-8" src="js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js?v=3.3.6"></script>
+<script type="text/javascript" charset="utf-8" src="js/layer/layer.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.js"></script>
+
+<!-- 自定义js -->
+<script src="js/content.js?v=1.0.0"></script>
+<script src="js/common.js"></script>
+<script src="js/loadconfig.js"></script>
+
+<script>
+
+    var base_domain = getConfig('base_domain');
+var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+var origin_currentPage = 1;
+var origin_pageSize = 15;
+
+var global_currentPage = origin_currentPage;
+var global_pageSize = origin_pageSize;
+
+var global_records = {};
+
+var global_addOrEdit_flag = 0; //0表示添加、1表示修改
+var global_edit_id = null;
+
+//监听模态窗口动作，添加、移除遮罩
+$(document).on("show.bs.modal", ".modal", function() {
+    $("body").append("<div class='modal-backdrop in' id='myBackdrop'></div>");
+});
+$(document).on("hide.bs.modal", ".modal", function() {
+    $("#myBackdrop").remove();
+});
+function closeModal() {
+    $("#myModal").modal('hide');
+}
+
+queryNotice(global_currentPage, global_pageSize);
+
+//刷新按钮
+$('#refresh_id').click(function () {
+    btn = $(this);
+    btn.children().addClass('fa-spin');
+    btn.contents().last().replaceWith(" Loading");
+    queryNotice(origin_currentPage, origin_pageSize);
+    window.setTimeout(function () {
+        btn.children().removeClass('fa-spin');
+        btn.contents().last().replaceWith(" Refresh");
+    }, 1000);
+});
+
+//全选/全不选
+var select_all_flag = 'all';
+$('#all_none_select_id').click(function () {
+    // 获取所有的复选框
+    var checkElements=document.getElementsByName('checkbox');
+    if(select_all_flag == 'all') {
+        for(var i=0;i<checkElements.length;i++) {
+            var checkElement=checkElements[i];
+            checkElement.checked="checked";
+        }
+        select_all_flag = 'none';
+    } else if(select_all_flag == 'none') {
+        for(var i=0;i<checkElements.length;i++) {
+            var checkElement=checkElements[i];
+            checkElement.checked=null;
+        }
+        select_all_flag = 'all';
+    }
+});
+
+function deleteNotice(obj) {
+    layer.confirm('确定删除吗？', {
+        title:'重要提示！',
+        icon: 3,
+        btn: ['确定','算了']
+    }, function(){
+        var id = $(obj).attr("id");
+
+        $.ajax({
+            type : "POST",
+            url : base_domain+"/spartacus-system/system/deleteNotice",
+            async : true,
+            data : { //使用Json格式进行透传
+                "id" : id
+            },
+            dataType:"json",
+            headers: {
+                "clientId":"spartacus-friday",
+                "Authorization":"bearer " + jwt.access_token//自定义请求头
+            },
+            success : function(result) {
+                if (result.code==200) {
+                    queryNotice(global_currentPage, global_pageSize);
+                    layer.msg('删除成功！', {
+                        icon: 1,
+                        time:1000
+                    });
+                } else {
+                    layer.msg(result.message, {
+                        icon: 2,
+                        time:1000
+                    });
+                }
+            }
+        });
+
+    }, function(){
+        //
+    });
+
+}
+
+function confirm() {
+    var params = {};
+    params['id'] = global_edit_id;
+    params['isForSite'] = $("#select_isForSiteId option:selected").val();
+    params['isForChat'] = $("#select_isForChatId option:selected").val();
+    params['isEnabled'] = $("#select_isEnabledId option:selected").val();
+    params['content'] = document.getElementById('textarea_content_id').value;
+
+    if(isNullOrEmpty(params['isForSite']) || isNullOrEmpty(params['isForChat']) || isNullOrEmpty(params['isEnabled']) || isNullOrEmpty(params['content'])) {
+        layer.msg("不允许空值，请重新填写！", {
+            icon: 2,
+            time:1000
+        });
+        return;
+    }
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-system/system/addOrEditNotice",
+        async : true,
+        data : params,
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==200) {
+                queryNotice(global_currentPage, global_pageSize);
+
+                if(global_addOrEdit_flag == 0) {
+                    layer.msg('添加成功！', {
+                        icon: 1,
+                        time:1000
+                    });
+                } else if(global_addOrEdit_flag == 1) {
+                    layer.msg('修改成功！', {
+                        icon: 1,
+                        time:1000
+                    });
+                }
+                closeModal();
+
+            } else {
+                layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+function addOrEditNotice(obj) {
+    if(obj != null) { //编辑
+        var id = $(obj).attr("id");
+        var content = global_records[id]['content'];
+        var isForSite = global_records[id]['isForSite'];
+        var isForChat = global_records[id]['isForChat'];
+        var isEnabled = global_records[id]['isEnabled'];
+        var createTime = global_records[id]['createTime'];
+
+        global_addOrEdit_flag = 1;
+        global_edit_id = id;
+
+        $("#select_isForSiteId").val(isForSite);
+        $("#select_isForChatId").val(isForChat);
+        $("#select_isEnabledId").val(isEnabled);
+        $("#textarea_content_id").val(content);
+    } else { //新增
+        global_addOrEdit_flag = 0;
+        global_edit_id = null;
+
+        $("#select_isForSiteId").val(null);
+        $("#select_isForChatId").val(null);
+        $("#select_isEnabledId").val(null);
+        $("#textarea_content_id").val(null);
+    }
+}
+
+function batchSetNotice(field, value) {
+    // 获取所有的复选框
+    var count = 0;
+    var ids = [];
+
+    $("#tbody_id input").each(function() {
+        if($(this).is(':checked')) {
+            count++;
+            var id = $(this).attr("id");
+            ids.push(id);
+        }
+    });
+
+    console.log(ids);
+
+    var params = {};
+    params['field'] = field;
+    params['value'] = value;
+    params['ids'] = ids;
+
+    console.log(params);
+
+    if(count == 0) {
+        layer.msg('请至少选中一条数据！', {
+            icon: 2,
+            time:1000
+        });
+    } else {
+        $.ajax({
+            type : "POST",
+            contentType : 'application/json;charset=utf-8',
+            url : base_domain+"/spartacus-system/system/batchSetNotice",
+            async : true,
+            data : JSON.stringify(params),
+            dataType:"json",
+            headers: {
+                "clientId":"spartacus-friday",
+                "Authorization":"bearer " + jwt.access_token//自定义请求头
+            },
+            success : function(result) {
+                if (result.code==200) {
+                    layer.msg('设置成功！', {
+                        icon: 1,
+                        time:1200
+                    }, function () {
+                        queryNotice(global_currentPage, global_pageSize);
+                    });
+
+                } else {
+                    layer.msg(result.message, {
+                        icon: 2,
+                        time:1000
+                    });
+                }
+            }
+        });
+    }
+}
+
+function batchDeleteNotice() {
+    // 获取所有的复选框
+    var count = 0;
+    var ids = [];
+
+    $("#tbody_id input").each(function() {
+        if($(this).is(':checked')) {
+            count++;
+            var id = $(this).attr("id");
+            ids.push(id);
+        }
+    });
+    console.log(ids);
+
+    if(count == 0) {
+        layer.msg('请至少选中一条数据！', {
+            icon: 2,
+            time:1000
+        });
+    } else {
+        layer.confirm('确定删除吗？', {
+            title:'重要提示！',
+            icon: 3,
+            btn: ['确定','算了']
+        }, function(){
+            $.ajax({
+                type : "POST",
+                contentType: 'application/json; charset=utf-8', //必须要加contentType
+                url : base_domain+"/spartacus-system/system/batchDeleteNotice",
+                async : true,
+                data : JSON.stringify(ids),
+                dataType:"json",
+                headers: {
+                    "clientId":"spartacus-friday",
+                    "Authorization":"bearer " + jwt.access_token//自定义请求头
+                },
+                success : function(result) {
+                    if (result.code==200) {
+                        layer.msg('删除成功！', {
+                            icon: 1,
+                            time:1200
+                        }, function () {
+                            queryNotice(global_currentPage, global_pageSize);
+                        });
+
+                    } else {
+                        layer.msg(result.message, {
+                            icon: 2,
+                            time:1000
+                        });
+                    }
+                }
+            });
+
+        }, function(){
+            //
+        });
+    }
+}
+
+function queryNotice(_cp, _ps) {
+    global_currentPage = _cp;
+    global_pageSize = _ps;
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-system/system/queryNotice",
+        async : true,
+        data : { //使用Json格式进行透传
+            "currentPage" : _cp,
+            "pageSize" : _ps
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==200) {
+//          	console.log(result);
+                select_all_flag = 'all';
+                $("#tbody_id").children().remove();
+
+                var records = result.data.records;
+                for(var i = 0; i < records.length; i++) {
+                    var id = records[i]['id'];
+                    var content = records[i]['content'];
+                    var isForSite = records[i]['isForSite'];
+                    var isForChat = records[i]['isForChat'];
+                    var isEnabled = records[i]['isEnabled'];
+                    var createTime = records[i]['createTime'];
+
+                    global_records[id] = records[i];
+
+                    var isForSiteHtml;
+                    if(isForSite==1) {
+                        isForSiteHtml = "<ins style='background-color: #c6ffc6;'>是</ins>";
+                    } else {
+                        isForSiteHtml = "<ins style='background-color: #ffc6c6;'>否</ins>";
+                    }
+
+                    var isForChatHtml;
+                    if(isForChat==1) {
+                        isForChatHtml = "<ins style='background-color: #c6ffc6;'>是</ins>";
+                    } else {
+                        isForChatHtml = "<ins style='background-color: #ffc6c6;'>否</ins>";
+                    }
+
+                    var isEnabledHtml;
+                    if(isEnabled==1) {
+                        isEnabledHtml = "<ins style='background-color: #c6ffc6;'>是</ins>";
+                    } else {
+                        isEnabledHtml = "<ins style='background-color: #ffc6c6;'>否</ins>";
+                    }
+
+                    $("#tbody_id").append("<tr><td style='text-align: center; border-right: 1px solid #e7eaec;'><input id='"+id+"' type='checkbox' name='checkbox'></td><td style='text-align: center;'>"+content+"</td><td style='text-align: center;'>"+isForSiteHtml+"</td><td style='text-align: center;'>"+isForChatHtml+"</td><td style='text-align: center;'>"+isEnabledHtml+"</td><td style='text-align: center;'>"+createTime+"</td><td style='text-align: center;'><a onclick='addOrEditNotice(this)' id='"+id+"' data-toggle='modal' data-target='#myModal'><span class='badge badge-primary' style='border-radius: 5px;'>编辑</span></a><a onclick='deleteNotice(this)' id='"+id+"'><span class='badge badge-primary' style='border-radius: 5px;'>删除</span></a></td></tr>");
+                }
+
+                //点击行，选中checkbox
+                $("#tbody_id tr").click(function () {
+                    var srcElement = window.event.srcElement;
+                    if(srcElement.tagName.toLowerCase() == "td") {
+                        if ($(this).find(":checkbox").prop("checked")) {
+                            $(this).find(":checkbox").removeAttr("checked");
+                        } else {
+                            $(this).find(":checkbox").prop("checked", true);
+                        }
+                    }
+                });
+
+                //构造分页按钮组
+                var total = parseInt(result.data.total);
+                var page_element = BootstrapPagination($("#page_element_id"), {
+                    layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+                    //记录总数。
+                    total: total,
+                    //分页尺寸。指示每页最多显示的记录数量。
+                    pageSize: _ps,
+                    //当前页索引编号。从0开始的整数。
+                    pageIndex: _cp-1,
+                    //指示分页导航栏中最多显示的页索引数量。
+                    pageGroupSize: 10,
+                    //位于导航条左侧的输出信息格式化字符串
+                    //leftFormateString: "本页{count}条记录/共{total}条记录",
+                    //位于导航条右侧的输出信息格式化字符串
+                    rightFormateString: "共{totalPages}页",
+                    //页码文本格式化字符串。
+                    pageNumberFormateString: "{pageNumber}",
+                    //分页尺寸输出格式化字符串
+                    pageSizeListFormateString: "{pageSize}条/页",
+                    //上一页导航按钮文本。
+                    prevPageText: "上一页",
+                    //下一页导航按钮文本。
+                    nextPageText: "下一页",
+                    //上一组分页导航按钮文本。
+                    prevGroupPageText: "上一组",
+                    //下一组分页导航按钮文本。
+                    nextGroupPageText: "下一组",
+                    //首页导航按钮文本。
+                    firstPageText: "首页",
+                    //尾页导航按钮文本。
+                    lastPageText: "尾页",
+                    //设置页码输入框中显示的提示文本。
+                    pageInputPlaceholder: "go",
+                    //接受用户输入内容的延迟时间。单位：毫秒
+                    pageInputTimeout: 1000,
+                    //分页尺寸列表。
+                    pageSizeList: [15, 20, 30, 45, 50],
+                    //当分页更改后引发此事件。
+                    pageChanged: function (pageIndex, pageSize) {
+                        queryNotice(pageIndex+1, pageSize);
+                    },
+                });
+            } else {
+                layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+function searchNotice(_cp, _ps) {
+    global_currentPage = _cp;
+    global_pageSize = _ps;
+
+    var isForSite = $('#search_isForSiteId').val();
+    var isForChat = $('#search_isForChatId').val();
+    var isEnabled = $('#search_isEnabledId').val();
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-system/system/searchNotice",
+        async : true,
+        data : { //使用Json格式进行透传
+            "currentPage" : _cp,
+            "pageSize" : _ps,
+            "isForSite" : isForSite,
+            "isForChat": isForChat,
+            "isEnabled" : isEnabled
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==200) {
+//          	console.log(result);
+                select_all_flag = 'all';
+                $("#tbody_id").children().remove();
+
+                var records = result.data.records;
+                for(var i = 0; i < records.length; i++) {
+                    var id = records[i]['id'];
+                    var content = records[i]['content'];
+                    var isForSite = records[i]['isForSite'];
+                    var isForChat = records[i]['isForChat'];
+                    var isEnabled = records[i]['isEnabled'];
+                    var createTime = records[i]['createTime'];
+
+                    global_records[id] = records[i];
+
+                    var isForSiteHtml;
+                    if(isForSite==1) {
+                        isForSiteHtml = "<ins style='background-color: #c6ffc6;'>是</ins>";
+                    } else {
+                        isForSiteHtml = "<ins style='background-color: #ffc6c6;'>否</ins>";
+                    }
+
+                    var isForChatHtml;
+                    if(isForChat==1) {
+                        isForChatHtml = "<ins style='background-color: #c6ffc6;'>是</ins>";
+                    } else {
+                        isForChatHtml = "<ins style='background-color: #ffc6c6;'>否</ins>";
+                    }
+
+                    var isEnabledHtml;
+                    if(isEnabled==1) {
+                        isEnabledHtml = "<ins style='background-color: #c6ffc6;'>是</ins>";
+                    } else {
+                        isEnabledHtml = "<ins style='background-color: #ffc6c6;'>否</ins>";
+                    }
+
+                    $("#tbody_id").append("<tr><td style='text-align: center; border-right: 1px solid #e7eaec;'><input id='"+id+"' type='checkbox' name='checkbox'></td><td style='text-align: center;'>"+content+"</td><td style='text-align: center;'>"+isForSiteHtml+"</td><td style='text-align: center;'>"+isForChatHtml+"</td><td style='text-align: center;'>"+isEnabledHtml+"</td><td style='text-align: center;'>"+createTime+"</td><td style='text-align: center;'><a onclick='addOrEditNotice(this)' id='"+id+"' data-toggle='modal' data-target='#myModal'><span class='badge badge-primary' style='border-radius: 5px;'>编辑</span></a><a onclick='deleteNotice(this)' id='"+id+"'><span class='badge badge-primary' style='border-radius: 5px;'>删除</span></a></td></tr>");
+                }
+
+                //点击行，选中checkbox
+                $("#tbody_id tr").click(function () {
+                    var srcElement = window.event.srcElement;
+                    if(srcElement.tagName.toLowerCase() == "td") {
+                        if ($(this).find(":checkbox").prop("checked")) {
+                            $(this).find(":checkbox").removeAttr("checked");
+                        } else {
+                            $(this).find(":checkbox").prop("checked", true);
+                        }
+                    }
+                });
+
+                //构造分页按钮组
+                var total = parseInt(result.data.total);
+                var page_element = BootstrapPagination($("#page_element_id"), {
+                    layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+                    //记录总数。
+                    total: total,
+                    //分页尺寸。指示每页最多显示的记录数量。
+                    pageSize: _ps,
+                    //当前页索引编号。从0开始的整数。
+                    pageIndex: _cp-1,
+                    //指示分页导航栏中最多显示的页索引数量。
+                    pageGroupSize: 10,
+                    //位于导航条左侧的输出信息格式化字符串
+                    //leftFormateString: "本页{count}条记录/共{total}条记录",
+                    //位于导航条右侧的输出信息格式化字符串
+                    rightFormateString: "共{totalPages}页",
+                    //页码文本格式化字符串。
+                    pageNumberFormateString: "{pageNumber}",
+                    //分页尺寸输出格式化字符串
+                    pageSizeListFormateString: "{pageSize}条/页",
+                    //上一页导航按钮文本。
+                    prevPageText: "上一页",
+                    //下一页导航按钮文本。
+                    nextPageText: "下一页",
+                    //上一组分页导航按钮文本。
+                    prevGroupPageText: "上一组",
+                    //下一组分页导航按钮文本。
+                    nextGroupPageText: "下一组",
+                    //首页导航按钮文本。
+                    firstPageText: "首页",
+                    //尾页导航按钮文本。
+                    lastPageText: "尾页",
+                    //设置页码输入框中显示的提示文本。
+                    pageInputPlaceholder: "go",
+                    //接受用户输入内容的延迟时间。单位：毫秒
+                    pageInputTimeout: 1000,
+                    //分页尺寸列表。
+                    pageSizeList: [15, 20, 30, 45, 50],
+                    //当分页更改后引发此事件。
+                    pageChanged: function (pageIndex, pageSize) {
+                        searchNotice(pageIndex+1, pageSize);
+                    },
+                });
+            } else {
+                layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+</script>
+
+</body>
+
+</html>

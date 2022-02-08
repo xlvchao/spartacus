@@ -1,0 +1,837 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>超人.FM|Superman.fm</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <!--<link href="css/animate.css" rel="stylesheet">-->
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>高频访问IP</h5>
+                        <div class="ibox-tools">
+                            <div class="pull-right" style="margin-right: 10px;">
+	                            <div class="btn-group">
+	                                <button id="chart1_day_id" type="button" class="btn btn-xs btn-white active">日</button>
+	                                <button id="chart1_month_id" type="button" class="btn btn-xs btn-white">月</button>
+	                                <button id="chart1_year_id" type="button" class="btn btn-xs btn-white">年</button>
+	                                <button id="chart1_total_id" type="button" class="btn btn-xs btn-white">全部</button>
+	                            </div>
+                        	</div>
+                        </div>
+                    </div>
+                    <div class="ibox-content" id="left_div_id" style="height: 351px;">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">编号</th>
+                                    <th style="text-align: center;">IP</th>
+                                    <th style="text-align: center;">IP位置</th>
+                                    <th style="text-align: center;">访问次数</th>
+                                    <th style="text-align: center;">解/封禁</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody1_id">
+                                <!--<tr>
+                                    <td style="text-align: center;">1</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;"> 400</td>
+                                    <td style="text-align: center;"> 封禁/解封</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">2</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;"> 400</td>
+                                    <td style="text-align: center;"> 封禁/解封</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">3</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;"> 400</td>
+                                    <td style="text-align: center;"> 封禁/解封</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">4</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;"> 400</td>
+                                    <td style="text-align: center;"> 封禁/解封</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">5</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;"> 400</td>
+                                    <td style="text-align: center;"> 封禁/解封</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">6</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;"> 400</td>
+                                    <td style="text-align: center;"> 封禁/解封</td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                        <!--分页-->
+						<div class="text-center">
+							<!-- 下面是控制分页控件，必须要是ul元素才行 -->
+							<ul id='page_element_id1' class="pagination pagination-lg" style="margin: 0 0;"></ul>
+						</div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>分时段统计</h5>
+                        <div class="ibox-tools">
+                            <div class="pull-right" style="margin-right: 10px;">
+	                            <h5 id="selected_ip">IP : 192.168.1.1</h5>
+                        	</div>
+                        </div>
+                    </div>
+                    <div class="ibox-content" id="right_div_id" style="height: 351px;">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">编号</th>
+                                    <th style="text-align: center;">时间段</th>
+                                    <th style="text-align: center;">访问次数</th>
+                                    <th style="text-align: center;">平均间隔</th>
+                                    <th style="text-align: center;">人机推断</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody2_id">
+                               <!-- <tr>
+                                    <td style="text-align: center;">1</td>
+                                    <td style="text-align: center;">00:00:00-02:00:00</td>
+                                    <td style="text-align: center;"> 40</td>
+                                    <td style="text-align: center;"> 4/s</td>
+                                    <td style="text-align: center;" > 人</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">2</td>
+                                    <td style="text-align: center;">02:00:00-04:00:00</td>
+                                    <td style="text-align: center;"> 400</td>
+                                    <td style="text-align: center;"> 4/s</td>
+                                    <td style="text-align: center;" class="text-danger"> 机</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">3</td>
+                                    <td style="text-align: center;">04:00:00-06:00:00</td>
+                                    <td style="text-align: center;"> 40</td>
+                                    <td style="text-align: center;"> 4/s</td>
+                                    <td style="text-align: center;" > 人</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">4</td>
+                                    <td style="text-align: center;">06:00:00-08:00:00</td>
+                                    <td style="text-align: center;"> 400</td>
+                                    <td style="text-align: center;"> 4/s</td>
+                                    <td style="text-align: center;" class="text-danger"> 机</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">5</td>
+                                    <td style="text-align: center;">08:00:00-10:00:00</td>
+                                    <td style="text-align: center;"> 40</td>
+                                    <td style="text-align: center;"> 4/s</td>
+                                    <td style="text-align: center;" > 人</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">6</td>
+                                    <td style="text-align: center;">10:00:00-12:00:00</td>
+                                    <td style="text-align: center;"> 400</td>
+                                    <td style="text-align: center;"> 4/s</td>
+                                    <td style="text-align: center;" class="text-danger"> 机</td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                        <!--分页-->
+						<div class="text-center">
+							<!-- 下面是控制分页控件，必须要是ul元素才行 -->
+							<ul id='page_element_id2' class="pagination pagination-lg" style="margin: 0 0;"></ul>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>访问记录</h5>
+                        <div class="ibox-tools">
+                            <div class="pull-right" style="margin-right: 10px;">
+                            <div class="btn-group">
+                                <button id="chart3_day_id" type="button" class="btn btn-xs btn-white active">日</button>
+                                <button id="chart3_month_id" type="button" class="btn btn-xs btn-white">月</button>
+                                <button id="chart3_year_id" type="button" class="btn btn-xs btn-white">年</button>
+                                <button id="chart3_total_id" type="button" class="btn btn-xs btn-white">全部</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">编号</th>
+                                    <th style="text-align: center;">URL</th>
+                                    <th style="text-align: center;">访问时间</th>
+                                    <th style="text-align: center;">IP</th>
+                                    <th style="text-align: center;">IP位置</th>
+                                    <th style="text-align: center;">ClientId</th>
+                                    <th style="text-align: center;">解/封禁</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody3_id">
+                                <!--<tr>
+                                    <td style="text-align: center;">1</td>
+                                    <td style="text-align: center;">http://superman.fm/index.html</span></td>
+                                    <td style="text-align: center;">2018-09-11 18:17</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;">119.36462,34.256352</td>
+                                    <td style="text-align: center;">深圳</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">2</td>
+                                    <td style="text-align: center;">http://superman.fm/index.html</span></td>
+                                    <td style="text-align: center;">2018-09-11 18:17</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;">119.36462,34.256352</td>
+                                    <td style="text-align: center;">深圳</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">3</td>
+                                    <td style="text-align: center;">http://superman.fm/index.html</span></td>
+                                    <td style="text-align: center;">2018-09-11 18:17</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;">119.36462,34.256352</td>
+                                    <td style="text-align: center;">深圳</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">4</td>
+                                    <td style="text-align: center;">http://superman.fm/index.html</span></td>
+                                    <td style="text-align: center;">2018-09-11 18:17</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;">119.36462,34.256352</td>
+                                    <td style="text-align: center;">深圳</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">5</td>
+                                    <td style="text-align: center;">http://superman.fm/index.html</span></td>
+                                    <td style="text-align: center;">2018-09-11 18:17</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;">119.36462,34.256352</td>
+                                    <td style="text-align: center;">深圳</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">6</td>
+                                    <td style="text-align: center;">http://superman.fm/index.html</span></td>
+                                    <td style="text-align: center;">2018-09-11 18:17</td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;">119.36462,34.256352</td>
+                                    <td style="text-align: center;">深圳</td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                        <!--分页-->
+						<div class="text-center">
+							<!-- 下面是控制分页控件，必须要是ul元素才行 -->
+							<ul id='page_element_id3' class="pagination pagination-lg" style="margin: 0 0;"></ul>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- 全局js -->
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.js"></script>
+
+<!-- Peity -->
+<script src="js/plugins/peity/jquery.peity.min.js"></script>
+
+<!-- 自定义js -->
+<script src="js/content.js?v=1.0.0"></script>
+<script src="js/common.js"></script>
+
+<!-- Peity -->
+<script src="js/demo/peity-demo.js"></script>
+
+<script src="js/layer/layer.js"></script>
+<script src="js/loadconfig.js"></script>
+
+<script>
+    var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+    var base_domain = getConfig('base_domain');
+
+var global_records;
+
+var scanRecords_origin_currentPage = 1;
+var scanRecords_origin_pageSize = 15;
+var scanRecords_global_currentPage = scanRecords_origin_currentPage;
+var scanRecords_global_pageSize = scanRecords_origin_pageSize;
+var scanRecords_global_flag = "day";
+getScanRecords(scanRecords_origin_currentPage,scanRecords_origin_pageSize,"day");
+
+var highFrequency_origin_currentPage = 1;
+var highFrequency_origin_pageSize = 6;
+var highFrequency_global_currentPage = highFrequency_origin_currentPage;
+var highFrequency_global_pageSize = highFrequency_origin_pageSize;
+var highFrequency_global_flag = "day";
+getHighFrequencyAccessess(highFrequency_origin_currentPage,highFrequency_origin_pageSize,"day");
+
+//高频访问IP列表
+$("#chart1_day_id").click(function() {
+	$("#chart1_day_id").addClass("active");
+	$("#chart1_month_id").removeClass("active");
+	$("#chart1_year_id").removeClass("active");
+	$("#chart1_total_id").removeClass("active");
+	getHighFrequencyAccessess(highFrequency_origin_currentPage,highFrequency_origin_pageSize,"day");
+});
+
+$("#chart1_month_id").click(function() {
+	$("#chart1_day_id").removeClass("active");
+	$("#chart1_month_id").addClass("active");
+	$("#chart1_year_id").removeClass("active");
+	$("#chart1_total_id").removeClass("active");
+	getHighFrequencyAccessess(highFrequency_origin_currentPage,highFrequency_origin_pageSize,"month");
+});
+
+$("#chart1_year_id").click(function() {
+	$("#chart1_day_id").removeClass("active");
+	$("#chart1_month_id").removeClass("active");
+	$("#chart1_year_id").addClass("active");
+	$("#chart1_total_id").removeClass("active");
+	getHighFrequencyAccessess(highFrequency_origin_currentPage,highFrequency_origin_pageSize,"year");
+});
+
+$("#chart1_total_id").click(function() {
+	$("#chart1_day_id").removeClass("active");
+	$("#chart1_month_id").removeClass("active");
+	$("#chart1_year_id").removeClass("active");
+	$("#chart1_total_id").addClass("active");
+	getHighFrequencyAccessess(highFrequency_origin_currentPage,highFrequency_origin_pageSize,"total");
+});
+
+
+//鼠标点击选择行时候变色  
+function onClick(ele,idx) {
+	var oObj = window.event.srcElement;
+	if(oObj.tagName.toLowerCase() == "td") {
+		var oTr = oObj.parentNode;
+		for(var i = 0; i < document.all.tbody1_id.rows.length; i++) {
+			document.all.tbody1_id.rows[i].style.backgroundColor = "";
+			document.all.tbody1_id.rows[i].tag = false;
+		}
+		oTr.style.backgroundColor = "#d9edf7";
+		oTr.tag = true;
+	}
+	
+	var tds = $(ele).find("td");
+	var ip = tds.eq(1).text();
+	$("#selected_ip").html("IP : " + ip);
+	
+	hardPagination(idx, 1); //硬分页
+}
+
+//自动点击第一行
+function clickTheFirstRow(eleId,idx) {
+	for(var i = 0; i < document.all.tbody1_id.rows.length; i++) {
+		document.all.tbody1_id.rows[i].style.backgroundColor = "";
+		document.all.tbody1_id.rows[i].tag = false;
+	}
+	document.all.tbody1_id.rows[0].style.backgroundColor = "#d9edf7";
+	document.all.tbody1_id.rows[0].tag = true;
+	
+	var tds = $("#"+eleId).find("td");
+	var ip = tds.eq(1).text();
+	$("#selected_ip").html("IP : " + ip);
+	
+	hardPagination(idx, 1); //硬分页
+}
+
+function hardPagination(idx, currentPage) {
+	var analysis = global_records[idx]['analysis'];
+	$("#tbody2_id").children().remove();
+	
+	var key;
+	var start = currentPage==1 ? 0 : 12;
+	var end = currentPage==1 ? 1 : 13;
+	var sIdx = currentPage==1 ? 0 : 6;
+	var eIdx = currentPage==1 ? 6 : 12;
+	for (var i = sIdx; i < eIdx; i++) {
+		if (start < 10) {
+			key = "0" + start + ":00:00-0" + end + ":59:59";
+		} else {
+			key = start + ":00:00" + "-" + end + ":59:59";
+		}
+		start += 2;
+		end += 2;
+		
+		var count = analysis[key]['count'];
+		var avgInterval = analysis[key]['avgInterval'];
+		var isRobot = analysis[key]['isRobot'];
+		if(count != 0) {
+			if(isRobot==true) {
+				$("#tbody2_id").append("<tr class='text-danger'> <td style='text-align: center;'>"+(i+1)+"</td> <td style='text-align: center;'>"+key+"</td> <td style='text-align: center;' >"+count+"</td> <td style='text-align: center;' >"+avgInterval+"/s</td> <td style='text-align: center;' ><span class='badge badge-danger'>机</span></td> </tr>");
+			} else {
+				$("#tbody2_id").append("<tr> <td style='text-align: center;'>"+(i+1)+"</td> <td style='text-align: center;'>"+key+"</td> <td style='text-align: center;'>"+count+"</td> <td style='text-align: center;'>"+avgInterval+"/s</td> <td style='text-align: center;' ><span class='badge badge-primary'>人</span></td> </tr>");
+			}
+		} else {
+			$("#tbody2_id").append("<tr> <td style='text-align: center;'>"+(i+1)+"</td> <td style='text-align: center;'>"+key+"</td> <td style='text-align: center;'>-</td> <td style='text-align: center;'>-</td> <td style='text-align: center;' ><span class='badge'>-</span></td> </tr>");
+		}
+	}
+	
+	//构造分页按钮组
+   	var page_element = BootstrapPagination($("#page_element_id2"), {
+        layoutScheme: "firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage",
+        //记录总数。
+        total: 12,
+        //分页尺寸。指示每页最多显示的记录数量。
+        pageSize: 6,
+        //当前页索引编号。从0开始的整数。
+        pageIndex: currentPage-1,
+        //指示分页导航栏中最多显示的页索引数量。
+        pageGroupSize: 10,
+        //位于导航条左侧的输出信息格式化字符串
+        //leftFormateString: "本页{count}条记录/共{total}条记录",
+        //位于导航条右侧的输出信息格式化字符串
+        rightFormateString: "共{totalPages}页",
+        //页码文本格式化字符串。
+        pageNumberFormateString: "{pageNumber}",
+        //分页尺寸输出格式化字符串
+        pageSizeListFormateString: "{pageSize}条/页",
+        //上一页导航按钮文本。
+        prevPageText: "上一页",
+        //下一页导航按钮文本。
+        nextPageText: "下一页",
+        //上一组分页导航按钮文本。
+        prevGroupPageText: "上一组",
+        //下一组分页导航按钮文本。
+        nextGroupPageText: "下一组",
+        //首页导航按钮文本。
+        firstPageText: "首页",
+        //尾页导航按钮文本。
+        lastPageText: "尾页",
+        //设置页码输入框中显示的提示文本。
+        pageInputPlaceholder: "go",
+        //接受用户输入内容的延迟时间。单位：毫秒
+        pageInputTimeout: 1000,
+        //分页尺寸列表。
+        pageSizeList: [15, 20, 30, 45, 50],
+        //当分页更改后引发此事件。
+        pageChanged: function (pageIndex, pageSize) {
+            hardPagination(idx, pageIndex+1);
+        },
+    });
+}
+
+//鼠标点击另外一行时关闭已选行变色  
+function onMouseOut() {
+	var oObj = window.event.srcElement;
+	if(oObj.tagName.toLowerCase() == "td") {
+		var oTr = oObj.parentNode;
+		if(!oTr.tag) oTr.style.backgroundColor = "";
+	}
+}
+
+function confirmForbid(ele, isForbidden, ip, ipCity, tableFlag) {
+	//选中行变色
+	var oTr = $(ele).parent().parent();
+	for(var i = 0; i < document.all.tbody1_id.rows.length; i++) {
+		document.all.tbody1_id.rows[i].style.backgroundColor = "";
+		document.all.tbody1_id.rows[i].tag = false;
+	}
+	$(oTr).css("backgroundColor", "#d9edf7");
+	$(oTr).attr("tag", true);
+
+	if(isForbidden == true) {
+		//询问框
+		parent.layer.confirm('确定 [封禁] 该IP吗？', {
+		  btn: ['确定','取消'] //按钮
+		}, function() {
+			forbid(ip, ipCity, tableFlag);
+		});
+	} else {
+		//询问框
+		parent.layer.confirm('确定 [解封] 该IP吗？', {
+		  btn: ['确定','取消'] //按钮
+		}, function() {
+			unForbid(ip, tableFlag);
+		});
+	}
+}
+
+function forbid(ip, ipCity, tableFlag) {
+    var forbidType = "";
+    if(tableFlag == "highFrequency") {
+        forbidType = highFrequency_global_flag;
+    } else if(tableFlag == "scanRecords") {
+        forbidType = scanRecords_global_flag;
+    }
+
+	$.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-monitor/access/forbid",
+        async : true,
+        data : { //使用Json格式进行透传
+            "ip" : ip,
+            "ipCity" : ipCity,
+            "forbidType" : forbidType
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==0) {
+                getHighFrequencyAccessess(highFrequency_global_currentPage,highFrequency_global_pageSize,highFrequency_global_flag);
+                getScanRecords(scanRecords_global_currentPage,scanRecords_global_pageSize,scanRecords_global_flag);
+
+				parent.layer.msg('封禁成功！', {
+				    icon: 1,
+					time:1000
+				});
+
+        	} else {
+				parent.layer.msg(result.message, {
+				    icon: 2,
+					time:1000
+				});
+        	}
+        }
+    });
+}
+
+function unForbid(ip, tableFlag) {
+	$.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-monitor/access/unForbid",
+        async : true,
+        data : { //使用Json格式进行透传
+            "ip" : ip
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==0) {
+                getHighFrequencyAccessess(highFrequency_global_currentPage,highFrequency_global_pageSize,highFrequency_global_flag);
+                getScanRecords(scanRecords_global_currentPage,scanRecords_global_pageSize,scanRecords_global_flag);
+
+				parent.layer.msg('解封成功！', {
+				    icon: 1,
+					time:1000
+				});
+
+        	} else {
+				parent.layer.msg(result.message, {
+				    icon: 2,
+					time:1000
+				});
+        	}
+        }
+    });
+}
+
+function getHighFrequencyAccessess(cp, ps, flag) {
+	highFrequency_global_currentPage = cp;
+    highFrequency_global_pageSize = ps;
+    highFrequency_global_flag = flag;
+
+	$.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-monitor/access/getHighFrequencyAccessess",
+        async : true,
+        data : { //使用Json格式进行透传
+            "currentPage" : cp,
+            "pageSize" : ps,
+            "flag" : flag
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==0) {
+				$("#tbody1_id").children().remove();
+				
+				global_records = result.data.records;
+				for(var i = 0; i < global_records.length; i++) {
+					var ip = global_records[i]['ip'];
+					var ipCity = global_records[i]['ipCity'];
+					var count = global_records[i]['count'];
+					var forbidden = global_records[i]['forbidden'];
+					
+					if(forbidden == 1) {
+						if(i % 6 == 0) {
+						$("#tbody1_id").append("<tr id='clickid' onClick='onClick(this,"+i+")' onMouseOut='onMouseOut()'> <td style='text-align: center;'>"+(i+1)+"</td> <td style='text-align: center;'>"+ip+"</td> <td style='text-align: center;'>"+ipCity+"</td> <td style='text-align: center;'>"+count+"</td> <td style='text-align: center;'><a onclick='confirmForbid(this,false,"+JSON.stringify(ip)+","+JSON.stringify(ipCity)+","+JSON.stringify("highFrequency")+")'><span class='badge badge-success' style='border-radius: 5px;'>解封</span></a></td> </tr>");
+							//自动点击第一行
+							clickTheFirstRow("clickid", i);
+						} else {
+							$("#tbody1_id").append("<tr onClick='onClick(this,"+i+")' onMouseOut='onMouseOut()'> <td style='text-align: center;'>"+(i+1)+"</td> <td style='text-align: center;'>"+ip+"</td> <td style='text-align: center;'>"+ipCity+"</td> <td style='text-align: center;'>"+count+"</td> <td style='text-align: center;'><a onclick='confirmForbid(this,false,"+JSON.stringify(ip)+","+JSON.stringify(ipCity)+","+JSON.stringify("highFrequency")+")'><span class='badge badge-success' style='border-radius: 5px;'>解封</span></a></td> </tr>");
+						}
+					} else {
+						if(i % 6 == 0) {
+						$("#tbody1_id").append("<tr id='clickid' onClick='onClick(this,"+i+")' onMouseOut='onMouseOut()'> <td style='text-align: center;'>"+(i+1)+"</td> <td style='text-align: center;'>"+ip+"</td> <td style='text-align: center;'>"+ipCity+"</td> <td style='text-align: center;'>"+count+"</td> <td style='text-align: center;'><a onclick='confirmForbid(this,true,"+JSON.stringify(ip)+","+JSON.stringify(ipCity)+","+JSON.stringify("highFrequency")+")'><span class='badge badge-warning' style='border-radius: 5px;'>封禁</span></a></td> </tr>");
+							//自动点击第一行
+							clickTheFirstRow("clickid", i);
+						} else {
+							$("#tbody1_id").append("<tr onClick='onClick(this,"+i+")' onMouseOut='onMouseOut()'> <td style='text-align: center;'>"+(i+1)+"</td> <td style='text-align: center;'>"+ip+"</td> <td style='text-align: center;'>"+ipCity+"</td> <td style='text-align: center;'>"+count+"</td> <td style='text-align: center;'><a onclick='confirmForbid(this,true,"+JSON.stringify(ip)+","+JSON.stringify(ipCity)+","+JSON.stringify("highFrequency")+")'><span class='badge badge-warning' style='border-radius: 5px;'>封禁</span></a></td> </tr>");
+						}
+					}
+				}
+				
+				//构造分页按钮组
+				var total = parseInt(result.data.total);
+			   	var page_element = BootstrapPagination($("#page_element_id1"), {
+	                layoutScheme: "firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage",
+	                //记录总数。
+	                total: total,
+	                //分页尺寸。指示每页最多显示的记录数量。
+	                pageSize: ps,
+	                //当前页索引编号。从0开始的整数。
+	                pageIndex: cp-1,
+	                //指示分页导航栏中最多显示的页索引数量。
+	                pageGroupSize: 2,
+	                //位于导航条左侧的输出信息格式化字符串
+	                //leftFormateString: "本页{count}条记录/共{total}条记录",
+	                //位于导航条右侧的输出信息格式化字符串
+	                rightFormateString: "共{totalPages}页",
+	                //页码文本格式化字符串。
+	                pageNumberFormateString: "{pageNumber}",
+	                //分页尺寸输出格式化字符串
+	                pageSizeListFormateString: "{pageSize}条/页",
+	                //上一页导航按钮文本。
+	                prevPageText: "上一页",
+	                //下一页导航按钮文本。
+	                nextPageText: "下一页",
+	                //上一组分页导航按钮文本。
+	                prevGroupPageText: "上一组",
+	                //下一组分页导航按钮文本。
+	                nextGroupPageText: "下一组",
+	                //首页导航按钮文本。
+	                firstPageText: "首页",
+	                //尾页导航按钮文本。
+	                lastPageText: "尾页",
+	                //设置页码输入框中显示的提示文本。
+	                pageInputPlaceholder: "go",
+	                //接受用户输入内容的延迟时间。单位：毫秒
+	                pageInputTimeout: 1000,
+	                //分页尺寸列表。
+	                pageSizeList: [15, 20, 30, 45, 50],
+	                //当分页更改后引发此事件。
+	                pageChanged: function (pageIndex, pageSize) {
+	                    getHighFrequencyAccessess(pageIndex+1, pageSize, flag);
+	                },
+	            });
+	        } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+   });
+}
+
+
+//访问记录
+$("#chart3_day_id").click(function() {
+	$("#chart3_day_id").addClass("active");
+	$("#chart3_month_id").removeClass("active");
+	$("#chart3_year_id").removeClass("active");
+	$("#chart3_total_id").removeClass("active");
+	getScanRecords(scanRecords_origin_currentPage,scanRecords_origin_pageSize,"day");
+});
+
+$("#chart3_month_id").click(function() {
+	$("#chart3_day_id").removeClass("active");
+	$("#chart3_month_id").addClass("active");
+	$("#chart3_year_id").removeClass("active");
+	$("#chart3_total_id").removeClass("active");
+	getScanRecords(scanRecords_origin_currentPage,scanRecords_origin_pageSize,"month");
+});
+
+$("#chart3_year_id").click(function() {
+	$("#chart3_day_id").removeClass("active");
+	$("#chart3_month_id").removeClass("active");
+	$("#chart3_year_id").addClass("active");
+	$("#chart3_total_id").removeClass("active");
+	getScanRecords(scanRecords_origin_currentPage,scanRecords_origin_pageSize,"year");
+});
+
+$("#chart3_total_id").click(function() {
+	$("#chart3_day_id").removeClass("active");
+	$("#chart3_month_id").removeClass("active");
+	$("#chart3_year_id").removeClass("active");
+	$("#chart3_total_id").addClass("active");
+	getScanRecords(scanRecords_origin_currentPage,scanRecords_origin_pageSize,"total");
+});
+
+function getScanRecords(cp, ps, flag) {
+    scanRecords_global_currentPage = cp;
+    scanRecords_global_pageSize = ps;
+    scanRecords_global_flag = flag;
+
+	$.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-monitor/access/getScanRecords",
+        async : true,
+        data : { //使用Json格式进行透传
+            "currentPage" : cp,
+            "pageSize" : ps,
+            "flag" : flag
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==0) {
+				$("#tbody3_id").children().remove();
+
+				var records = result.data.records;
+				for(var i = 0; i < records.length; i++) {
+					var url = records[i]['url'];
+					var accessTime = millisecondsToLocalDate(records[i]['accessTime']);
+					var ip = records[i]['ip'];
+					var ipCity = records[i]['ipCity'];
+					var clientId = records[i]['clientId'];
+                    var forbidden = records[i]['forbidden'];
+
+                    var trHtml = "<td style='text-align: center;'><a onclick='confirmForbid(this,true,"+JSON.stringify(ip)+","+JSON.stringify(ipCity)+","+JSON.stringify("scanRecords")+")'><span class='badge badge-warning' style='border-radius: 5px;'>封禁</span></a></td>";
+                    if(forbidden == 1) {
+                        trHtml = "<td style='text-align: center;'><a onclick='confirmForbid(this,false,"+JSON.stringify(ip)+","+JSON.stringify(ipCity)+","+JSON.stringify("scanRecords")+")'><span class='badge badge-success' style='border-radius: 5px;'>解封</span></a></td>";
+                    }
+					$("#tbody3_id").append("<tr> " +
+                        "<td style='text-align: center;'>"+(i+1)+"</td> " +
+                        "<td style='text-align: center;'>"+url+"</span></td> " +
+                        "<td style='text-align: center;'>"+accessTime+"</td> " +
+                        "<td style='text-align: center;'>"+ip+"</td> " +
+                        "<td style='text-align: center;'>"+ipCity+"</td> " +
+                        "<td style='text-align: center;'>"+clientId+"</td> " +
+                        trHtml +
+                        "</tr>");
+				}
+				
+				//构造分页按钮组
+				var total = parseInt(result.data.total);
+			   	var page_element = BootstrapPagination($("#page_element_id3"), {
+	                layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+	                //记录总数。
+	                total: total,
+	                //分页尺寸。指示每页最多显示的记录数量。
+	                pageSize: ps,
+	                //当前页索引编号。从0开始的整数。
+	                pageIndex: cp-1,
+	                //指示分页导航栏中最多显示的页索引数量。
+	                pageGroupSize: 5,
+	                //位于导航条左侧的输出信息格式化字符串
+	                //leftFormateString: "本页{count}条记录/共{total}条记录",
+	                //位于导航条右侧的输出信息格式化字符串
+	                rightFormateString: "共{totalPages}页",
+	                //页码文本格式化字符串。
+	                pageNumberFormateString: "{pageNumber}",
+	                //分页尺寸输出格式化字符串
+	                pageSizeListFormateString: "{pageSize}条/页",
+	                //上一页导航按钮文本。
+	                prevPageText: "上一页",
+	                //下一页导航按钮文本。
+	                nextPageText: "下一页",
+	                //上一组分页导航按钮文本。
+	                prevGroupPageText: "上一组",
+	                //下一组分页导航按钮文本。
+	                nextGroupPageText: "下一组",
+	                //首页导航按钮文本。
+	                firstPageText: "首页",
+	                //尾页导航按钮文本。
+	                lastPageText: "尾页",
+	                //设置页码输入框中显示的提示文本。
+	                pageInputPlaceholder: "go",
+	                //接受用户输入内容的延迟时间。单位：毫秒
+	                pageInputTimeout: 1000,
+	                //分页尺寸列表。
+	                pageSizeList: [15, 20, 30, 45, 50],
+	                //当分页更改后引发此事件。
+	                pageChanged: function (pageIndex, pageSize) {
+	                    getScanRecords(pageIndex+1, pageSize, flag);
+	                },
+	            });
+	        } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+    
+}
+
+
+//基于准备好的dom, 自适应宽高
+var left_div = document.getElementById('left_div_id');
+var right_div = document.getElementById('right_div_id');
+var resizeMyContainer = function () {
+    if(left_div.clientHeight >= right_div.clientHeight) {
+    	right_div.style.height = left_div.clientHeight + 'px';
+    } else {
+		left_div.style.height = right_div.clientHeight + 'px';
+    }
+};
+resizeMyContainer();
+//监听窗口大小变化，自适应窗口的高度和宽度
+window.onresize = function () {
+    resizeMyContainer();
+};
+</script>
+
+</body>
+
+</html>

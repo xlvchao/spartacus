@@ -1,0 +1,1111 @@
+﻿<html lang="zh-CN" class="translated-ltr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="spartacus">
+	<title>Sunday | 创意空间</title>
+
+	<!-- Favicons -->
+	<link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32">
+	<link rel="apple-touch-icon" href="icon/favicon-32x32.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="icon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="icon/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="icon/apple-touch-icon-144x144.png">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/nouislider.min.css">
+	<link rel="stylesheet" href="css/select2.min.css">
+	<link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+	<link rel="stylesheet" href="css/ionicons.min.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/footer.css">
+
+	<link type="text/css" rel="stylesheet" charset="UTF-8" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.css" rel="stylesheet" />
+</head>
+
+<body id="index_id" class="body-height-scroll">
+	<!-- header -->
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-7 col-md-9 col-lg-8 col-xl-9">
+					<div class="header__content">
+
+						<!-- header logo -->
+						<a href="index.html" class="header__logo">
+							<img src="img/logo.png" alt="">
+						</a>
+						<!-- end header logo -->
+
+						<!-- header nav -->
+						<ul class="header__nav">
+							<!-- dropdown -->
+							<li class="header__nav-item">
+								<a id="homepageMenu" class="header__nav-link article-top-menu" href="index.html">首页</a>
+							</li>
+							<!-- end dropdown -->
+
+							<!-- dropdown -->
+							<li class="header__nav-item">
+								<a id="technologyMenu" class="header__nav-link article-top-menu" href="index.html">技术</a>
+							</li>
+							<!-- end dropdown -->
+
+							<!-- dropdown -->
+							<li class="header__nav-item">
+								<a id="algorithmMenu" class="header__nav-link article-top-menu" href="index.html">算法</a>
+							</li>
+							<!-- end dropdown -->
+
+							<!-- dropdown -->
+							<li class="header__nav-item">
+								<a id="architectureMenu" class="header__nav-link article-top-menu" href="index.html">架构</a>
+							</li>
+							<!-- end dropdown -->
+
+							<!-- dropdown -->
+							<li class="header__nav-item">
+								<a id="careerMenu" class="header__nav-link article-top-menu" href="index.html">职场</a>
+							</li>
+							<!-- end dropdown -->
+
+							<!-- dropdown -->
+							<li class="header__nav-item">
+								<a id="lifeMenu" class="header__nav-link article-top-menumenu" href="index.html">生活</a>
+							</li>
+							<!-- end dropdown -->
+
+							<!-- dropdown -->
+							<li class="header__nav-item">
+								<a id="archiveMenu" class="header__nav-link article-top-menu" href="index.html" >归档</a>
+							</li>
+							<!-- end dropdown -->
+						</ul>
+						<!-- end header nav -->
+
+						<!-- header search -->
+						<form class="header__search">
+							<input id="search_input_id" class="header__search-input" type="text" placeholder="输入关键字搜索文章...">
+							<button id="searchBtn" class="header__search-button" type="button" onclick="beforeSearch()">
+								<i class="icon ion-ios-search"></i>
+							</button>
+						</form>
+						<!-- end header search -->
+					</div>
+				</div>
+
+				<div class="col-5 col-md-3 col-lg-4 col-xl-3">
+					<div class="header__content header__content--end">
+
+						<a href="javascript:void(0);" onclick="openChatWindow()" class="header__messages header__messages--active header__profile-btn">
+							<img src="img/group.png" id="chatButton" onmouseover="chatTips()">
+						</a>
+
+						<div class="header__profile">
+							<a class="dropdown-toggle header__profile-btn" href="#" role="button" id="dropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img src="img/login.png" id="loginButton" onmouseover="unLoginTips()">
+							</a>
+
+							<ul id="loginMenu" class="dropdown-menu dropdown-menu-right header__dropdown-menu header__dropdown-menu--right" aria-labelledby="dropdownMenuProfile" >
+								<li id="qqLoginBtn"><a id="qqLoginHref"><i class="fa fa-qq"></i>QQ登录</a></li>
+								<li id="wxLoginBtn"><a id="wxLoginHref"><i class="fa fa-weixin"></i>WX登录</a></li>
+								<li id="logoutBtn"><a href="javascript:logOut();"><i class="fa fa-power-off"></i>退出登录</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- end header -->
+
+	<!-- main content -->
+	<main id="main" class="main">
+		<div class="container">
+			<div class="row">
+				<!-- 主体 -->
+				<div class="col-12 col-md-7 col-lg-8 col-xl-9">
+					<!-- post -->
+					<div class="post">
+						<div class="post__head">
+
+							<h2 class="post__title" id="title">资深Wordpress开发人员</h2>
+
+							<div class="post__dropdown">
+								<a class="dropdown-toggle post__dropdown-btn" href="#" role="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="icon ion-md-more"></i>
+								</a>
+
+								<ul class="dropdown-menu dropdown-menu-right post__dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li><a href="javascript:void(0);" class="copy-link">复制链接</a></li>
+									<li><a href='javascript:void(0);' onclick="share()">分享至朋友圈</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="post__wrap">
+							<div class="post__company">
+								<i class="icon ion-ios-person-add"></i>
+								<span id="author">spartacus</span>
+							</div>
+
+							<div class="post__location">
+								<i class="icon ion-ios-time"></i>
+								<span id="publishTime">2021.12.12 12:12:12</span>
+							</div>
+
+						</div>
+
+						<div class="post__description" id="postContent">
+							<p>
+								则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。Lorem Ipsum的段落有很多变体，但是大多数都因注入幽默感或看起来有些难以置信的随机单词而以某种形式发生了变化。如果要使用Lorem Ipsum的段落，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。，则需要确保文本中间没有隐藏任何令人尴尬的内容。
+							</p>
+						</div>
+
+						<div class="post__tags" id="labels">
+							<a style="cursor: default;" href="#">HTML</a>
+							<a style="cursor: default;" href="#">CSS</a>
+							<a style="cursor: default;" href="#">PHP</a>
+						</div>
+
+						<div class="post__stats">
+							<div>
+								<a id="btn_like" class="post__likes" href="javascript:void(0);" onclick="like(this)"><i id="icon_like" class="icon ion-ios-heart"></i> <span id="likeNumber">15</span></a>
+								<a style="cursor: default;" class="post__comments" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1"><i class="icon ion-ios-text"></i> <span id="commentNumber">0</span></a>
+							</div>
+
+							<div class="post__views">
+								<i class="icon ion-ios-eye"></i> <span id="scanNumber">214</span>
+							</div>
+						</div>
+
+						<div class="wang-editor-z-index" style="margin-top: 20px;">
+							<div id="wangEditor" style="width: 910px;"></div>
+						</div>
+						<div class="collapse show post__collapse" id="collapse1">
+							<!--<form action="#" class="post__form">
+								<input type="text" placeholder="输入您的评论...">
+								<button type="button"><i class="icon ion-ios-paper-plane"></i></button>
+							</form>-->
+
+							<div id="commentContainer">
+								<div>
+									<div>
+										<div class="post__comment" style="flex-wrap: nowrap">
+											<a href="javascript:void(0);" class="post__comment-img" style="overflow: inherit; width: 60px; height: 60px;">
+												<img src="img/user5.jpg" alt="">
+											</a>
+											<div class="post__comment-title">
+												<h5><a href="javascript:void(0);">spartacus：</a>
+													<font class="comment_content">暂无评论，快来抢沙发吧！</font>
+												</h5>
+												<p style="margin-top: 10px;">刚刚</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- view more -->
+							<button id="loadMore" class="main__btn" type="button" onclick="getComments()"><span>加载更多</span></button>
+							<!-- end view more -->
+						</div>
+					</div>
+					<!-- end post -->
+
+					<!--<h3 class="main__title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">推荐阅读</font></font></h3>
+
+					<div class="row">
+						<div class="col-12 col-xl-6">
+							&lt;!&ndash; post &ndash;&gt;
+							<div class="post post&#45;&#45;clear">
+								<div class="post__head">
+									<a href="#" class="post__head-img">
+										<img src="img/user5.jpg" alt="">
+									</a>
+									<div class="post__head-title">
+										<h5><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">约翰·杜</font></font></a></h5>
+										<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">15分钟前</font></font></p>
+									</div>
+
+									<div class="post__dropdown">
+										<a class="dropdown-toggle post__dropdown-btn" href="#" role="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="icon ion-md-more"></i>
+										</a>
+
+										<ul class="dropdown-menu dropdown-menu-right post__dropdown-menu" aria-labelledby="dropdownMenu3">
+											<li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">编辑</font></font></a></li>
+											<li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">删除</font></font></a></li>
+											<li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">隐藏</font></font></a></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="post__wrap">
+									<div class="post__company">
+										<i class="icon ion-ios-briefcase"></i>
+										<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Envato</font></font></span>
+									</div>
+
+									<div class="post__location">
+										<i class="icon ion-ios-navigate"></i>
+										<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">澳大利亚</font></font></span>
+									</div>
+
+									<div class="post__actions">
+										<a class="post__actions-btn post__actions-btn&#45;&#45;green" href="#">
+											<i class="icon ion-ios-bookmark"></i>
+										</a>
+										<a class="post__actions-btn post__actions-btn&#45;&#45;red" href="#">
+											<i class="icon ion-ios-mail"></i>
+										</a>
+									</div>
+								</div>
+
+								<h2 class="post__title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">WordPress开发人员</font></font></h2>
+
+								<div class="post__options">
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">全职</font></font></span>
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$ 22 /小时</font></font></p>
+								</div>
+
+								<div class="post__description">
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变体，但是大多数都因注入幽默感或看起来有些难以置信的随机单词而以某种形式发生了变化。</font><font style="vertical-align: inherit;">如果要使用Lorem Ipsum的段落，则需要确保文本中间没有隐藏任何令人尴尬的内容。</font></font></p>
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看更多</font></font></a>
+								</div>
+
+								<div class="post__tags">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">HTML </font></font></a>
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CSS </font></font></a>
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">PHP </font></font></a>
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">WordPress</font></font></a>
+								</div>
+							</div>
+							&lt;!&ndash; end post &ndash;&gt;
+						</div>
+
+						<div class="col-12 col-xl-6">
+							&lt;!&ndash; post &ndash;&gt;
+							<div class="post post&#45;&#45;clear">
+								<div class="post__head">
+									<a href="#" class="post__head-img">
+										<img src="img/user1.jpg" alt="">
+									</a>
+									<div class="post__head-title">
+										<h5><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">背风处</font></font></a></h5>
+										<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">11分钟前</font></font></p>
+									</div>
+
+									<div class="post__dropdown">
+										<a class="dropdown-toggle post__dropdown-btn" href="#" role="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="icon ion-md-more"></i>
+										</a>
+
+										<ul class="dropdown-menu dropdown-menu-right post__dropdown-menu" aria-labelledby="dropdownMenu4">
+											<li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">编辑</font></font></a></li>
+											<li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">删除</font></font></a></li>
+											<li><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">隐藏</font></font></a></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="post__wrap">
+									<div class="post__company">
+										<i class="icon ion-ios-briefcase"></i>
+										<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Envato</font></font></span>
+									</div>
+
+									<div class="post__location">
+										<i class="icon ion-ios-navigate"></i>
+										<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">越南</font></font></span>
+									</div>
+
+									<div class="post__actions">
+										<a class="post__actions-btn post__actions-btn&#45;&#45;green" href="#">
+											<i class="icon ion-ios-bookmark"></i>
+										</a>
+										<a class="post__actions-btn post__actions-btn&#45;&#45;red" href="#">
+											<i class="icon ion-ios-mail"></i>
+										</a>
+									</div>
+								</div>
+
+								<h2 class="post__title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Laravel开发人员</font></font></h2>
+
+								<div class="post__options">
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">全职</font></font></span>
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$ 36 /小时</font></font></p>
+								</div>
+
+								<div class="post__description">
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Lorem Ipsum的段落有很多变体，但是大多数都因注入幽默感或看起来有些难以置信的随机单词而以某种形式发生了变化。</font><font style="vertical-align: inherit;">如果要使用Lorem Ipsum的段落，则需要确保文本中间没有隐藏任何令人尴尬的内容。</font></font></p>
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看更多</font></font></a>
+								</div>
+
+								<div class="post__tags">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">HTML </font></font></a>
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">CSS </font></font></a>
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">PHP </font></font></a>
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Laravel</font></font></a>
+								</div>
+							</div>
+							&lt;!&ndash; end post &ndash;&gt;
+						</div>
+					</div>-->
+				</div>
+
+				<!-- 右边栏 -->
+				<div class="col-12 col-md-5 col-lg-4 col-xl-3">
+					<!-- sidebox -->
+					<div class="sidebox sidebox--desk">
+						<h4 class="sidebox__title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">阅读最多</font></font></h4>
+						<div class="sidebox__content full-height-scroll" id="readMostContainer" style="height: 301px; overflow-y: scroll">
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">UI / UX Designer </font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">后端开发人员</font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">高级Java开发人员</font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">高级Java开发人员</font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">高级Java开发人员</font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+						</div>
+						<!--						<a href="#" class="sidebox__more"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看更多</font></font></a>-->
+					</div>
+					<!-- end sidebox -->
+
+
+					<!-- sidebox -->
+					<div class="sidebox sidebox--desk">
+						<h4 class="sidebox__title">点赞最多</h4>
+						<div class="sidebox__content full-height-scroll" id="likeMostContainer" style="height: 301px; overflow-y: scroll">
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">前端开发人员</font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description">因此，生成的Lorem Ipsum始终没有重复。</p>
+							</div>
+
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">UI / UX Designer </font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">后端开发人员</font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">领队</font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">高级Java开发人员</font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">高级Java开发人员</font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+
+							<div class="sidebox__job">
+								<div class="sidebox__job-title">
+									<a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">高级Java开发人员</font></font></a>
+									<span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3天前</font></font></span>
+								</div>
+								<p class="sidebox__job-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">因此，生成的Lorem Ipsum始终没有重复。
+								</font></font></p>
+							</div>
+						</div>
+						<!--						<a href="#" class="sidebox__more"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看更多</font></font></a>-->
+					</div>
+					<!-- end sidebox -->
+
+
+					<!-- sidebox -->
+					<div class="sidebox sidebox--desk">
+						<h4 class="sidebox__title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">最近评论</font></font></h4>
+						<div class="sidebox__content full-height-scroll" id="recentCommentsContainer" style="height: 332px; overflow-y: scroll; padding-right: 5px;">
+							<div class="sidebox__user">
+								<a href="#" class="sidebox__user-img">
+									<img src="img/user3.jpg" alt="">
+								</a>
+								<div class="sidebox__user-title">
+									<h5><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">玛莎·鲍德温（Marsha Baldwin）</font></font></a></h5>
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">秘书</font></font></p>
+								</div>
+							</div>
+
+							<div class="sidebox__user">
+								<a href="#" class="sidebox__user-img">
+									<img src="img/user3.jpg" alt="">
+								</a>
+								<div class="sidebox__user-title">
+									<h5><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">玛莎·鲍德温（Marsha Baldwin）</font></font></a></h5>
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">秘书</font></font></p>
+								</div>
+							</div>
+
+							<div class="sidebox__user">
+								<a href="#" class="sidebox__user-img">
+									<img src="img/user3.jpg" alt="">
+								</a>
+								<div class="sidebox__user-title">
+									<h5><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">玛莎·鲍德温（Marsha Baldwin）</font></font></a></h5>
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">秘书</font></font></p>
+								</div>
+							</div>
+
+							<div class="sidebox__user">
+								<a href="#" class="sidebox__user-img">
+									<img src="img/user3.jpg" alt="">
+								</a>
+								<div class="sidebox__user-title">
+									<h5><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">玛莎·鲍德温（Marsha Baldwin）</font></font></a></h5>
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">秘书</font></font></p>
+								</div>
+							</div>
+
+							<div class="sidebox__user">
+								<a href="#" class="sidebox__user-img">
+									<img src="img/user2.jpg" alt="">
+								</a>
+								<div class="sidebox__user-title">
+									<h5><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">托尼·杨</font></font></a></h5>
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">中医师</font></font></p>
+								</div>
+							</div>
+
+							<div class="sidebox__user">
+								<a href="#" class="sidebox__user-img">
+									<img src="img/user9.jpg" alt="">
+								</a>
+								<div class="sidebox__user-title">
+									<h5><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">圣地亚哥·罗宾逊</font></font></a></h5>
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">时装设计师</font></font></p>
+								</div>
+							</div>
+
+							<div class="sidebox__user">
+								<a href="#" class="sidebox__user-img">
+									<img src="img/user4.jpg" alt="">
+								</a>
+								<div class="sidebox__user-title">
+									<h5><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">索菲亚·门多萨（Sophia）</font></font></a></h5>
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">教学助手</font></font></p>
+								</div>
+							</div>
+
+							<div class="sidebox__user">
+								<a href="#" class="sidebox__user-img">
+									<img src="img/user6.jpg" alt="">
+								</a>
+								<div class="sidebox__user-title">
+									<h5><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">玛莎·鲍德温（Marsha Baldwin）</font></font></a></h5>
+									<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">园丁</font></font></p>
+								</div>
+							</div>
+						</div>
+						<!--						<a href="#" class="sidebox__more"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">查看更多</font></font></a>-->
+					</div>
+					<!-- end sidebox -->
+				</div>
+			</div>
+		</div>
+	</main>
+	<!-- end main content -->
+
+	<!-- footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="footer__content">
+						<a href="index.html" class="footer__logo">
+							<img src="img/logo.png" alt="">
+						</a>
+
+						<span class="footer__copyright"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">©2021 </font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">由</font><a href="https://github.com/xlvchao/spartacus" target="_blank"><font style="vertical-align: inherit;">spartacus</font></a><font style="vertical-align: inherit;">创建</font></font><a href="https://github.com/xlvchao/spartacus" target="_blank"><font style="vertical-align: inherit;"></font></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://beian.miit.gov.cn/" target="_blank">ICP备案号: 粤ICP备2020077535号</a></span>
+
+						<nav class="footer__nav">
+							<a id="mpQrcode" href="javascript:void(0)">公众号
+								<img src="img/spartacus_qrcode.jpg">
+							</a>
+							<a id="privacyPolicy" href="javascript:void(0)" onmouseenter="privaycTip()" onmouseleave="closePrivaycTip()">隐私政策</a>
+						</nav>
+
+						<button class="footer__back" type="button">
+							<i class="icon ion-ios-arrow-round-up"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- end footer -->
+
+	<!-- JS -->
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/wNumb.js"></script>
+	<script src="js/nouislider.min.js"></script>
+	<script src="js/select2.min.js"></script>
+	<script src="js/jquery.mousewheel.min.js"></script>
+	<script src="js/jquery.mCustomScrollbar.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="plugins/layer/layer.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/init.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.js"></script>
+	<script src="js/loadconfig.js"></script>
+	<script src="js/authxxx.js"></script>
+	<script src="js/header.js"></script>
+	<script src="js/footer.js"></script>
+	<script src="js/body.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+	<script type="text/javascript" src="plugins/wangEditor-4.7.11/wangEditor.js"></script>
+<!--	<script src="https://rawgit.com/leizongmin/js-xss/master/dist/xss.js"></script>-->
+	<script src="plugins/xss/xss.min.js"></script>
+
+
+<script>
+	var auth_domain = getConfig('auth_domain');
+	var base_domain = getConfig('base_domain');
+
+	var global_currentPage=1;
+	var global_pageSize=10;
+	var global_totalPages=1;
+	var global_hasLoadHistory=false; //标志是否加载过
+
+	var global_article_id = getUrlParam("articleId");
+	var global_article_title = "";
+
+	var allEditors = {};
+
+	//右侧栏
+	findLikeMost();
+	findReadMost();
+	getRecentComments();
+
+	//获取文章
+	getArticle(global_article_id);
+
+	//初始化根评论编辑器
+	createEditor("wangEditor");
+
+	var clipboard = new ClipboardJS('.copy-link', {
+		text: function(trigger) {
+			layer.msg('复制成功！');
+			return base_domain+"/spartacus-sunday/article.html?articleId="+global_article_id;
+		}
+	});
+
+	function share() {
+		var url=base_domain+"/spartacus-sunday/article.html?articleId="+global_article_id;
+		var index = layer.open({
+			height: '210px',
+			type: 1,
+			title: false,
+			closeBtn: 0,
+			area: ['auto'],
+			skin: 'layui-layer-nobg', //没有背景色
+			shadeClose: true,
+			content: '<div align="center" style="width: 180px; height: 205px; background-color: #FFFFFF; align-content: center"><img style="margin: 15px 15px 10px 15px;" src="https://api.qrserver.com/v1/create-qr-code?size=150x150&data='+url+'"><br><span style="font-size: 10">微信扫一扫，分享到朋友圈</span></div>'
+		});
+	}
+
+	function getArticle(articleId) {
+		$.ajax({
+			type : "POST",
+			url : base_domain+"/spartacus-article/article/getArticle/"+articleId,
+			async : true,
+			dataType:"json",
+			headers: {
+				"clientId":"spartacus-sunday",
+				"clientCurrentId":getClientCurrentId()
+			},
+			success : function(result) {
+				if (result.code==0) {
+					$("#postContent").children().remove();
+
+					var article = result.data;
+					var id = article.id;
+					var author = article.author;
+					var brief = article.brief;
+					var cname = article.cname;
+					var likeNumber = article.likeNumber;
+					var commentNumber = article.commentNumber;
+					var content = article.content;
+					var fromWhere = article.fromWhere;
+					var isTop = article.isTop;
+					var labels = article.labels;
+					var monthDay = article.monthDay;
+					var pictures = [];
+					if(!isNullOrEmpty(article.pictures)) {
+						pictures = article.pictures.split(";");
+					}
+					var publishTime = article.publishTime;
+					var scanNumber = article.scanNumber;
+					var status = article.status;
+					var title = article.title;
+					global_article_title = title;
+					var year = article.year;
+
+					var labelHtml = '';
+					if(labels != null && labels !='') {
+						var labelArray = labels.split(',');
+						for(var j = 0; j < labelArray.length; j++) {
+							labelHtml += "<a style='cursor: default;' href='#'>"+labelArray[j]+"</a>";
+						}
+					}
+
+					$("#title").text(title);
+					$("#author").text(author);
+					$("#publishTime").text(millisecondsToLocalDate(publishTime));
+					$("#postContent").append(content);
+					$("#labels").children().remove();
+					$("#labels").append(labelHtml);
+					$("#likeNumber").text(likeNumber);
+					$("#commentNumber").text(commentNumber);
+					$("#scanNumber").text(scanNumber);
+
+					checkOneLikeMember();
+
+					getComments(1, 10)
+
+				} else {
+					parent.layer.msg("文章加载失败！", {
+						icon: 2,
+						time:1000
+					});
+				}
+			},
+			error: function (xhr, status, error) {
+				parent.layer.msg("文章加载失败！", {
+					icon: 2,
+					time:1000
+				});
+			}
+		});
+	}
+
+	function getComments() {
+		if(global_currentPage > global_totalPages) {
+			parent.layer.msg("已经加载完啦", function(){});
+			return;
+		}
+
+		$.ajax({
+			type : "POST",
+			url : base_domain+"/spartacus-comment/comment/findByArticleId",
+			async : true,
+			data : {
+				"articleId" : global_article_id,
+				"status" : 1,
+				"currentPage" : global_currentPage,
+				"pageSize" : global_pageSize
+			},
+			dataType:"json",
+			headers: {
+				"clientId":"spartacus-sunday",
+				"clientCurrentId":getClientCurrentId()
+			},
+			success : function(result) {
+				console.log(result);
+				if (result.code==0) {
+					var comments = result.data.comments;
+					if(!jQuery.isEmptyObject(comments)) {
+						if(!global_hasLoadHistory) {
+							$("#commentContainer").children().remove();
+						}
+						for(var key in comments) {
+							var id = comments[key]['id'];
+							var refId = comments[key]['refId'];
+							var frontId = comments[key]['frontId'];
+							var articleId = comments[key]['articleId'];
+							var nickname = comments[key]['nickname'];
+							var headImg = comments[key]['headImg'];
+							var content = comments[key]['content'];
+							var publishTime = displayTime(millisecondsToLocalDate(comments[key]['publishTime']));
+							$("#commentContainer").append("<div id='root_"+id+"'><div id='id_"+id+"'><div class='post__comment'style='flex-wrap: nowrap'><a href='javascript:void(0);'class='post__comment-img'style='overflow: inherit; width: 40px; height: 40px;'><img src='"+headImg+"'alt=''></a><div class='post__comment-title'><h5><a href='javascript:void(0);'>"+nickname+"：</a><font class='comment_content'>"+content+"</font></h5><p style='margin-top: 10px;'>"+publishTime+"<a id='reply_wangEditor_"+id+"'href='javascript:void(0);'style='padding-left: 15px; cursor: pointer;' ref-id='"+id+"' front-id='"+id+"' editor-id='wangEditor_"+id+"'onclick='replyComment(this)'>回复</a></p></div></div><div id='wangEditor_"+id+"'style='margin-top: 20px;' class='wang-editor-z-index'></div></div></div>");
+
+							var subComments = comments[key]['subComments'];
+							if(!jQuery.isEmptyObject(subComments)) {
+								for(var subKey in subComments) {
+									var sub_id = subComments[subKey]['id'];
+									var sub_refId = comments[key]['refId'];
+									var sub_frontId = subComments[subKey]['frontId'];
+									var sub_nickname = subComments[subKey]['nickname'];
+
+									var reply_nickname = nickname;
+									if(!jQuery.isEmptyObject(subComments[frontId])) {
+										reply_nickname = subComments[frontId]['nickname'];
+									}
+
+									var sub_headImg = subComments[subKey]['headImg'];
+									var sub_content = subComments[subKey]['content'];
+									var sub_publishTime = displayTime(millisecondsToLocalDate(subComments[subKey]['publishTime']));
+
+									if($("#id_"+sub_frontId).length > 0) {
+										$("#id_"+sub_frontId).after("<div style='margin-left: 55px;'id='id_"+sub_id+"'><div class='post__comment'style='flex-wrap: nowrap'><a href='javascript:void(0);'class='post__comment-img'style='overflow: inherit; width: 40px; height: 40px;'><img src='"+sub_headImg+"'alt=''></a><div class='post__comment-title'><h5><a href='javascript:void(0);'>"+sub_nickname+"&nbsp;<i class='fa fa-angle-double-right'></i>&nbsp;"+reply_nickname+"：</a><font class='comment_content'>"+sub_content+"</font></h5><p style='margin-top: 10px;'>"+sub_publishTime+"<a id='reply_wangEditor_"+sub_id+"'href='javascript:void(0);'style='padding-left: 15px; cursor: pointer;' ref-id='"+id+"' front-id='"+sub_id+"' editor-id='wangEditor_"+sub_id+"'onclick='replyComment(this)'>回复</a></p></div></div><div id='wangEditor_"+sub_id+"' style='margin-top: 20px;' class='wang-editor-z-index'></div></div>");
+									} else {
+										$('#root_'+id).append("<div style='margin-left: 55px;'id='id_"+sub_id+"'><div class='post__comment'style='flex-wrap: nowrap'><a href='javascript:void(0);'class='post__comment-img'style='overflow: inherit; width: 40px; height: 40px;'><img src='"+sub_headImg+"'alt=''></a><div class='post__comment-title'><h5><a href='javascript:void(0);'>"+sub_nickname+"&nbsp;<i class='fa fa-angle-double-right'></i>&nbsp;"+reply_nickname+"：</a><font class='comment_content'>"+sub_content+"</font></h5><p style='margin-top: 10px;'>"+sub_publishTime+"<a id='reply_wangEditor_"+sub_id+"'href='javascript:void(0);'style='padding-left: 15px; cursor: pointer;' ref-id='"+id+"' front-id='"+sub_id+"' editor-id='wangEditor_"+sub_id+"'onclick='replyComment(this)'>回复</a></p></div></div><div id='wangEditor_"+sub_id+"' style='margin-top: 20px;' class='wang-editor-z-index'></div></div>");
+									}
+								}
+							}
+						}
+					}
+
+					global_totalPages = result.data.totalPages;
+					global_currentPage += 1;
+					global_hasLoadHistory = true;
+
+				} else {
+					parent.layer.msg("评论加载失败！", {
+						icon: 2,
+						time:1000
+					});
+				}
+			},
+			error: function (xhr, status, error) {
+				parent.layer.msg("评论加载失败！", {
+					icon: 2,
+					time:1000
+				});
+			}
+		});
+	}
+
+	function replyComment(self) {
+		var edId = $(self).attr('editor-id');
+		createEditor(edId);
+
+		$("#reply_"+edId).text("取消回复");
+		$("#reply_"+edId).attr("onclick", "cancelReplyComment(this)");
+	}
+
+	function cancelReplyComment(self) {
+		var edId = $(self).attr('editor-id');
+		allEditors[edId].destroy();
+
+		$("#reply_"+edId).text("回复");
+		$("#reply_"+edId).attr("onclick", "replyComment(this)");
+	}
+
+	function submitComment(edId) {
+		var jwt = JSON.parse(localStorage.getItem('social-jwt') || '[]');
+		var nickname = jwt.nickname;
+		var headImg = jwt.headimage;
+		var providerId = jwt.providerId;
+		var providerUserId = jwt.providerUserId;
+		var content = filterXSS(allEditors[edId].txt.text());
+
+		if(isNullOrEmpty(content)) {
+			parent.layer.msg('评论内容不能为空！');
+			return;
+		} else if($.isEmptyObject(jwt)) {
+			parent.layer.msg('您还没有登录哦！');
+			return;
+		} else {
+			var originTime = new Date();
+			var publishTime = convertDateToGivenFormat(originTime, "yyyy-MM-dd HH:mm:ss");
+			console.log("edId: "+edId);
+			var refId = $('#reply_'+edId).attr('ref-id');
+			var frontId = $('#reply_'+edId).attr('front-id');
+			$.ajax({
+				type : "POST",
+				url : base_domain+"/spartacus-comment/comment/submitComment",
+				async : true,
+				data : {
+					"articleId" : global_article_id,
+					"articleTitle" : global_article_title,
+					"refId" : refId, //只有二级评论这个参数才有值
+					"frontId" : frontId, //只有二级评论这个参数才有值
+					"nickname" : nickname,
+					"headImg" : headImg,
+					"content" : content,
+					"publishTime" : publishTime,
+					"providerId" : providerId,
+					"providerUserId" : providerUserId
+				},
+				dataType:"json",
+				headers: {
+					"clientId":"spartacus-sunday",
+					"clientCurrentId":getClientCurrentId(),
+					"userId":jwt.providerUserId,
+					"Authorization":"bearer " + jwt.access_token//自定义请求头
+				},
+				success : function(result) {
+					if (result.code==0) {
+						allEditors[edId].txt.clear();
+						parent.layer.msg('提交成功！请耐心等待审核！', {
+							icon: 1,
+							time:1000
+						});
+
+					} else {
+						parent.layer.msg(result.message, {
+							icon: 2,
+							time:1000
+						});
+					}
+				}
+			});
+		}
+	}
+
+	function like(ele) {
+		var jwt = JSON.parse(localStorage.getItem('social-jwt') || '[]');
+		if($.isEmptyObject(jwt)) {
+			parent.layer.msg('您还没有登录哦！');
+			return;
+		}
+
+		$.ajax({
+			type : "POST",
+			url : base_domain+"/spartacus-article/articleLike/like",
+			async : true,
+			data : { //使用Json格式进行透传
+				"articleId" : global_article_id,
+				"userSequence" : jwt.userSequence
+			},
+			dataType:"json",
+			headers: {
+				"clientId":"spartacus-sunday",
+				"clientCurrentId":getClientCurrentId(),
+				"Authorization":"bearer " + jwt.access_token//自定义请求头
+			},
+			success : function(result) {
+				if (result.code==200) {
+					var likeNum = parseInt($("#likeNumber").text());
+					$("#likeNumber").text(likeNum+1);
+					$("#icon_like").addClass("like-status-bgcolor");
+					$("#btn_like").attr('onclick', 'unLike(this)');
+				}
+			}
+		});
+	}
+
+	function unLike(ele) {
+		var jwt = JSON.parse(localStorage.getItem('social-jwt') || '[]');
+		if($.isEmptyObject(jwt)) {
+			parent.layer.msg('您还没有登录哦！');
+			return;
+		}
+
+		$.ajax({
+			type : "POST",
+			url : base_domain+"/spartacus-article/articleLike/unLike",
+			async : true,
+			data : { //使用Json格式进行透传
+				"articleId" : global_article_id,
+				"userSequence" : jwt.userSequence
+			},
+			dataType:"json",
+			headers: {
+				"clientId":"spartacus-sunday",
+				"clientCurrentId":getClientCurrentId(),
+				"Authorization":"bearer " + jwt.access_token//自定义请求头
+			},
+			success : function(result) {
+				if (result.code==200) {
+					var likeNum = parseInt($("#likeNumber").text());
+					$("#likeNumber").text(likeNum-1);
+					$("#icon_like").removeClass("like-status-bgcolor");
+					$("#btn_like").attr('onclick', 'like(this)');
+				}
+			}
+		});
+	}
+
+	function checkOneLikeMember() {
+		var jwt = JSON.parse(localStorage.getItem('social-jwt') || '[]');
+
+		if(!isNullOrEmpty(jwt.providerUserId)) {
+			var articleLike = {articleId: global_article_id, status: 0, userSequence: jwt.userSequence};
+
+			$.ajax({
+				type : "POST",
+				url : base_domain+"/spartacus-article/articleLike/checkOneLikeMember",
+				async : true,
+				data : articleLike,
+				dataType:"json",
+				headers: {
+					"clientId":"spartacus-sunday",
+					"clientCurrentId":getClientCurrentId(),
+					"Authorization":"bearer " + jwt.access_token//自定义请求头
+				},
+				success : function(result) {
+					if (result.code==200) {
+						var respArticleLike = result.data;
+						if(respArticleLike.status == 1) {
+							$("#btn_like").attr('onclick', 'unLike(this)');
+							$("#icon_like").addClass('like-status-bgcolor');
+						}
+					}
+				}
+			});
+		}
+	}
+
+	function createEditor(edId) {
+		const E = window.wangEditor
+		const { BtnMenu, DropListMenu, PanelMenu, DropList, Panel, Tooltip } = E
+
+		//第一，菜单 class ，Button 菜单继承 BtnMenu class
+		class SendBtnMenu extends BtnMenu {
+			constructor(editor) {
+				// data-title属性表示当鼠标悬停在该按钮上时提示该按钮的功能简述
+				const $elem = E.$(
+						`<div class="w-e-menu" data-title="提交评论" style="position: absolute; right: 0px; height: 41.5px; width: 80px; margin: -0.6px 0px 0px 0px; border: 1px solid #c9d8db;">
+						<button><font style="color: #364e65; font-size: 15px; font-weight: 500;">提交(S)</font></button>
+					</div>`
+				)
+				super($elem, editor)
+			}
+			// 菜单点击事件
+			clickHandler() {
+				// 做任何你想做的事情
+				// 可参考【常用 API】文档，来操作编辑器
+				//layer.msg(editor.txt.html());
+				//layer.msg("评论成功，请耐心等待审核！");
+				var content = filterXSS(allEditors[edId].txt.text());
+				var jwt = JSON.parse(localStorage.getItem('social-jwt') || '[]');
+				if(isNullOrEmpty(content)) {
+					parent.layer.msg('评论内容不能为空！');
+					return;
+				} else if($.isEmptyObject(jwt)) {
+					parent.layer.msg('您还没有登录哦！');
+					return;
+				}
+				submitComment(edId)
+
+				//如果是追评编辑器，则点击发表后自动销毁
+				if(edId != "wangEditor") {
+					allEditors[edId].destroy();
+
+					$("#reply_"+edId).text("回复");
+					$("#reply_"+edId).attr("onclick", "replyComment(this)");
+				}
+
+			}
+			// 菜单是否被激活（如果不需要，这个函数可以空着）
+			// 1. 激活是什么？光标放在一段加粗、下划线的文本时，菜单栏里的 B 和 U 被激活，如下图
+			// 2. 什么时候执行这个函数？每次编辑器区域的选区变化（如鼠标操作、键盘操作等），都会触发各个菜单的 tryChangeActive 函数，重新计算菜单的激活状态
+			tryChangeActive() {
+				// 激活菜单
+				// 1. 菜单 DOM 节点会增加一个 .w-e-active 的 css class
+				// 2. this.this.isActive === true
+				this.active()
+				// // 取消激活菜单
+				// // 1. 菜单 DOM 节点会删掉 .w-e-active
+				// // 2. this.this.isActive === false
+				// this.unActive()
+			}
+		}
+
+		// 菜单 key ，各个菜单不能重复
+		const sendBtnMenuKey = 'sendBtnMenuKey'
+
+		// 注册菜单
+		E.registerMenu(sendBtnMenuKey, SendBtnMenu)
+
+		const editor = new E("#"+edId)
+
+		// 设置编辑区属性
+		editor.config.height = 120
+		editor.config.showFullScreen = false
+		editor.config.placeholder = '说两句吧...'
+
+		// 默认情况下，显示所有菜单
+		editor.config.menus = [
+			'emoticon',
+			'undo',
+			'redo',
+		]
+		editor.create()
+
+		//创建前先销毁其他打开的追评编辑器
+		for(var key in allEditors) {
+			if(key != "wangEditor") {
+				allEditors[key].destroy();
+
+				$("#reply_"+key).text("回复");
+				$("#reply_"+key).attr("onclick", "replyComment(this)");
+			}
+		}
+		allEditors[edId] = editor;
+	}
+
+</script>
+
+</body></html>

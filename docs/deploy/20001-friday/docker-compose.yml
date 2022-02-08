@@ -1,0 +1,49 @@
+version: "3.4"
+networks:
+  #可以自定义network名称，这里使用default表示如果不在service中单独配置就使用该设置 
+  default: 
+    external: 
+      name: app-net
+services:
+  portal1:
+    image: xlvchao/spartacus-friday:1.0.0
+    container_name: friday1
+    restart: always
+    environment:
+      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+      - instanceIp=10.0.0.10
+      - instancePort=20001
+      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+      - APOLLO_ACCESSKEY_SECRET=babd6d93371f4ad38db8aeeab0cec067
+    volumes:
+      - /opt/settings:/opt/settings
+    ports:
+      - 20001:20001
+#  portal2:
+#    image: xlvchao/spartacus-friday:1.0.0
+#    container_name: friday2
+#    restart: always
+#    environment:
+#      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+#      - instanceIp=10.0.0.4
+#      - instancePort=20002
+#      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+#      - APOLLO_ACCESSKEY_SECRET=babd6d93371f4ad38db8aeeab0cec067
+#    volumes:
+#      - /opt/settings:/opt/settings
+#    ports:
+#      - 20002:20002
+#  portal3:
+#    image: xlvchao/spartacus-friday:1.0.0
+#    container_name: friday3
+#    restart: always
+#    environment:
+#      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+#      - instanceIp=10.0.0.14
+#      - instancePort=20003
+#      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+#      - APOLLO_ACCESSKEY_SECRET=babd6d93371f4ad38db8aeeab0cec067
+#    volumes:
+#      - /opt/settings:/opt/settings
+#    ports:
+#      - 20003:20003

@@ -1,0 +1,356 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>超人.FM|Superman.fm</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.7.0" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+	
+	<link href="plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+	<link type="text/css" href="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.css" rel="stylesheet">
+	
+	<style>
+		.float-e-margins .btn {
+     		margin-bottom: 0;
+     	} 
+     	
+     	.table {
+		    table-layout: fixed;
+		    border: 1px solid #e7eaec;
+		}
+		
+		.table tr td {
+		    text-overflow: ellipsis; /* for IE */
+		    -moz-text-overflow: ellipsis; /* for Firefox,mozilla */
+		    overflow: hidden;
+		    white-space: nowrap;
+		}
+	</style>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>禁访列表</h5>
+                    </div>
+                    
+                    <div class="ibox-content">
+                    	<div class="row m-b-sm m-t-sm">
+	                        <div id="botton_group_id" style="padding: 0 15px 0 15px;">
+	                            <button type="button" id="refresh_id" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>&nbsp;Refresh</button>
+	                            <button type="button" id="all_none_select_id" class="btn btn-white btn-sm"><i class="fa fa-signing"></i>&nbsp;全选/全不选</button>
+	                            <button type="button" id="batch_unforbid_id" class="btn btn-white btn-sm" onclick="batchUnForbid()"><i class="fa fa-telegram"></i>&nbsp;批量解封</button>
+	                        
+							</div>
+	                    </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center; width: 5%; border-right: 1px solid #e7eaec;">选择</th>
+                                    <th style="text-align: center; width: 10%;">IP</th>
+									<th style="text-align: center; width: 10%;">IP城市</th>
+									<th style="text-align: center; width: 10%;">封禁类型</th>
+									<th style="text-align: center; width: 10%;">当日访问次数</th>
+									<th style="text-align: center; width: 10%;">当月访问次数</th>
+                                    <th style="text-align: center; width: 10%;">当年访问次数</th>
+                                    <th style="text-align: center; width: 10%;">总访问次数</th>
+                                    <th style="text-align: center; width: 10%;">封禁时间</th>
+                                    <th style="text-align: center; width: 15%;">解禁</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_id">
+                                <tr>
+                                    <td style="text-align: center; border-right: 1px solid #e7eaec;"><input type='checkbox' name='checkbox'></td>
+                                    <td style="text-align: center;">192.168.1.1</td>
+                                    <td style="text-align: center;">深圳</td>
+                                    <td style="text-align: center;">day</td>
+                                    <td style="text-align: center;">10</td>
+                                    <td style="text-align: center;">100</td>
+                                    <td style="text-align: center;">1000</td>
+                                    <td style="text-align: center;">10000</td>
+                                    <td style="text-align: center;">2018-09-11 18:17</td>
+									<td style="text-align: center;">
+                                    	<a onclick='unForbid(this)'><span class='badge badge-primary' style='border-radius: 5px;'>解封</span></a>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                        <!--分页-->
+						<div class="text-center">
+							<!-- 下面是控制分页控件，必须要是ul元素才行 -->
+							<ul id='page_element_id' class="pagination pagination-lg" style="margin: 0 0;"></ul>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- 全局js -->
+<script type="text/javascript" charset="utf-8" src="js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js?v=3.3.6"></script>
+<!--<script type="text/javascript" charset="utf-8" src="bootstrap-paginator-1.0.2/src/bootstrap-paginator.js"></script>-->
+<script type="text/javascript" charset="utf-8" src="js/layer/layer.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.js"></script>
+
+<!-- 自定义js -->
+<script src="js/content.js?v=1.0.0"></script>
+<script src="js/common.js"></script>
+<script src="js/loadconfig.js"></script>
+
+<script>
+
+    var base_domain = getConfig('base_domain');
+
+    var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+var origin_currentPage = 1;
+var origin_pageSize = 15;
+
+var global_currentPage = origin_currentPage;
+var global_pageSize = origin_pageSize;
+
+getForbidRecords(global_currentPage, global_pageSize);
+
+$(function () {
+	//刷新首页数据
+	$('#refresh_id').click(function () {
+	    btn = $(this);
+	    btn.children().addClass('fa-spin');
+	    btn.contents().last().replaceWith(" Loading");
+	   	getForbidRecords(origin_currentPage, origin_pageSize);
+	    window.setTimeout(function () {
+	        btn.children().removeClass('fa-spin');
+	        btn.contents().last().replaceWith(" Refresh");
+	    }, 1000);
+	});
+	
+	//全选/全不选
+	var flag = 'all';
+	$('#all_none_select_id').click(function () {
+	    // 获取所有的复选框
+		var checkElements=document.getElementsByName('checkbox');
+		if(flag == 'all') {
+			for(var i=0;i<checkElements.length;i++) {
+				var checkElement=checkElements[i];
+				checkElement.checked="checked";
+			}
+			flag = 'none';
+		} else if(flag == 'none') {
+			for(var i=0;i<checkElements.length;i++) {
+				var checkElement=checkElements[i];
+				checkElement.checked=null;
+			}
+			flag = 'all';
+		}
+	});
+
+})
+
+function unForbid(obj, unForbidFlag) {
+	var ip = $(obj).attr("ip");
+	
+	$.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-monitor/access/unForbid",
+        async : true,
+        data : { //使用Json格式进行透传
+            "ip" : ip
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==0) {
+            	getForbidRecords(global_currentPage, global_pageSize);
+            	parent.layer.msg('解封成功！', {
+				    icon: 1,
+					time:1000
+				});
+        	} else {
+				parent.layer.msg(result.message, {
+				    icon: 2,
+					time:1000
+				});
+        	}
+        }
+    });
+}
+
+function batchUnForbid() {
+	// 获取所有的复选框
+    var count = 0;
+    var params = [];
+	var checkElements=document.getElementsByName('checkbox');
+	for(var i=0;i<checkElements.length;i++) {
+		var checkElement=checkElements[i];
+		if(checkElement.checked) {
+			count++;
+			var ip = $(checkElement).attr("ip");
+			params.push({"ip":ip});
+		}
+	}
+    
+	if(count == 0) {
+		parent.layer.msg('请至少选中一条数据！', {
+		    icon: 2,
+			time:1000
+		});
+	} else {
+		$.ajax({
+	        type : "POST",
+	        url : base_domain+"/spartacus-monitor/access/batchUnForbid",
+	        async : true,
+	        data : { //使用Json格式进行透传
+	            "jsonParams" : JSON.stringify(params)
+	        },
+	        dataType:"json",
+            headers: {
+                "clientId":"spartacus-friday",
+                "Authorization":"bearer " + jwt.access_token//自定义请求头
+            },
+	        success : function(result) {
+	            if (result.code==0) {
+	            	getForbidRecords(global_currentPage, global_pageSize);
+					parent.layer.msg('批量解封成功！', {
+					    icon: 1,
+						time:1000
+					});
+					
+	        	} else {
+                    parent.layer.msg(result.message, {
+                        icon: 2,
+                        time:1000
+                    });
+	        	}
+	        }
+	    });
+	}
+	
+}
+
+function getForbidRecords( _cp, _ps) {
+	global_currentPage = _cp;
+	global_pageSize = _ps;
+	
+	$.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-monitor/access/getForbids",
+        async : true,
+        data : { //使用Json格式进行透传
+            "currentPage" : _cp,
+            "pageSize" : _ps
+        },
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            if (result.code==0) {
+//          	console.log(result);
+				$("#tbody_id").children().remove();
+				
+				var forbids = result.data.records;
+				for(var i = 0; i < forbids.length; i++) {
+					var id = forbids[i]['id'];
+					var ip = forbids[i]['ip'];
+					var ipCity = forbids[i]['ipCity'];
+					var forbidType = forbids[i]['forbidType'];
+					var dayCount = forbids[i]['dayCount'];
+					var monthCount = forbids[i]['monthCount'];
+					var yearCount = forbids[i]['yearCount'];
+					var totalCount = forbids[i]['totalCount'];
+					var operateTime = millisecondsToLocalDate(forbids[i]['operateTime']);
+					
+					$("#tbody_id").append("<tr> <td style='text-align: center; border-right: 1px solid #e7eaec;'><input type='checkbox' name='checkbox' ip='"+ip+"'></td> <td style='text-align: center;'>"+ip+"</td> <td style='text-align: center;'>"+ipCity+"</td> <td style='text-align: center;'>"+forbidType+"</td> <td style='text-align: center;'>"+dayCount+"</td> <td style='text-align: center;'>"+monthCount+"</td> <td style='text-align: center;'>"+yearCount+"</td> <td style='text-align: center;'>"+totalCount+"</td> <td style='text-align: center;'>"+operateTime+"</td> <td style='text-align: center;'> <a onclick='unForbid(this)' ip='"+ip+"'><span class='badge badge-success' style='border-radius: 5px;'>解封</span></a> </td> </tr>");
+				}
+				
+				//点击行，选中checkbox
+			    $("#tbody_id tr").click(function () {
+			    	var srcElement = window.event.srcElement;
+					if(srcElement.tagName.toLowerCase() == "td") {
+			            if ($(this).find(":checkbox").prop("checked")) {
+			                $(this).find(":checkbox").removeAttr("checked");
+			            } else {
+			                $(this).find(":checkbox").prop("checked", true);
+			            } 
+			        }
+			    });
+				
+				//构造分页按钮组
+				var total = parseInt(result.data.total);
+			   	var page_element = BootstrapPagination($("#page_element_id"), {
+	                layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+	                //记录总数。
+	                total: total,
+	                //分页尺寸。指示每页最多显示的记录数量。
+	                pageSize: _ps,
+	                //当前页索引编号。从0开始的整数。
+	                pageIndex: _cp-1,
+	                //指示分页导航栏中最多显示的页索引数量。
+	                pageGroupSize: 10,
+	                //位于导航条左侧的输出信息格式化字符串
+	                //leftFormateString: "本页{count}条记录/共{total}条记录",
+	                //位于导航条右侧的输出信息格式化字符串
+	                rightFormateString: "共{totalPages}页",
+	                //页码文本格式化字符串。
+	                pageNumberFormateString: "{pageNumber}",
+	                //分页尺寸输出格式化字符串
+	                pageSizeListFormateString: "{pageSize}条/页",
+	                //上一页导航按钮文本。
+	                prevPageText: "上一页",
+	                //下一页导航按钮文本。
+	                nextPageText: "下一页",
+	                //上一组分页导航按钮文本。
+	                prevGroupPageText: "上一组",
+	                //下一组分页导航按钮文本。
+	                nextGroupPageText: "下一组",
+	                //首页导航按钮文本。
+	                firstPageText: "首页",
+	                //尾页导航按钮文本。
+	                lastPageText: "尾页",
+	                //设置页码输入框中显示的提示文本。
+	                pageInputPlaceholder: "go",
+	                //接受用户输入内容的延迟时间。单位：毫秒
+	                pageInputTimeout: 1000,
+	                //分页尺寸列表。
+	                pageSizeList: [15, 20, 30, 45, 50],
+	                //当分页更改后引发此事件。
+	                pageChanged: function (pageIndex, pageSize) {
+	                    getForbidRecords(pageIndex+1, pageSize);
+	                },
+	            });
+	        } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+</script>
+
+</body>
+
+</html>

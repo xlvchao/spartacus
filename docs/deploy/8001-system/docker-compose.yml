@@ -1,0 +1,49 @@
+version: "3.4"
+networks:
+  #可以自定义network名称，这里使用default表示如果不在service中单独配置就使用该设置 
+  default: 
+    external: 
+      name: app-net
+services:
+  system1:
+    image: xlvchao/spartacus-system:1.0.0
+    container_name: system1
+    restart: always
+    environment:
+      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+      - instanceIp=10.0.0.10
+      - instancePort=8001
+      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+      - APOLLO_ACCESSKEY_SECRET=a881d6aa02854ed6a2ef2f3160ecd3f1
+    volumes:
+      - /opt/settings:/opt/settings
+    ports:
+      - 8001:8001
+#  system2:
+#    image: xlvchao/spartacus-system:1.0.0
+#    container_name: system2
+#    restart: always
+#    environment:
+#      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+#      - instanceIp=10.0.0.4
+#      - instancePort=8002
+#      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+#      - APOLLO_ACCESSKEY_SECRET=a881d6aa02854ed6a2ef2f3160ecd3f1
+#    volumes:
+#      - /opt/settings:/opt/settings
+#    ports:
+#      - 8002:8002
+#  system3:
+#    image: xlvchao/spartacus-system:1.0.0
+#    container_name: system3
+#    restart: always
+#    environment:
+#      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+#      - instanceIp=10.0.0.14
+#      - instancePort=8003
+#      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+#      - APOLLO_ACCESSKEY_SECRET=a881d6aa02854ed6a2ef2f3160ecd3f1
+#    volumes:
+#      - /opt/settings:/opt/settings
+#    ports:
+#      - 8003:8003

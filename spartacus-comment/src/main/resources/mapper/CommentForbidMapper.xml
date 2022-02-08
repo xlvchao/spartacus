@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.comment.mapper.CommentForbidMapper">
+
+    <insert id="save" parameterType="com.xlc.spartacus.comment.pojo.CommentForbid">
+        insert into tb_comment_forbid
+        (
+        id,
+        forbid_type,
+        ip,
+        ip_city,
+        provider_id,
+        provider_user_id,
+        nickname,
+        head_img,
+        reason,
+        operate_time
+        )
+        values
+        (
+        #{id},
+        #{forbidType},
+        #{ip},
+        #{ipCity},
+        #{providerId},
+        #{providerUserId},
+        #{nickname},
+        #{headImg},
+        #{reason},
+        #{operateTime}
+        )
+    </insert>
+
+    <delete id="deleteByProviderUserId">
+        delete from
+            tb_comment_forbid
+        where
+            provider_user_id=#{userId}
+          and
+            forbid_type=0
+    </delete>
+
+    <delete id="batchDeleteByProviderUserId">
+        delete FROM tb_comment_forbid WHERE forbid_type=0 and provider_user_id IN
+        <foreach collection="userIds" item="userId" open="(" separator="," close=")" >
+            #{userId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByIp">
+        delete from
+            tb_comment_forbid
+        where
+            ip=#{ip}
+        and
+            forbid_type=1
+    </delete>
+
+    <delete id="batchDeleteByIp">
+        delete FROM tb_comment_forbid WHERE forbid_type=1 and ip IN
+        <foreach collection="ips" item="ip" open="(" separator="," close=")" >
+            #{ip}
+        </foreach>
+    </delete>
+
+    <select id="findAll" resultType="com.xlc.spartacus.comment.pojo.CommentForbid">
+        SELECT
+            t.id "id",
+            t.forbid_type "forbidType",
+            t.ip "ip",
+            t.ip_city "ipCity",
+            t.provider_id "providerId",
+            t.provider_user_id "providerUserId",
+            t.nickname "nickname",
+            t.head_img "headImg",
+            t.reason "reason",
+            t.operate_time "operateTime"
+        FROM
+            tb_comment_forbid t
+    </select>
+
+    <select id="findByForbidType" parameterType="java.lang.Integer" resultType="com.xlc.spartacus.comment.pojo.CommentForbid">
+        SELECT
+            t.id "id",
+            t.forbid_type "forbidType",
+            t.ip "ip",
+            t.ip_city "ipCity",
+            t.provider_id "providerId",
+            t.provider_user_id "providerUserId",
+            t.nickname "nickname",
+            t.head_img "headImg",
+            t.reason "reason",
+            t.operate_time "operateTime"
+        FROM
+            tb_comment_forbid t
+        WHERE
+            t.forbid_type=#{forbidType}
+    </select>
+
+    <select id="getForbiddenProviderUserIdList" resultType="java.lang.String">
+        SELECT provider_user_id FROM tb_comment_forbid WHERE forbid_type=0
+    </select>
+
+    <select id="getForbiddenIpList" resultType="java.lang.String">
+        SELECT ip FROM tb_comment_forbid WHERE forbid_type=1
+    </select>
+
+
+</mapper>

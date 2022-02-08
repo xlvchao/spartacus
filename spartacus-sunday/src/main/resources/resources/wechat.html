@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>spartacus-chat</title>
+		<link rel="stylesheet" href="wechat/css/amazeui.min.css" />
+		<link rel="stylesheet" href="wechat/css/main.css" />
+<!--		<link href="../css/font-awesome.css?v=4.4.0" rel="stylesheet" />-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+		<link href="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.css" rel="stylesheet" />
+
+	</head>
+	<body>
+		<div class="box">
+			<div class="wechat">
+				<!--聊天列表-->
+				<div class="middle on" style="width: 28%">
+					<!--<div class="wx_search" style="height: 7%;background: linear-gradient(18deg,#fff 0,#fff 50%,hsla(0,0%,100%,0))">
+						<input type="text" placeholder="搜索" style="width: 100%"/>
+					</div>-->
+					<div class="office_text" style="height:100%; background: linear-gradient(270deg,#fff 0,#fff 50%,hsla(0,0%,100%,0)); overflow: scroll">
+						<ul class="user_list" id="user_list">
+							<li class="user_active" id="spartacus" providerId="spartacus" providerUserId="spartacus" nickname="spartacus" headimage="https://ae01.alicdn.com/kf/Hdbfb7cec3bb149d8bc9aa5c980d5c474F.png">
+								<div class="user_head"><img src="wechat/images/group_spartacus.jpg"/></div>
+								<div class="user_text">
+									<p class="user_name">spartacus</p>
+									<p class="user_message" id="user_message_spartacus">快来聊天吧！</p>
+								</div>
+								<div class="user_time" sendTime="2021-09-24 14:54:00" id="user_time_spartacus">下午 2：54</div>
+							</li>
+
+						</ul>
+					</div>	
+				</div>
+			    
+				<!--聊天窗口-->
+				<div class="talk_window" id="talk_window" style="width: 72%">
+
+					<!--聊天内容-->
+					<div class="windows_body" id="windows_body" style="height: 78%">
+						<div class="office_text" style="height: 100%;overflow: scroll" id="office_text";>
+							<ul class="content chatbox" id="chatbox_spartacus" style="display: block">
+								<!--<li class="me"><img src="../wechat/images/own_head.jpg" title="金少凯"><span>疾风知劲草，板荡识诚臣</span></li>
+								<li class="other"><img src="../wechat/images/head/15.jpg" title="张文超"><span>勇夫安知义，智者必怀仁</span></li>-->
+							</ul>
+
+						</div>
+					</div>
+
+					<!-- summernote -->
+					<div class="windows_input" id="talkbox" style="height: 23%; ">
+						<div class="input_box">
+							<textarea id="summernote" name="editordata"></textarea>
+							<button id="send">发送（S）</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	<script type="text/javascript" src="wechat/js/jquery.min.js"></script>
+	<script type="text/javascript" src="wechat/js/amazeui.min.js"></script>
+	<script type="text/javascript" src="plugins/layer/layer.js"></script>
+
+	<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script type="text/javascript" src="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.js"></script>
+
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/init.js"></script>
+	<script type="text/javascript" src="js/loadconfig.js"></script>
+
+	<script type="text/javascript" src="wechat/js/sockjs.js"></script>
+	<script type="text/javascript" src="wechat/js/stomp.umd.js"></script>
+	<script type="text/javascript" src="wechat/js/wechat.js"></script>
+
+
+<script type="text/javascript">
+	/**
+	 * 1、输入框
+	 */
+	var computeSummernoteHeight = function () {
+		var talk_window = document.getElementById('talk_window');
+		var windows_body = document.getElementById('windows_body');
+		return (talk_window.clientHeight-windows_body.clientHeight-42) + 12;
+	};
+
+	var sendButton = function (context) {
+		var ui = $.summernote.ui;
+		var button = ui.button({
+			contents: '<i class="fa fa-send"/> 发送 (S)',
+			tooltip: 'Send',
+			click: function () {
+				checkAndSend();
+			}
+		});
+		return button.render();
+	}
+
+	var tipsButton = function (context) {
+		var ui = $.summernote.ui;
+		var button = ui.button({
+			contents: '<i class="fa fa-question-circle"/>',
+			tooltip: 'tips',
+			click: function () {
+				layer.msg('Enter键发送');
+			}
+		});
+		return button.render();
+	}
+
+	function moveFocusToEnd(elem) {
+		// elem=document.getElementById('divEditor');
+		elem.contenteditable = 'true';
+		elem.focus();
+
+		var range = document.createRange();
+		range.selectNodeContents(elem);
+		range.collapse(false);
+		var sel = window.getSelection();
+		sel.removeAllRanges();
+		sel.addRange(range);
+	}
+
+	$('#summernote').summernote({
+		lang: 'zh-CN',
+		height: computeSummernoteHeight() ,
+		codemirror: { // codemirror options
+			theme: 'monokai'
+		},
+		placeholder: '请文明发言...',
+		focus: true,
+		toolbar: [
+			['style', ['bold', 'italic', 'underline', 'clear']],
+			['font', ['strikethrough', 'superscript', 'subscript']],
+			//['color', ['color']],
+			['insert', ['emoji','link']],
+			// ['view', ['fullscreen', 'codeview']],
+			['mybutton', ['tips', 'send']]
+		],
+		buttons: {
+			send: sendButton,
+			tips: tipsButton
+		},
+		callbacks: {
+			onInit: function() {
+				$('.btn-group').each(function () {
+					//按钮组菜单朝上
+					$(this).addClass('dropup');
+
+					//初始化占位符，光标后移一位，便于后续换行时上下对齐
+					/*var code = $('#summernote').summernote('code');
+					if(!code.startsWith('<p>&nbsp;')) {
+						code = '<p>&nbsp;' + code.substr(3);
+					}
+					$('#summernote').summernote('code', code);
+					moveFocusToEnd(document.getElementsByClassName('note-editable')[0]);*/
+				})
+			},
+			onKeydown: function(event) {
+				/*if(event.keyCode == 13 && event.ctrlKey){ //换行
+					//禁止默认的水平线
+					event.preventDefault();
+
+					//换行时，上下对齐
+					var code = $('#summernote').summernote('code');
+					if(!code.startsWith('<p>&nbsp;')) {
+						code = '<p>&nbsp;' + code.substr(3) + '<p>&nbsp;</p>';
+					} else {
+						code += '<p>&nbsp;</p>';
+					}
+					$('#summernote').summernote('code', code);
+					moveFocusToEnd(document.getElementsByClassName('note-editable')[0]);
+
+				}else if(event.keyCode == 13) { //发送
+					//禁止回车的默认换行
+					event.preventDefault();
+					checkAndSend();
+				}*/
+
+				if(event.keyCode == 13) { //发送
+					//禁止回车的默认换行
+					event.preventDefault();
+					checkAndSend();
+				}
+			}
+		}
+	});
+
+	/**
+	 * 2、发送消息
+	 */
+	function checkAndSend() {
+		//替换掉所有的换行标签
+		var content = $('#summernote').summernote('code');
+		content = content.replace(/<p>&nbsp;/gi,'<div>').replace(/<p>/gi,'<div>').replace(/<\/p>/gi,'<\/div>').replace(/<br>/gi,'').replace(/<\/br>/gi,'');
+
+		//校验纯净文本是否为空
+		var pureContent = content.replace(/<\/?.+?>/g,"").replace(/ /g,"");
+
+		//排除纯表情内容后，检测纯文本是否为空
+		if(content.search(/<img /i) < 0 && (pureContent == null || pureContent == undefined || pureContent == '' || pureContent === '<p><br></p>')) {
+			layer.msg('不能发送空消息哦！');
+			$('#summernote').summernote('reset');
+		} else {
+			//发送
+			sendMessage(content);
+
+			//复位
+			$('#summernote').summernote('reset');
+
+			//初始化占位符，光标后移一位，便于后续换行时上下对齐
+			/*var code = $('#summernote').summernote('code');
+			if(!code.startsWith('<p>&nbsp;')) {
+				code = '<p>&nbsp;' + code.substr(3);
+			}
+			$('#summernote').summernote('code', code);
+			moveFocusToEnd(document.getElementsByClassName('note-editable')[0]);*/
+
+			//按钮组菜单朝上
+			$('.btn-group').each(function () {
+				$(this).addClass('dropup');
+			})
+
+		}
+	}
+</script>
+
+	</body>
+</html>

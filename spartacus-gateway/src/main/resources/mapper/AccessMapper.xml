@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.gateway.mapper.AccessMapper">
+
+    <insert id="saveAccessInfo" parameterType="com.xlc.spartacus.gateway.pojo.Access">
+        insert into tb_access (
+            id,
+            url,
+            access_time,
+            client_current_id,
+            ip,
+            ip_city,
+            client_id
+        ) values (
+            #{id},
+            #{url},
+            #{accessTime},
+            #{clientCurrentId},
+            #{ip},
+            #{ipCity},
+            #{clientId}
+        )
+    </insert>
+
+</mapper>

@@ -1,0 +1,14 @@
+version: "3.4"
+services:
+  portalservice:
+    image: xlvchao/apollo-portal:1.8.1
+    container_name: portalservice
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://10.0.0.3:3306/ApolloPortalDB?characterEncoding=utf8&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=Pwd@123
+    volumes:
+      - /data/apollo/portal/logs:/opt/logs
+    ports:
+      - 8070:8070

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.resource.mapper.CosResourceMapper">
+    <insert id="saveAll" parameterType="java.util.List">
+        insert into tb_cos_resource
+            (id,
+            parent_id,
+            file_name,
+            `key`,
+            tags,
+            content_type,
+            cos_type,
+            status,
+            bucket_name,
+            region,
+            parent_dir_path,
+            root_dir_path,
+            last_modified,
+            acl_flag)
+        values
+        <foreach collection="list" item="resource" separator=",">
+            (#{resource.id},
+            #{resource.parentId},
+            #{resource.fileName},
+            #{resource.key},
+            #{resource.tags},
+            #{resource.contentType},
+            #{resource.cosType},
+            #{resource.status},
+            #{resource.bucketName},
+            #{resource.region},
+            #{resource.parentDirPath},
+            #{resource.rootDirPath},
+            #{resource.lastModified},
+            #{resource.aclFlag})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAll">
+        delete from tb_cos_resource
+    </delete>
+
+    <insert id="save" parameterType="com.xlc.spartacus.resource.pojo.CosResource">
+        insert into tb_cos_resource
+            (id,
+             parent_id,
+             file_name,
+             `key`,
+             tags,
+             content_type,
+             cos_type,
+             status,
+             bucket_name,
+             region,
+             parent_dir_path,
+             root_dir_path,
+             last_modified,
+             acl_flag)
+        values
+            (#{id},
+            #{parentId},
+            #{fileName},
+            #{key},
+            #{tags},
+            #{contentType},
+            #{cosType},
+            #{status},
+            #{bucketName},
+            #{region},
+            #{parentDirPath},
+            #{rootDirPath},
+            #{lastModified},
+            #{aclFlag})
+    </insert>
+
+    <select id="loadHistoryLogos" resultType="com.xlc.spartacus.resource.pojo.Profile">
+        SELECT
+            t.head_img "headImg",
+            t.add_time "addTime"
+        FROM tb_blog_profile t where t.id_code='head_img'
+    </select>
+
+    <insert id="saveLogo" parameterType="java.util.HashMap">
+        insert into tb_blog_profile
+        (id,
+         id_code,
+         head_img,
+         add_time)
+        values
+        (#{id},
+         'head_img',
+         #{headImg},
+         #{addTime})
+    </insert>
+
+    <select id="findAllTags" resultType="java.lang.String">
+        SELECT t.tags FROM tb_cos_resource t WHERE cos_type=0 AND tags != ''
+    </select>
+
+    <delete id="deleteCosResourcesByIdIn" parameterType="java.util.List">
+        delete t FROM tb_cos_resource t
+        <where>
+            t.id in (
+            <foreach collection="list" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+        </where>
+    </delete>
+
+    <update id="batchMove" parameterType="java.util.List">
+        <foreach collection="list" item="item" separator=";">
+            UPDATE tb_cos_resource t
+            <set>
+                t.key=#{item.newKey},t.root_dir_path=#{item.newRootDirPath},t.parent_dir_path=#{item.newParentDirPath}
+            </set>
+            where t.key=#{item.key}
+        </foreach>
+    </update>
+
+    <!--<update id="batchMove" parameterType="java.util.List">
+        update tb_cos_resource
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="key =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.newKey!=null">
+                        when key=#{item.key}
+                        then #{item.newKey}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="root_dir_path =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.newRootDirPath!=null">
+                        when key=#{item.key}
+                        then #{item.newRootDirPath}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="parent_dir_path =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.newParentDirPath!=null">
+                        when key=#{item.key}
+                        then #{item.newParentDirPath}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where key in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.key}
+        </foreach>
+    </update>-->
+
+    <update id="batchSetAclFlag" parameterType="java.util.Map">
+        UPDATE tb_cos_resource t SET t.acl_flag=#{aclFlag}
+        <where>
+            t.key in (
+            <foreach collection="updateKeys" item="key" separator=",">
+                #{key}
+            </foreach>
+            )
+        </where>
+    </update>
+
+    <update id="renameByKey" parameterType="java.util.Map">
+        UPDATE tb_cos_resource t
+        SET t.key=#{newKey}, t.file_name=#{newFileName}
+        where t.key=#{key}
+    </update>
+
+    <select id="findFirstByKey" parameterType="java.lang.String" resultType="com.xlc.spartacus.resource.pojo.CosResource">
+        SELECT
+        t.id "id",
+        t.parent_id "parentId",
+        t.file_name "fileName",
+        t.key "key",
+        t.tags "tags",
+        t.content_type "contentType",
+        t.cos_type "cosType",
+        t.status "status",
+        t.bucket_name "bucketName",
+        t.region "region",
+        t.parent_dir_path "parentDirPath",
+        t.root_dir_path "rootDirPath",
+        t.last_modified "lastModified",
+        t.acl_flag "aclFlag"
+        FROM tb_cos_resource t
+        WHERE t.key=#{key} LIMIT 1
+    </select>
+
+    <select id="findFirstByKeyStartsWith" parameterType="java.lang.String" resultType="com.xlc.spartacus.resource.pojo.CosResource">
+        SELECT
+        t.id "id",
+        t.parent_id "parentId",
+        t.file_name "fileName",
+        t.key "key",
+        t.tags "tags",
+        t.content_type "contentType",
+        t.cos_type "cosType",
+        t.status "status",
+        t.bucket_name "bucketName",
+        t.region "region",
+        t.parent_dir_path "parentDirPath",
+        t.root_dir_path "rootDirPath",
+        t.last_modified "lastModified",
+        t.acl_flag "aclFlag"
+        FROM tb_cos_resource t
+        WHERE LOCATE(#{key},t.key) > 0 LIMIT 1
+    </select>
+
+    <select id="countByKeyStartsWithAndCosType" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(*) FROM tb_cos_resource t
+        WHERE LOCATE(#{key},t.key) > 0
+        AND t.cos_type=#{cosType}
+    </select>
+
+    <select id="findByKeyStartsWithAndCosType" parameterType="java.util.Map" resultType="com.xlc.spartacus.resource.pojo.CosResource">
+        SELECT
+        t.id "id",
+        t.parent_id "parentId",
+        t.file_name "fileName",
+        t.key "key",
+        t.tags "tags",
+        t.content_type "contentType",
+        t.cos_type "cosType",
+        t.status "status",
+        t.bucket_name "bucketName",
+        t.region "region",
+        t.parent_dir_path "parentDirPath",
+        t.root_dir_path "rootDirPath",
+        t.last_modified "lastModified",
+        t.acl_flag "aclFlag"
+        FROM tb_cos_resource t
+        WHERE LOCATE(#{key},t.key) > 0
+        AND t.cos_type=#{cosType}
+    </select>
+
+    <select id="findAllByKeyIn" parameterType="java.util.List" resultType="com.xlc.spartacus.resource.pojo.CosResource">
+        SELECT
+        t.id "id",
+        t.parent_id "parentId",
+        t.file_name "fileName",
+        t.key "key",
+        t.tags "tags",
+        t.content_type "contentType",
+        t.cos_type "cosType",
+        t.status "status",
+        t.bucket_name "bucketName",
+        t.region "region",
+        t.parent_dir_path "parentDirPath",
+        t.root_dir_path "rootDirPath",
+        t.last_modified "lastModified",
+        t.acl_flag "aclFlag"
+        FROM tb_cos_resource t
+        <where>
+            t.key in (
+            <foreach collection="list" item="key" separator=",">
+                #{key}
+            </foreach>
+            )
+        </where>
+    </select>
+
+    <select id="findAllByCosType" parameterType="java.lang.Integer" resultType="com.xlc.spartacus.resource.pojo.CosResource">
+        SELECT
+        t.id "id",
+        t.parent_id "parentId",
+        t.file_name "fileName",
+        t.key "key",
+        t.tags "tags",
+        t.content_type "contentType",
+        t.cos_type "cosType",
+        t.status "status",
+        t.bucket_name "bucketName",
+        t.region "region",
+        t.parent_dir_path "parentDirPath",
+        t.root_dir_path "rootDirPath",
+        t.last_modified "lastModified",
+        t.acl_flag "aclFlag"
+        FROM tb_cos_resource t
+        WHERE t.cos_type=#{cosType}
+        order by t.last_modified desc
+    </select>
+
+    <select id="findAllByKeyStartsWithAndCosType" parameterType="java.util.Map" resultType="com.xlc.spartacus.resource.pojo.CosResource">
+        SELECT
+        t.id "id",
+        t.parent_id "parentId",
+        t.file_name "fileName",
+        t.key "key",
+        t.tags "tags",
+        t.content_type "contentType",
+        t.cos_type "cosType",
+        t.status "status",
+        t.bucket_name "bucketName",
+        t.region "region",
+        t.parent_dir_path "parentDirPath",
+        t.root_dir_path "rootDirPath",
+        t.last_modified "lastModified",
+        t.acl_flag "aclFlag"
+        FROM tb_cos_resource t
+        WHERE LOCATE(#{key},t.key) > 0
+        AND t.cos_type=#{cosType}
+    </select>
+
+    <select id="getRecursiveCosResourcesByTag" parameterType="java.util.Map" resultType="com.xlc.spartacus.resource.pojo.CosResource">
+        <![CDATA[
+        SELECT
+        t.id "id",
+        t.parent_id "parentId",
+        t.file_name "fileName",
+        t.key "key",
+        t.tags "tags",
+        t.content_type "contentType",
+        t.cos_type "cosType",
+        t.status "status",
+        t.bucket_name "bucketName",
+        t.region "region",
+        t.parent_dir_path "parentDirPath",
+        t.root_dir_path "rootDirPath",
+        t.last_modified "lastModified",
+        t.acl_flag "aclFlag"
+        FROM tb_cos_resource t
+        WHERE LOCATE(#{dirPath},t.key) > 0
+        AND t.key NOT REGEXP '/$'
+        AND FIND_IN_SET(#{tag},t.tags)
+        ORDER BY t.last_modified DESC
+        ]]>
+    </select>
+
+    <select id="getRecursiveCosResourcesCountByTag" parameterType="java.util.Map" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(id) FROM tb_cos_resource t
+        WHERE LOCATE(#{dirPath},t.key) > 0
+        AND t.key NOT REGEXP '/$'
+        AND FIND_IN_SET(#{tag},t.tags)
+        ]]>
+    </select>
+
+    <select id="getRecursiveCosResources" parameterType="java.util.Map" resultType="com.xlc.spartacus.resource.pojo.CosResource">
+        <![CDATA[
+        SELECT
+        t.id "id",
+        t.parent_id "parentId",
+        t.file_name "fileName",
+        t.key "key",
+        t.tags "tags",
+        t.content_type "contentType",
+        t.cos_type "cosType",
+        t.status "status",
+        t.bucket_name "bucketName",
+        t.region "region",
+        t.parent_dir_path "parentDirPath",
+        t.root_dir_path "rootDirPath",
+        t.last_modified "lastModified",
+        t.acl_flag "aclFlag"
+        FROM tb_cos_resource t
+        WHERE LOCATE(#{dirPath},t.key) > 0
+        AND t.key NOT REGEXP '/$'
+        ORDER BY t.last_modified DESC
+        ]]>
+    </select>
+
+    <select id="getRecursiveCosResourcesCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM tb_cos_resource t
+        WHERE LOCATE(#{dirPath},t.key) > 0
+        AND t.key NOT REGEXP '/$'
+        ]]>
+    </select>
+
+    <select id="getDirectCosResourcesByTag" parameterType="java.util.Map" resultType="com.xlc.spartacus.resource.pojo.CosResource">
+        <![CDATA[
+        SELECT
+        t.id "id",
+        t.parent_id "parentId",
+        t.file_name "fileName",
+        t.key "key",
+        t.tags "tags",
+        t.content_type "contentType",
+        t.cos_type "cosType",
+        t.status "status",
+        t.bucket_name "bucketName",
+        t.region "region",
+        t.parent_dir_path "parentDirPath",
+        t.root_dir_path "rootDirPath",
+        t.last_modified "lastModified",
+        t.acl_flag "aclFlag"
+        FROM tb_cos_resource t
+        WHERE LOCATE(#{dirPath},t.key) > 0
+        AND (LENGTH(#{dirPath})-LENGTH(REPLACE(#{dirPath},'/',''))) = (LENGTH(t.key)-LENGTH(REPLACE(t.key,'/','')))
+        AND t.key NOT REGEXP '/$'
+        AND FIND_IN_SET(#{tag},t.tags)
+        ORDER BY last_modified DESC
+        ]]>
+    </select>
+
+    <select id="getDirectCosResourcesCountByTag" parameterType="java.util.Map" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM tb_cos_resource t
+        WHERE LOCATE(#{dirPath},t.key) > 0
+        AND (LENGTH(#{dirPath})-LENGTH(REPLACE(#{dirPath},'/',''))) = (LENGTH(t.key)-LENGTH(REPLACE(t.key,'/','')))
+        AND t.key NOT REGEXP '/$'
+        AND FIND_IN_SET(#{tag},t.tags)
+        ]]>
+    </select>
+
+    <select id="getDirectCosResources" parameterType="java.util.Map" resultType="com.xlc.spartacus.resource.pojo.CosResource">
+        <![CDATA[
+        SELECT
+        t.id "id",
+        t.parent_id "parentId",
+        t.file_name "fileName",
+        t.key "key",
+        t.tags "tags",
+        t.content_type "contentType",
+        t.cos_type "cosType",
+        t.status "status",
+        t.bucket_name "bucketName",
+        t.region "region",
+        t.parent_dir_path "parentDirPath",
+        t.root_dir_path "rootDirPath",
+        t.last_modified "lastModified",
+        t.acl_flag "aclFlag"
+        FROM tb_cos_resource t
+        WHERE LOCATE(#{dirPath},t.key) > 0
+        AND (LENGTH(#{dirPath})-LENGTH(REPLACE(#{dirPath},'/',''))) = (LENGTH(t.key)-LENGTH(REPLACE(t.key,'/','')))
+        AND t.key NOT REGEXP '/$'
+        ORDER BY t.last_modified DESC
+        ]]>
+    </select>
+
+    <select id="getDirectCosResourcesCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*) FROM tb_cos_resource t
+                WHERE LOCATE(#{dirPath},t.key) > 0
+                AND (LENGTH(#{dirPath})-LENGTH(REPLACE(#{dirPath},'/',''))) = (LENGTH(t.key)-LENGTH(REPLACE(t.key,'/','')))
+                AND t.key NOT REGEXP '/$'
+        ]]>
+    </select>
+
+</mapper>

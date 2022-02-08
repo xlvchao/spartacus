@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.auth.mapper.UserConnectionMapper">
+
+    <insert id="insertUserSequence" parameterType="com.xlc.spartacus.auth.domain.UserSequence">
+        insert into tb_user_sequence
+        (user_id,
+         user_sequence)
+        values
+        (#{userId},
+         #{userSequence})
+    </insert>
+
+    <select id="getNewUserSequence" resultType="java.lang.Integer">
+        SELECT
+            max(t.user_sequence)+1
+        FROM tb_user_sequence t
+    </select>
+
+    <select id="findUserSequence" parameterType="java.lang.String" resultType="com.xlc.spartacus.auth.domain.UserSequence">
+        SELECT
+            t.user_id "userId",
+            t.user_sequence "userSequence"
+        FROM tb_user_sequence t WHERE t.user_id = #{userId}
+    </select>
+
+    <insert id="recordLoginInfo" parameterType="java.util.Map">
+        insert into tb_login_record
+        (id,
+         username,
+         user_type,
+         ip,
+         province,
+         city,
+         client,
+         login_time)
+        values
+        (#{id},
+         #{username},
+         #{userType},
+         #{ip},
+         #{province},
+         #{city},
+         #{client},
+         #{loginTime})
+    </insert>
+
+    <select id="findUserConnectionByUsername" parameterType="java.lang.String" resultType="com.xlc.spartacus.auth.domain.UserConnection">
+        SELECT
+            t.userId,
+            t.providerId,
+            t.providerUserId,
+            t.status,
+            IFNULL(t.roles,'ROLE_USER') as roles,
+            t.rank,
+            t.displayName,
+            t.profileUrl,
+            t.imageUrl,
+            t.accessToken,
+            IFNULL(t.secret,'') as secret,
+            t.refreshToken,
+            t.expireTime
+         FROM tb_UserConnection t WHERE t.userId = #{username}
+    </select>
+
+    <insert id="insertUserConnection" parameterType="com.xlc.spartacus.auth.domain.UserConnection">
+        insert into tb_UserConnection
+            (userId,
+             providerId,
+             providerUserId,
+             status,
+             roles,
+             rank,
+             displayName,
+             profileUrl,
+             imageUrl,
+             accessToken,
+             secret,
+             refreshToken,
+             expireTime)
+        values
+            (#{userId},
+             #{providerId},
+              #{providerUserId},
+              #{status},
+              #{roles},
+              #{rank},
+              #{displayName},
+              #{profileUrl},
+              #{imageUrl},
+              #{accessToken},
+              #{secret},
+              #{refreshToken},
+              #{expireTime})
+    </insert>
+
+</mapper>

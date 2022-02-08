@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.article.mapper.ArticleLikeMapper">
+
+    <update id="batchSinkLikeData" parameterType="java.util.List">
+        insert into tb_article_like(article_id, user_sequence, status)
+        values
+        <foreach collection="articleLikes" item="item" index="index" separator=",">
+            (
+            #{item.articleId,jdbcType=BIGINT},
+            #{item.userSequence,jdbcType=INTEGER},
+            #{item.status,jdbcType=TINYINT}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE status = VALUES(status);
+    </update>
+
+    <select id="findLikeData" resultType="com.xlc.spartacus.article.pojo.ArticleLike">
+        select
+            t.article_id "articleId",
+            t.user_sequence "userSequence",
+            t.status "status"
+        from tb_article_like t
+    </select>
+
+</mapper>

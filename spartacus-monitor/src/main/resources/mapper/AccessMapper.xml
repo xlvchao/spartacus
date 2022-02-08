@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.monitor.mapper.AccessMapper">
+
+    <select id="getTotalAccessCountByIp" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM tb_access WHERE ip=#{ip}
+    </select>
+
+    <select id="getTodayAccessCountByIp" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM tb_access WHERE ip=#{ip} AND TO_DAYS(access_time)=TO_DAYS(NOW())
+    </select>
+
+    <select id="getMonthAccessCountByIp" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM tb_access WHERE ip=#{ip} AND DATE_FORMAT(access_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+    </select>
+
+    <select id="getYearAccessCountByIp" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM tb_access WHERE ip=#{ip} AND YEAR(access_time)=YEAR(NOW())
+    </select>
+
+    <select id="getTotalHighFrequencyAccessess" parameterType="java.lang.Integer" resultType="com.xlc.spartacus.monitor.pojo.HighFrequencyAccess">
+        SELECT
+           t.ip as ip,
+           t.ip_city AS ipCity,
+           COUNT(t.ip) AS count,
+           if((SELECT count(*) FROM tb_access_forbid tf WHERE tf.ip=t.ip)=0, 0, 1) as forbidden
+        FROM tb_access t GROUP BY t.ip HAVING COUNT(t.ip) >= #{totalAccessThreshold}
+    </select>
+    <select id="getTotalHighFrequencyAccessessDateList" parameterType="java.lang.String" resultType="java.util.Date">
+        SELECT access_time FROM tb_access WHERE ip=#{ip}
+    </select>
+
+    <select id="getTodayHighFrequencyAccessess" parameterType="java.lang.Integer" resultType="com.xlc.spartacus.monitor.pojo.HighFrequencyAccess">
+        SELECT
+            t.ip as ip,
+            t.ip_city AS ipCity,
+           COUNT(t.ip) AS count,
+           if((SELECT count(*) FROM tb_access_forbid tf WHERE tf.ip=t.ip)=0, 0, 1) as forbidden
+        FROM tb_access t WHERE TO_DAYS(t.access_time)=TO_DAYS(NOW()) GROUP BY t.ip HAVING COUNT(t.ip) >= #{todayAccessThreshold}
+    </select>
+    <select id="getTodayHighFrequencyAccessessDateList" parameterType="java.lang.String" resultType="java.util.Date">
+        SELECT access_time FROM tb_access WHERE ip=#{ip} AND TO_DAYS(access_time)=TO_DAYS(NOW())
+    </select>
+
+    <select id="getMonthHighFrequencyAccessess" parameterType="java.lang.Integer" resultType="com.xlc.spartacus.monitor.pojo.HighFrequencyAccess">
+        SELECT
+            t.ip as ip,
+            t.ip_city AS ipCity,
+            COUNT(t.ip) AS count,
+            if((SELECT count(*) FROM tb_access_forbid tf WHERE tf.ip=t.ip)=0, 0, 1) as forbidden
+        FROM tb_access t WHERE DATE_FORMAT(t.access_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') GROUP BY t.ip HAVING COUNT(t.ip) >= #{monthAccessThreshold}
+    </select>
+    <select id="getMonthHighFrequencyAccessessDateList" parameterType="java.lang.String" resultType="java.util.Date">
+        SELECT access_time FROM tb_access WHERE ip=#{ip} AND DATE_FORMAT(access_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+    </select>
+
+    <select id="getYearHighFrequencyAccessess" parameterType="java.lang.Integer" resultType="com.xlc.spartacus.monitor.pojo.HighFrequencyAccess">
+        SELECT
+            t.ip as ip,
+            t.ip_city AS ipCity,
+            COUNT(t.ip) AS count,
+            if((SELECT count(*) FROM tb_access_forbid tf WHERE tf.ip=t.ip)=0, 0, 1) as forbidden
+        FROM tb_access t WHERE YEAR(t.access_time)=YEAR(NOW()) GROUP BY t.ip HAVING COUNT(t.ip) >= #{yearAccessThreshold}
+    </select>
+    <select id="getYearHighFrequencyAccessessDateList" parameterType="java.lang.String" resultType="java.util.Date">
+        SELECT access_time FROM tb_access WHERE ip=#{ip} AND YEAR(access_time)=YEAR(NOW())
+    </select>
+
+    <select id="getTotalScan" resultType="com.xlc.spartacus.monitor.pojo.Access">
+        SELECT
+            t.id as id,
+            t.url as url,
+            t.access_time as accessTime,
+            t.client_current_id as clientCurrentId,
+            t.ip as ip,
+            t.ip_city as ipCity,
+            t.client_id as clientId,
+            if((SELECT count(*) FROM tb_access_forbid tf WHERE tf.ip=t.ip)=0, 0, 1) as forbidden
+        from
+            tb_access t order by t.access_time desc
+    </select>
+
+    <select id="getTodayScan" resultType="com.xlc.spartacus.monitor.pojo.Access">
+        SELECT
+            t.id as id,
+            t.url as url,
+            t.access_time as accessTime,
+            t.client_current_id as clientCurrentId,
+            t.ip as ip,
+            t.ip_city as ipCity,
+            t.client_id as clientId,
+            if((SELECT count(*) FROM tb_access_forbid tf WHERE tf.ip=t.ip)=0, 0, 1) as forbidden
+        from
+            tb_access t
+        WHERE
+            TO_DAYS(t.access_time)=TO_DAYS(NOW()) order by t.access_time desc
+    </select>
+
+    <select id="getMonthScan" resultType="com.xlc.spartacus.monitor.pojo.Access">
+        SELECT
+            t.id as id,
+            t.url as url,
+            t.access_time as accessTime,
+            t.client_current_id as clientCurrentId,
+            t.ip as ip,
+            t.ip_city as ipCity,
+            t.client_id as clientId,
+            if((SELECT count(*) FROM tb_access_forbid tf WHERE tf.ip=t.ip)=0, 0, 1) as forbidden
+        from
+            tb_access t
+        WHERE
+            DATE_FORMAT(access_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') order by t.access_time desc
+    </select>
+
+    <select id="getYearScan" resultType="com.xlc.spartacus.monitor.pojo.Access">
+        SELECT
+            t.id as id,
+            t.url as url,
+            t.access_time as accessTime,
+            t.client_current_id as clientCurrentId,
+            t.ip as ip,
+            t.ip_city as ipCity,
+            t.client_id as clientId,
+            if((SELECT count(*) FROM tb_access_forbid tf WHERE tf.ip=t.ip)=0, 0, 1) as forbidden
+        from
+            tb_access t
+        WHERE
+            YEAR(access_time)=YEAR(NOW()) order by t.access_time desc
+    </select>
+
+    <select id="getTotalScanCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_access
+    </select>
+
+    <select id="getTodayScanCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_access WHERE TO_DAYS(access_time)=TO_DAYS(NOW())
+    </select>
+
+    <select id="getTodayScanDetails" resultType="java.util.HashMap">
+        SELECT HOUR(access_time)+1 AS date,COUNT(id) AS count FROM tb_access WHERE TO_DAYS(access_time)=TO_DAYS(NOW()) GROUP BY HOUR(access_time) ORDER BY HOUR(access_time) ASC
+    </select>
+
+    <select id="getYestodayScanCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_access WHERE TO_DAYS(NOW())-TO_DAYS(access_time)=1
+    </select>
+
+    <select id="getYestodayScanDetails" resultType="java.util.HashMap">
+        SELECT HOUR(access_time)+1 AS date,COUNT(id) AS count FROM tb_access WHERE TO_DAYS(NOW())-TO_DAYS(access_time)=1 GROUP BY HOUR(access_time) ORDER BY HOUR(access_time) ASC
+    </select>
+
+    <select id="getMonthScanCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_access WHERE DATE_FORMAT(access_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+    </select>
+
+    <select id="getMonthScanDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%d') AS date,COUNT(id) AS count FROM tb_access WHERE DATE_FORMAT(access_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') GROUP BY DATE_FORMAT(access_time,'%d')
+    </select>
+
+    <select id="getLastMonthScanCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_access WHERE PERIOD_DIFF(DATE_FORMAT(NOW(),'%Y%m'),DATE_FORMAT(access_time,'%Y%m'))=1
+    </select>
+
+    <select id="getLastMonthScanDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%d') AS date,COUNT(id) AS count FROM tb_access WHERE PERIOD_DIFF(DATE_FORMAT(NOW(),'%Y%m'),DATE_FORMAT(access_time,'%Y%m'))=1 GROUP BY DATE_FORMAT(access_time,'%d')
+    </select>
+
+    <select id="getYearScanCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_access WHERE YEAR(access_time)=YEAR(NOW())
+    </select>
+
+    <select id="getYearScanDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%m') AS date,COUNT(id) AS count FROM tb_access WHERE DATE_FORMAT(access_time,'%Y')=DATE_FORMAT(NOW(),'%Y') GROUP BY DATE_FORMAT(access_time,'%m')
+    </select>
+
+    <select id="getLastYearScanCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_access WHERE YEAR(access_time)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))
+    </select>
+
+    <select id="getLastYearScanDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%m') AS date,COUNT(id) AS count FROM tb_access WHERE YEAR(access_time)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR)) GROUP BY DATE_FORMAT(access_time,'%m')
+    </select>
+
+    <select id="getTotalVisitorCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT client_current_id) FROM tb_access
+    </select>
+
+    <select id="getTodayVisitorCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT client_current_id) FROM tb_access WHERE TO_DAYS(access_time)=TO_DAYS(NOW())
+    </select>
+
+    <select id="getTodayVisitorDetails" resultType="java.util.HashMap">
+        SELECT HOUR(access_time)+1 AS date,COUNT(DISTINCT client_current_id) AS count FROM tb_access WHERE TO_DAYS(access_time)=TO_DAYS(NOW()) GROUP BY HOUR(access_time) ORDER BY HOUR(access_time) ASC
+    </select>
+
+    <select id="getYestodayVisitorCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT client_current_id) FROM tb_access WHERE TO_DAYS(NOW())-TO_DAYS(access_time)=1
+    </select>
+
+    <select id="getYestodayVisitorDetails" resultType="java.util.HashMap">
+        SELECT HOUR(access_time)+1 AS date,COUNT(DISTINCT client_current_id) AS count FROM tb_access WHERE TO_DAYS(NOW())-TO_DAYS(access_time)=1 GROUP BY HOUR(access_time) ORDER BY HOUR(access_time) ASC
+    </select>
+
+    <select id="getMonthVisitorCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT client_current_id) FROM tb_access WHERE DATE_FORMAT(access_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+    </select>
+
+    <select id="getMonthVisitorDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%d') AS date,COUNT(DISTINCT client_current_id) AS count FROM tb_access WHERE DATE_FORMAT(access_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') GROUP BY DATE_FORMAT(access_time,'%d')
+    </select>
+
+    <select id="getLastMonthVisitorCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT client_current_id) FROM tb_access WHERE PERIOD_DIFF(DATE_FORMAT(NOW(),'%Y%m'),DATE_FORMAT(access_time,'%Y%m'))=1
+    </select>
+
+    <select id="getLastMonthVisitorDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%d') AS date,COUNT(DISTINCT client_current_id) AS count FROM tb_access WHERE PERIOD_DIFF(DATE_FORMAT(NOW(),'%Y%m'),DATE_FORMAT(access_time,'%Y%m'))=1 GROUP BY DATE_FORMAT(access_time,'%d')
+    </select>
+
+    <select id="getYearVisitorCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT client_current_id) FROM tb_access WHERE YEAR(access_time)=YEAR(NOW())
+    </select>
+
+    <select id="getYearVisitorDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%m') AS date,COUNT(DISTINCT client_current_id) AS count FROM tb_access WHERE DATE_FORMAT(access_time,'%Y')=DATE_FORMAT(NOW(),'%Y') GROUP BY DATE_FORMAT(access_time,'%m')
+    </select>
+
+    <select id="getLastYearVisitorCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT client_current_id) FROM tb_access WHERE YEAR(access_time)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))
+    </select>
+
+    <select id="getLastYearVisitorDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%m') AS date,COUNT(DISTINCT client_current_id) AS count FROM tb_access WHERE YEAR(access_time)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR)) GROUP BY DATE_FORMAT(access_time,'%m')
+    </select>
+
+    <select id="getTotalIPCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT ip) FROM tb_access
+    </select>
+
+    <select id="getTodayIPCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT ip) FROM tb_access WHERE TO_DAYS(access_time)=TO_DAYS(NOW())
+    </select>
+
+    <select id="getTodayIPDetails" resultType="java.util.HashMap">
+        SELECT HOUR(access_time)+1 AS date,COUNT(DISTINCT ip) AS count FROM tb_access WHERE TO_DAYS(access_time)=TO_DAYS(NOW()) GROUP BY HOUR(access_time) ORDER BY HOUR(access_time) ASC
+    </select>
+
+    <select id="getYestodayIPCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT ip) FROM tb_access WHERE TO_DAYS(NOW())-TO_DAYS(access_time)=1
+    </select>
+
+    <select id="getYestodayIPDetails" resultType="java.util.HashMap">
+        SELECT HOUR(access_time)+1 AS date,COUNT(DISTINCT ip) AS count FROM tb_access WHERE TO_DAYS(NOW())-TO_DAYS(access_time)=1 GROUP BY HOUR(access_time) ORDER BY HOUR(access_time) ASC
+    </select>
+
+    <select id="getMonthIPCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT ip) FROM tb_access WHERE DATE_FORMAT(access_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+    </select>
+
+    <select id="getMonthIPDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%d') AS date,COUNT(DISTINCT ip) AS count FROM tb_access WHERE DATE_FORMAT(access_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') GROUP BY DATE_FORMAT(access_time,'%d')
+    </select>
+
+    <select id="getLastMonthIPCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT ip) FROM tb_access WHERE PERIOD_DIFF(DATE_FORMAT(NOW(),'%Y%m'),DATE_FORMAT(access_time,'%Y%m'))=1
+    </select>
+
+    <select id="getLastMonthIPDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%d') AS date,COUNT(DISTINCT ip) AS count FROM tb_access WHERE PERIOD_DIFF(DATE_FORMAT(NOW(),'%Y%m'),DATE_FORMAT(access_time,'%Y%m'))=1 GROUP BY DATE_FORMAT(access_time,'%d')
+    </select>
+
+    <select id="getYearIPCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT ip) FROM tb_access WHERE YEAR(access_time)=YEAR(NOW())
+    </select>
+
+    <select id="getYearIPDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%m') AS date,COUNT(DISTINCT ip) AS count FROM tb_access WHERE DATE_FORMAT(access_time,'%Y')=DATE_FORMAT(NOW(),'%Y') GROUP BY DATE_FORMAT(access_time,'%m')
+    </select>
+
+    <select id="getLastYearIPCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT ip) FROM tb_access WHERE YEAR(access_time)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))
+    </select>
+
+    <select id="getLastYearIPDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(access_time,'%m') AS date,COUNT(DISTINCT ip) AS count FROM tb_access WHERE YEAR(access_time)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR)) GROUP BY DATE_FORMAT(access_time,'%m')
+    </select>
+
+    <select id="getTotalCommentCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_comment
+    </select>
+
+    <select id="getTodayCommentCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_comment WHERE TO_DAYS(publish_time)=TO_DAYS(NOW())
+    </select>
+
+    <select id="getTodayCommentDetails" resultType="java.util.HashMap">
+        SELECT HOUR(publish_time)+1 AS date,COUNT(id) AS count FROM tb_comment WHERE TO_DAYS(publish_time)=TO_DAYS(NOW()) GROUP BY HOUR(publish_time) ORDER BY HOUR(publish_time) ASC
+    </select>
+
+    <select id="getYestodayCommentCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_comment WHERE TO_DAYS(NOW())-TO_DAYS(publish_time)=1
+    </select>
+
+    <select id="getYestodayCommentDetails" resultType="java.util.HashMap">
+        SELECT HOUR(publish_time)+1 AS date,COUNT(id) AS count FROM tb_comment WHERE TO_DAYS(NOW())-TO_DAYS(publish_time)=1 GROUP BY HOUR(publish_time) ORDER BY HOUR(publish_time) ASC
+    </select>
+
+    <select id="getMonthCommentCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_comment WHERE DATE_FORMAT(publish_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+    </select>
+
+    <select id="getMonthCommentDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(publish_time,'%d') AS date,COUNT(id) AS count FROM tb_comment WHERE DATE_FORMAT(publish_time,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') GROUP BY DATE_FORMAT(publish_time,'%d')
+    </select>
+
+    <select id="getLastMonthCommentCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_comment WHERE PERIOD_DIFF(DATE_FORMAT(NOW(),'%Y%m'),DATE_FORMAT(publish_time,'%Y%m'))=1
+    </select>
+
+    <select id="getLastMonthCommentDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(publish_time,'%d') AS date,COUNT(id) AS count FROM tb_comment WHERE PERIOD_DIFF(DATE_FORMAT(NOW(),'%Y%m'),DATE_FORMAT(publish_time,'%Y%m'))=1 GROUP BY DATE_FORMAT(publish_time,'%d')
+    </select>
+
+    <select id="getYearCommentCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_comment WHERE YEAR(publish_time)=YEAR(NOW())
+    </select>
+
+    <select id="getYearCommentDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(publish_time,'%m') AS date,COUNT(id) AS count FROM tb_comment WHERE DATE_FORMAT(publish_time,'%Y')=DATE_FORMAT(NOW(),'%Y') GROUP BY DATE_FORMAT(publish_time,'%m')
+    </select>
+
+    <select id="getLastYearCommentCount" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM tb_comment WHERE YEAR(publish_time)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR))
+    </select>
+
+    <select id="getLastYearCommentDetails" resultType="java.util.HashMap">
+        SELECT DATE_FORMAT(publish_time,'%m') AS date,COUNT(id) AS count FROM tb_comment WHERE YEAR(publish_time)=YEAR(DATE_SUB(NOW(),INTERVAL 1 YEAR)) GROUP BY DATE_FORMAT(publish_time,'%m')
+    </select>
+
+</mapper>

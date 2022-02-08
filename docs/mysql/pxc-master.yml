@@ -1,0 +1,27 @@
+version: '3.4'
+services:
+  master:
+    image: pxc:5.7
+    restart: always
+    container_name: pxc_master
+    hostname: host_pxc_master
+    privileged: true
+    ports:
+      - 13306:3306
+    environment:
+      - CLUSTER_NAME=pxc_cluster
+      - MYSQL_ROOT_PASSWORD=Pwd@123
+      - XTRABACKUP_PASSWORD=Pwd@123
+    volumes:
+      - db_master_data:/var/lib/mysql
+    networks:
+      default:
+        ipv4_address: 172.20.0.6
+networks:
+  default:
+    external:
+      name: pxc_net
+volumes:
+  db_master_data: {}
+  db_slave1_data: {}
+  db_slave2_data: {}

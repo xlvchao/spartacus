@@ -1,0 +1,27 @@
+﻿/*定义页码输入元素的样式*/
+.pagination .page-input {
+    float: left;
+    width: 50px;
+}
+
+/*#region 修复分页尺寸列表控件样式*/
+.pagination .pagesize-fix-left {
+    -webkit-border-top-right-radius: 0px;
+    border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.pagination .pagesize-fix-center {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.pagination .pagesize-fix-right {
+    -webkit-border-top-left-radius: 0px;
+    border-top-left-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+/*#endregion*/

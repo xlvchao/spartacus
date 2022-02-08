@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Spartacus | 为自由而生</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<!--    <link href="css/animate.css" rel="stylesheet">-->
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+
+    <link href="plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="plugins/summernote/summernote-bs4.css" rel="stylesheet">
+    <link href="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.css" rel="stylesheet">
+
+    <style>
+　　　　.img_div {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            text-align: center;
+        }
+        .mask {
+            position: absolute;
+            /*top: 7%;*/
+            /*left: 0;*/
+            width: 200px;
+            height: 200px;
+            /*background: rgba(41, 41, 41, 0.7);*/
+            color: #ffffff;
+            border-radius: 100%;
+            border-bottom: 100px solid rgba(41, 41, 41, 0.7);
+            text-align: center;
+            opacity: 0;
+        }
+        .img_div a:hover .mask {
+            opacity: 1;
+        }
+
+        /* 历史头像滚动条 */
+        .custom-scroll {
+            /*默认显示滚动条，设置为白色看不出来*/
+            overflow: scroll;
+            overflow-x:hidden
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 1px;
+            background-color: #fff;
+        }
+        .custom-scroll:hover ::-webkit-scrollbar-track-piece {
+            /*鼠标移动上去再显示滚动条*/
+            background-color: #fff;
+            /* 滚动条的背景颜色 */
+            border-radius: 6px;
+            /* 滚动条的圆角宽度 */
+        }
+        .custom-scroll:hover::-webkit-scrollbar-thumb:hover {
+            background-color: #c0cecc;
+        }
+        .custom-scroll:hover::-webkit-scrollbar-thumb:vertical {
+            background-color: #c0cedc;
+            border-radius: 6px;
+            outline: 2px solid #fff;
+            outline-offset: -2px;
+            border: 2px solid #fff;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="row animated fadeInRight">
+            <div class="col-sm-4" style="padding-right: 2.5px;">
+                <div class="ibox float-e-margins" style="margin-bottom: 0px;">
+                    <div>
+                        <div class="ibox-title">
+                            <h5>博主头像</h5>
+                        </div>
+                        <div id="modify_headimg_div" class="ibox-content no-padding border-left-right">
+                            <div id="using_id" class="col-sm-9" style="float: left; text-align: center">
+                                <div class="img_div">
+                                    <img id="headimg_id" alt="image" class="img-circle" style="margin-top: 5%" width="200px" height="200px" src="img/profile_big.jpg">
+
+                                    <a href="javscript:void(0);" onclick="selectHeadImg();">
+                                        <div id="mask_id" class="mask">
+                                            <h4 style="position: absolute; top: 130%; left: 36%;">上传头像</h4>
+                                            <input type="file" id="file_id" name="file" style="display:none;"/>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div style="padding: 20px 0px 0px 0px;text-align: center;">
+                                    <button type="button" class="btn btn-white btn-sm" style="margin-right: 5px;" onclick="confirmUploadLogo()"><i class="fa fa-check-square"></i> 确定 </button>
+                                    <button type="button" class="btn btn-white btn-sm" style="margin-left: 5px;" onclick="returnUploadLogo()"><i class="fa fa-window-close"></i> 还原 </button>
+                                </div>
+                            </div>
+
+                            <div id="historys_id" class="col-sm-3 pull-right custom-scroll" style="float: right; text-align: right;">
+                                <!--<a title="历史头像1" class="pull-right"><img class="img-history img-responsive" style="width: 60px; height: auto;" src="img/50.png"></a><br>
+                                <a title="历史头像2" class="pull-right"><img class="img-history img-responsive" style="width: 60px; height: auto;" src="img/a1.jpg"></a><br>
+                                <a title="历史头像3" class="pull-right"><img class="img-history img-responsive" style="width: 60px; height: auto;" src="img/a2.jpg"></a><br>-->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox float-e-margins" style="margin-bottom: 0px;">
+                    <div>
+                        <div class="ibox-title">
+                            <h5>博主基本信息</h5>
+                        </div>
+                        <div id="modify_accout_div" class="ibox-content no-padding border-left-right">
+                            <div class="row">
+                                <div class="col-sm-11">
+                                    <div style="padding:20px 0px 0px 40px; display: flex">
+                                        <label style="width: 80px; display: flex; align-items: center;">昵称</label>
+                                        <input id="nickname_id" type="text" value="" class="form-control" autocomplete="off">
+                                    </div>
+                                    <div style="padding:20px 0px 0px 40px; display: flex">
+                                        <label style="width: 80px; display: flex; align-items: center;">职称</label>
+                                        <input id="title_id" type="text" value="" class="form-control" autocomplete="off">
+                                    </div>
+                                    <div style="padding:20px 0px 0px 40px; display: flex">
+                                        <label style="width: 80px; display: flex; align-items: center;">Github</label>
+                                        <input id="github_id" type="text" value="" class="form-control" autocomplete="off">
+                                    </div>
+                                    <div style="padding:20px 0px 0px 40px; display: flex">
+                                        <label style="width: 80px; display: flex; align-items: center;">年龄</label>
+                                        <input id="age_id" type="text" value="" class="form-control" autocomplete="off">
+                                    </div>
+                                    <div style="padding:20px 0px 0px 40px; display: flex">
+                                        <label style="width: 80px; display: flex; align-items: center;">工作经验</label>
+                                        <input id="experience_id" type="text" value="" class="form-control" autocomplete="off">
+                                    </div>
+                                    <div style="padding:30px 0px 0px 0px; text-align: center;display: flex; justify-content: center;">
+                                        <button type="button" class="btn btn-white btn-sm" style="margin-right: 5px;" onclick="confirmUpdateBlogProfile()"><i class="fa fa-check-square"></i> 确定 </button>
+                                        <button type="button" class="btn btn-white btn-sm" style="margin-left: 5px;" onclick="rerset()"><i class="fa fa-window-close"></i> 置空 </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-sm-8" style="padding-left: 2.5px;">
+                <div class="ibox float-e-margins" style="margin-bottom: 0px;">
+                    <div class="ibox-title">
+                        <h5>博主资料</h5>
+                        <button id="edit_id" type="button" class="btn btn-primary btn-sm pull-right" onclick="edit()" style="padding: 2px 6px 2px 6px;">编&nbsp;&nbsp;辑</button>
+                        <button id="cancelEdit_id" type="button" class="btn btn-primary btn-sm pull-right" onclick="cancelEdit()" style="padding: 2px 6px 2px 6px; display: none; margin-left: 5px;">取&nbsp;&nbsp;消</button>
+                        <button id="saveAboutMe_id" type="button" class="btn btn-primary btn-sm pull-right" onclick="saveAboutMe()" style="padding: 2px 6px 2px 6px; display: none; margin-right: 5px;">保&nbsp;&nbsp;存</button>
+                    </div>
+                    <div id="modify_about_div" class="ibox-content" style="overflow: auto;">
+                        <div id="summernote" class="wrapper">
+                            <strong>&nbsp;&nbsp;&nbsp;&nbsp;大家好，我叫奥特曼</strong>
+                            <br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我来自中国，我爱中国
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img alt="image" src="img/p1.jpg">
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            我是一个程序猿，我的爱好是乱敲代码
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img alt="image" src="img/p3.jpg">
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            每个人都有自己的梦想，我的梦想就是可以一直敲代码
+
+                            <strong>&nbsp;&nbsp;&nbsp;&nbsp;大家好，我叫奥特曼</strong>
+                            <br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我来自中国，我爱中国
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img alt="image" src="img/p1.jpg">
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            我是一个程序猿，我的爱好是乱敲代码
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img alt="image" src="img/p3.jpg">
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            每个人都有自己的梦想，我的梦想就是可以一直敲代码
+
+                            <strong>&nbsp;&nbsp;&nbsp;&nbsp;大家好，我叫奥特曼</strong>
+                            <br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我来自中国，我爱中国
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img alt="image" src="img/p1.jpg">
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            我是一个程序猿，我的爱好是乱敲代码
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img alt="image" src="img/p3.jpg">
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            每个人都有自己的梦想，我的梦想就是可以一直敲代码
+
+                            <strong>&nbsp;&nbsp;&nbsp;&nbsp;大家好，我叫奥特曼</strong>
+                            <br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我来自中国，我爱中国
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img alt="image" src="img/p1.jpg">
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            我是一个程序猿，我的爱好是乱敲代码
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img alt="image" src="img/p3.jpg">
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            每个人都有自己的梦想，我的梦想就是可以一直敲代码
+
+                            <strong>&nbsp;&nbsp;&nbsp;&nbsp;大家好，我叫奥特曼</strong>
+                            <br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我来自中国，我爱中国
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img alt="image" src="img/p1.jpg">
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            我是一个程序猿，我的爱好是乱敲代码
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img alt="image" src="img/p3.jpg">
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            每个人都有自己的梦想，我的梦想就是可以一直敲代码
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="js/content.js?v=1.0.0"></script>
+
+    <!-- Peity -->
+    <script src="js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- Peity -->
+    <script src="js/demo/peity-demo.js"></script>
+
+    <!-- SUMMERNOTE -->
+    <script src="plugins/summernote/summernote.js"></script>
+    <script src="plugins/summernote/lang/summernote-zh-CN.js"></script>
+    <script src="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.js"></script>
+    <script src="js/loadconfig.js"></script>
+
+<script>
+
+    var base_domain = getConfig('base_domain');
+    var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+    var global_content;
+
+    var global_upload_logo_clicked=false; //是否点击了上传头像
+    var global_history_logo_clicked=false; //是否点击了历史头像
+    var global_user_logo_updated=false; //头像是否更新过
+
+
+    //加载博主资料
+    var headImage = '';
+    $.ajax({
+        type : "GET",
+        url : base_domain+"/spartacus-system/system/loadBlogProfile",
+        async : true,
+        dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success : function(result) {
+            console.log(result);
+            if (result.code==200) {
+                headImage = result.data.headImg;
+                $("#headimg_id").attr("src", headImage);
+                $("#nickname_id").attr("value", result.data.nickname);
+                $("#title_id").attr("value", result.data.title);
+                $("#github_id").attr("value", result.data.github);
+                $("#age_id").attr("value", result.data.age);
+                $("#experience_id").attr("value", result.data.experience);
+            } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+
+    var resizeContainer = function () {
+        var using_div = document.getElementById('using_id');
+
+        var maxHeight = using_div.clientHeight;
+
+        var av_height = maxHeight / $(".img-history").length;
+        $(".img-history").each(function () {
+            $(this).attr("height", av_height + 'px');
+        });
+
+        //设置头像遮罩的位置
+        var left = $('#headimg_id').offset().left;
+        var top = $('#headimg_id').offset().top;
+        $('#mask_id').offset({'left':left, 'top':top});
+
+        var modify_headimg_div = document.getElementById('modify_headimg_div');
+        var modify_accout_div = document.getElementById('modify_accout_div');
+        var modify_about_div = document.getElementById('modify_about_div');
+        var ibox_title_div = document.getElementsByClassName("ibox-title")[0];
+        var total_height = document.body.clientHeight - 48;
+        modify_headimg_div.style.height = (total_height / 2 - ibox_title_div.clientHeight) + 'px';
+        modify_accout_div.style.height = (total_height / 2 - ibox_title_div.clientHeight - 4) + 'px';
+        modify_about_div.style.height = (total_height - ibox_title_div.clientHeight) + 'px';
+
+        var historys_div = document.getElementById('historys_id');
+        historys_div.style.height = modify_headimg_div.clientHeight+'px';
+    };
+    resizeContainer();
+    //监听窗口大小变化
+    window.onresize = function () {
+        resizeContainer();
+    };
+
+    function selectHeadImg(){
+        document.getElementById("file_id").click();
+    }
+
+    $('#file_id').change(function(){
+        $("#headimg_id").attr("src", URL.createObjectURL($(this)[0].files[0]));
+        global_upload_logo_clicked = true;
+        global_history_logo_clicked = false;
+    });
+
+    $("body").on('click', '.img-history', function(){
+        $("#headimg_id").attr("src", $(this).attr('src'));
+        global_upload_logo_clicked = false;
+        global_history_logo_clicked = true;
+    })
+
+///////////////////
+function edit() {
+    global_content = $('#summernote').html();
+    var modify_about_div = document.getElementById('modify_about_div');
+
+    $("#modify_about_div").css("overflow-y", "hidden");
+
+    $("#modify_about_div").addClass("no-padding");
+    $('#summernote').summernote({
+        lang: 'zh-CN',
+        height: modify_about_div.clientHeight - 46,   //set editable area's height
+        codemirror: { // codemirror options
+            theme: 'monokai'
+        },
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['style']],
+            ['font', ['fontname', 'fontsize', 'color']],
+            ['fontstyle', ['italic', 'bold', 'underline', 'height', 'clear']],
+            ['paragrah', ['ul', 'ol', 'strikethrough', 'superscript', 'subscript', 'paragraph']],
+            ['insert', ['emoji','picture', 'link', 'video', 'table', 'hr', 'codeview']],
+            ['misc', ['undo', 'redo', 'help', 'fullscreen']]
+        ],
+        focus: true,
+        //调用图片上传
+        callbacks: {
+            onImageUpload: function (files) {
+                uploadFile('#summernote', files[0]);
+            }
+        }
+    });
+
+    $("#edit_id").css("display", "none");
+    $("#cancelEdit_id").css("display", "block");
+    $("#saveAboutMe_id").css("display", "block");
+}
+
+function uploadFile(summernoteId, file) {
+    // 构造Form表单
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append("baseDirPath", "spartacus/");
+
+    $.ajax({
+        data: formData,
+        type: "POST",
+        url: base_domain+"/spartacus-resource/cos/fileUpload",
+        cache: false,
+        contentType: false, //这里千万不要设置，否则无法上传
+        processData: false,
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success: function(result) {
+            if(result.code == 0) {
+                parent.layer.msg('上传成功！', {
+                    icon: 1,
+                    time:1000
+                });
+                $(summernoteId).summernote('insertImage', result.data);
+            } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        }
+    });
+}
+
+//加载历史头像
+function loadHistoryLogos() {
+    $.ajax({
+        type: "GET",
+        url: base_domain+"/spartacus-resource/cos/loadHistoryLogos",
+        dataType:"json",
+        async: true,
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success: function(result) {
+            console.log(result);
+            if(result.code == 0) {
+                var logos = result.data;
+                $('#historys_id').empty();
+                for(var i=0; i < logos.length; i++){
+                    $('#historys_id').append("<a title='历史头像"+(i+1)+"' class='pull-right'><img class='img-history img-responsive' style='width: 60px; height: auto;' src='"+logos[i].headImg+"'></a><br>");
+                }
+
+            } else {
+                parent.layer.msg('历史头像加载失败！', {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        },
+        error: function (data, status, e){
+            parent.layer.msg('历史头像加载失败！', {
+                icon: 2,
+                time:1000
+            });
+        }
+    });
+}
+
+//确定上传头像
+function confirmUploadLogo() {
+    if(global_history_logo_clicked) {
+        var headImage = $("#headimg_id").attr("src");
+        var updateStatus = updateBlogProfile(headImage, null, null, null,null,null, '修改成功！');
+        global_history_logo_clicked = false;
+        global_user_logo_updated = true;
+
+    } else if(global_upload_logo_clicked) {
+        // 构造Form表单
+        var formData = new FormData();
+        var files = $('#file_id').prop('files');
+        formData.append("file", files[0]);
+        formData.append("baseDirPath", "logo/");
+
+        $.ajax({
+            data: formData,
+            type: "POST",
+            url: base_domain+"/spartacus-resource/cos/fileUpload",
+            cache: false,
+            contentType: false, //这里千万不要设置，否则无法上传
+            processData: false,
+            headers: {
+                "clientId":"spartacus-friday",
+                "Authorization":"bearer " + jwt.access_token//自定义请求头
+            },
+            success: function(result) {
+                console.log(result);
+                if(result.code == 0) {
+                    var updateStatus = updateBlogProfile(result.data, null, null, null,null,null, '上传成功！');
+                    if(updateStatus==true) {
+                        loadHistoryLogos();
+                    }
+                    global_upload_logo_clicked = false;
+                    global_user_logo_updated = true;
+
+                } else {
+                    parent.layer.msg('更新失败！', {
+                        icon: 2,
+                        time:1000
+                    });
+                }
+            },
+            error: function (data, status, e){
+                parent.layer.msg('更新失败！', {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        });
+
+    } else {
+        parent.layer.msg('更新失败！请先选择待上传的照片或者从历史头像中选择！', {
+            icon: 2,
+            time:2000
+        });
+    }
+}
+
+//还原成原来的头像
+function returnUploadLogo() {
+    if(!global_user_logo_updated) {
+        parent.layer.msg('无需还原！', {
+            icon: 2,
+            time:1500
+        });
+        return;
+    }
+
+    var updateStatus = updateBlogProfile(headImage, null, null, null,null,null, '还原成功');
+    if(updateStatus==true) {
+        $("#headimg_id").attr("src", headImage);
+    }
+
+    global_user_logo_updated = false;
+}
+
+//置空修改账户
+function rerset() {
+    $('#nickname_id').val(null);
+    $('#title_id').val(null);
+    $('#github_id').val(null);
+    $('#age_id').val(null);
+    $('#experience_id').val(null);
+}
+
+//点击确定按钮，更新博主基本信息
+function confirmUpdateBlogProfile() {
+    var nickname = $('#nickname_id').val().trim();
+    var title = $('#title_id').val().trim();
+    var github = $('#github_id').val().trim();
+    var age = $('#age_id').val().trim();
+    var experience = $('#experience_id').val().trim();
+
+    if(isEmpty(nickname) && isEmpty(title) && isEmpty(github) && isEmpty(age) && isEmpty(experience)) {
+        parent.layer.msg('不能全部为空，请重新填写！', {
+            icon: 2,
+            time:1000
+        });
+        return;
+    }
+    updateBlogProfile(null, nickname, title, github,age, experience, null);
+}
+
+//检测字符串是否为空
+function isNotEmpty(obj) {
+    if (typeof obj == "undefined" || obj == null || obj == "") {
+        return false;
+    } else {
+        return true;
+    }
+}
+function isEmpty(obj) {
+    return !isNotEmpty(obj);
+}
+
+//更新用户信息
+function updateBlogProfile(headImg, nickname, title, github, age, experience, successMsg) {
+    var updateStatus = false;
+    $.ajax({
+        type: "POST",
+        url: base_domain+"/spartacus-system/system/updateBlogProfile",
+        data : {
+            "headImg" : headImg,
+            "nickname" : nickname,
+            "title" : title,
+            "github" : github,
+            "age" : age,
+            "experience" : experience
+        },
+        dataType:"json",
+        async: false,
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success: function(result) {
+            console.log(result);
+            if(result.code == 200) {
+                updateStatus = true;
+                parent.layer.msg(successMsg != null ? successMsg :'更新成功！', {
+                    icon: 1,
+                    time:1000
+                });
+            } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+            }
+        },
+        error: function (data, status, e){
+            parent.layer.msg('更新失败！', {
+                icon: 2,
+                time:1000
+            });
+        }
+    });
+
+    return updateStatus;
+}
+
+function cancelEdit() {
+    $("#modify_about_div").removeClass("no-padding");
+
+    $('#summernote').summernote('destroy');
+    $('#summernote').html(global_content);
+
+    $("#edit_id").css("display", "block");
+    $("#cancelEdit_id").css("display", "none");
+    $("#saveAboutMe_id").css("display", "none");
+
+    $("#modify_about_div").css("overflow-y", "auto");
+}
+
+function checkNull() {
+    var re1 = /(^\s*)|(\s*$)|( )/g; //空格正则表达式
+    var re2 = /<[^>]+>/g; //html标签正则表达式
+    var re3 = /&nbsp;/g; //&nbsp;正则表达式
+
+    var content = $('#summernote').summernote('code');
+
+    if(content.replace(re1,'').replace(re2,'').replace(re3,'')=='') {
+        parent.layer.msg('内容不能为空！', {
+            icon: 2,
+            time:1000
+        });
+        return false;
+    }
+    return true;
+}
+
+//保存关于我
+function saveAboutMe() {
+    if(checkNull() == true) {
+        var content = $('#summernote').summernote('code');
+        var urlStr = base_domain+"/spartacus-article/article/saveAboutMe";
+        $.ajax({
+            type : "POST",
+            url : urlStr,
+            async : false,
+            data : {
+                "content" : content
+            },
+            dataType:"json",
+            headers: {
+                "clientId":"spartacus-friday",
+                "Authorization":"bearer " + jwt.access_token//自定义请求头
+            },
+            success : function(result) {
+                if (result.code== 0) {
+                    parent.layer.msg('保存成功！', {
+                        icon: 1,
+                        time:1000
+                    });
+                    ////
+                    $('#summernote').summernote('destroy');
+                    $('#summernote').html(content);
+                    $("#edit_id").css("display", "block");
+                    $("#cancelEdit_id").css("display", "none");
+                    $("#saveAboutMe_id").css("display", "none");
+                    $("#modify_about_div").css("overflow-y", "auto");
+                    ////
+
+                } else {
+                    parent.layer.msg(result.message, {
+                        icon: 2,
+                        time:1000
+                    });
+                }
+            },
+            error : function(result) {
+            if (result.code== 0) {
+                parent.layer.msg('保存异常！', {
+                    icon: 1,
+                    time:1000
+                });
+            }
+        }
+        });
+    }
+}
+
+$(document).ready(function () {
+    //加载历史头像
+    loadHistoryLogos();
+
+    //获取关于我
+    $.ajax({
+        type: "GET",
+        url: base_domain+"/spartacus-article/article/getArticle/111111111111111111",
+        async: false,
+        dataType: "json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+        success: function (result) {
+            if (result.code == 0) {
+                $('#summernote').html(result.data.content);
+
+            } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time: 1000
+                });
+            }
+        },
+        error: function (data, status, e) {
+            parent.layer.msg("获取关于我失败了！", {
+                icon: 2,
+                time: 1000
+            });
+        }
+    });
+});
+</script>
+
+</body>
+
+</html>

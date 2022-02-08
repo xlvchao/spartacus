@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.monitor.mapper.NetIOMapper">
+
+
+    <select id="getYearNetIoDetails" parameterType="java.lang.String" resultType="com.xlc.spartacus.monitor.pojo.NetIO">
+        SELECT
+            DATE_FORMAT(insert_date,'%Y-%m-%d') "insertDate",
+            SUM(io_in) "ioIn",
+            SUM(io_out) "ioOut",
+            ip "ip",
+            0 "id"
+        FROM
+            tb_net_io
+        WHERE
+            ip=#{ip}
+            AND DATE_FORMAT(insert_date,'%Y')=DATE_FORMAT(NOW(),'%Y')
+            GROUP BY DATE_FORMAT(insert_date,'%m')
+    </select>
+
+    <select id="getMonthNetIoDetails" parameterType="java.lang.String" resultType="com.xlc.spartacus.monitor.pojo.NetIO">
+        SELECT
+            DATE_FORMAT(insert_date,'%Y-%m-%d') "insertDate",
+            SUM(io_in) "ioIn",
+            SUM(io_out) "ioOut",
+            ip "ip",
+            0 "id"
+        FROM
+            tb_net_io
+        WHERE
+            ip=#{ip}
+            AND DATE_FORMAT(insert_date,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+            GROUP BY DATE_FORMAT(insert_date,'%d')
+    </select>
+
+    <select id="getTodayNetIoDetails" parameterType="java.lang.String" resultType="com.xlc.spartacus.monitor.pojo.NetIO">
+        SELECT
+            insert_date "insertDate",
+            io_in "ioIn",
+            io_out "ioOut",
+            ip "ip",
+            id "id"
+        FROM
+            tb_net_io
+        WHERE
+            ip=#{ip}
+          AND insert_date BETWEEN DATE_ADD(CURDATE(), INTERVAL 0 DAY)
+          AND DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+    </select>
+
+
+</mapper>

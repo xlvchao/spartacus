@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+</head>
+<body>
+	<h2>标准登录页面</h2>
+	<h3>表单登录</h3>
+	<form id="form1" onsubmit="return false" action="##" method="post">
+		<table>
+			<tr>
+				<td>用户名:</td> 
+				<td><input type="text" id="username" name="username"></td>
+			</tr>
+			<tr>
+				<td>密码:</td>
+				<td><input type="password" id="password" name="password"></td>
+			</tr>
+			<tr>
+				<td>图形验证码:</td>
+				<td>
+					<input type="text" name="imageCode">
+					<a href="javascript:getValidateCodeImage()">
+<!--						<img id="img" is="auth-img" authSrc="http://tiyan.spartacus.run/spartacus-auth/code/image?width=200&height=50">换一张-->
+						<img id="img" style="height: auto;width: auto">换一张
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2'><input name="remember-me" type="checkbox" value="true" />记住我</td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="button" onclick="form_login()">登录</button></td>
+			</tr>
+		</table>
+	</form>
+	
+	<h3>短信登录</h3>
+	<form id="form2" onsubmit="return false" action="##" method="post">
+		<table>
+			<tr>
+				<td>手机号:</td>
+				<td><input type="text" id="mobile" name="mobile" value="13928404775"></td>
+			</tr>
+			<tr>
+				<td>短信验证码:</td>
+				<td>
+					<input type="text" name="smsCode">
+<!--					<a is="auth-sms" authSrc="http://tiyan.spartacus.run/spartacus-auth/code/sms?mobile=13012345678">发送验证码</a>-->
+					<a id="sendSmsCode" href="javascript:void(0)">发送验证码</a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan='2'><input name="remember-me" type="checkbox" value="true" />记住我</td>
+			</tr>
+			<tr>
+				<td colspan="2"><button type="button" onclick="mobile_login()">登录</button></td>
+			</tr>
+		</table>
+	</form>
+	<br>
+	<h3>社交登录</h3>
+	<a href="javascript:openWindow('http://tiyan.spartacus.run/spartacus-auth/auth/qq', '', 750, 450);">QQ登陆</a>
+	<a href="javascript:openWindow('http://tiyan.spartacus.run/spartacus-auth/auth/weixin', '', 850, 500);">WX登陆</a>
+
+	<script src="js/jquery.min.js?v=2.1.4"></script>
+	<script src="js/layer/layer.js"></script>
+	<script src="js/security.js"></script>
+	<script src="js/common.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+	<script type="text/javascript">
+		/**
+		 * 表单登陆
+		 *
+		 * 通过自定义元素加载图形验证码
+		 */
+		/*function requestImage(url, element) {
+			let request = new XMLHttpRequest();
+			request.responseType = 'blob';
+			request.open('get', url, true);
+			request.setRequestHeader('deviceId', 'spartacus'); //deviceId的值生成后续再整
+			request.onreadystatechange = e => {
+				if (request.readyState == XMLHttpRequest.DONE && request.status == 200) {
+					element.src = URL.createObjectURL(request.response);
+					element.onload = () => {
+						URL.revokeObjectURL(element.src);
+					}
+				}
+			};
+			request.send(null);
+		}
+
+		class AuthImg extends HTMLImageElement {
+			constructor() {
+				super();
+				this._lastUrl = '';
+			}
+			static get observedAttributes() {
+				return ['authSrc'];
+			}
+			connectedCallback() {
+				let url = this.getAttribute('authSrc');
+				if (url !== this._lastUrl) {
+					this._lastUrl = url;
+					requestImage(url, this);
+				}
+				console.log('connectedCallback() is called.');
+			}
+		}
+		window.customElements.define('auth-img', AuthImg, {extends: 'img'});*/
+
+		function getValidateCodeImage() {
+			axios.get('http://tiyan.spartacus.run/spartacus-auth/code/image?width=200&height=50&time='+ new Date().getTime(), {
+				// params: param,
+				headers: {'deviceId' : 'spartacus', "clientId":"spartacus-friday"},
+				responseType: 'arraybuffer'
+			}).then(response => {
+				return 'data:image/png;base64,' + btoa(
+						new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+				);
+			}).then(data => {
+				$("#img").attr("src", data);
+			});
+		}
+		getValidateCodeImage();
+
+		function form_login() {
+			var username = $("#username").val();
+			var password = $("#password").val();
+
+			$.ajax({
+				url: "http://tiyan.spartacus.run/spartacus-auth/pass/rsaPublicKey",
+				type: "post",
+				dataType: "json",//预期服务器返回的数据类型
+				data: {"username" : username},
+				async: false, //使用同步的方式,true为异步方式
+				success: function(result) {
+					if(result != null && result.code == 200) {
+						// 加密模
+						var modulus = result.data.modulus;
+						// 公钥指数
+						var public_exponent = result.data.public_exponent;
+						// 通过模和公钥参数获取公钥
+						var key = new RSAUtils.getKeyPair(public_exponent, "", modulus);
+						// 颠倒密码的顺序，要不然后解密后会发现密码顺序是反的
+						var reversedPwd = password.split("").reverse().join("");
+						// 对密码进行加密
+						var encrypedPwd = RSAUtils.encryptedString(key, reversedPwd);
+						// 赋值
+						$('#password').val(encrypedPwd);
+
+						//提交登陆
+						$.ajax({
+							//几个参数需要注意一下
+							type: "POST",//方法类型
+							dataType: "json",//预期服务器返回的数据类型
+							url: "http://tiyan.spartacus.run/spartacus-auth/authentication/form" ,//url
+							data: $('#form1').serialize(),
+							headers: {
+								"deviceId":"spartacus"//自定义请求头
+							},
+							success: function (result) {
+								console.log(result);//打印服务端返回的数据(调试用)
+							},
+							error : function() {
+								alert("异常！");
+							}
+						});
+					} else {
+						console.log(result);
+						parent.layer.msg('获取公钥失败！', {
+							icon: 2,
+							time:1000
+						});
+					}
+				}
+			})
+		}
+
+
+		/**
+		 * 手机登陆
+		 *
+		 * 发送手机验证码
+		 */
+		$('#sendSmsCode').click(function(){
+			$.ajax({
+				//几个参数需要注意一下
+				type: "GET",//方法类型
+				url: "http://tiyan.spartacus.run/spartacus-auth/code/sms?mobile="+$("#mobile").val() ,//url
+				headers: {
+					"clientId":"spartacus-friday",
+					"deviceId": $("#mobile").val()//自定义请求头
+				},
+				success: function (result) {
+					console.log(result);//打印服务端返回的数据(调试用)
+				},
+				error : function() {
+					alert("异常！");
+				}
+			});
+		});
+
+		function mobile_login() {
+			$.ajax({
+				//几个参数需要注意一下
+				type: "POST",//方法类型
+				dataType: "json",//预期服务器返回的数据类型
+				url: "http://tiyan.spartacus.run/spartacus-auth/authentication/mobile" ,//url
+				data: $('#form2').serialize(),
+				headers: {
+					"deviceId":$("#mobile").val()//自定义请求头
+				},
+				success: function (result) {
+					console.log(result);//打印服务端返回的数据(调试用)
+				},
+				error : function() {
+					alert("异常！");
+				}
+			});
+		}
+
+
+		/**
+		 * 社交登陆
+		 */
+		function openWindow(url, name, newWinWidth, newWinHeight) {
+			var winWidth=screen.width;  //获取屏幕宽度
+			var winHeight=screen.height;  //获取屏幕高度
+			//获取新窗口距离屏幕左侧的位置
+			var left=(winWidth-newWinWidth)/2;
+			//获取新窗口距离屏幕顶部的位置
+			var top=(winHeight-newWinHeight)/2 - 40;
+			//name:弹出窗口的名字,可不填，用''代替
+			//toolbar=no 是否显示工具栏。yes为显示
+			//menubar=no 是否显示菜单栏。yes为显示
+			//location=no 是否显示地址字段。yes为显示
+			//status=no 是否添加状态栏。yes为可以
+			window.open(url,name,'width='+newWinWidth+',height='+newWinHeight+',left='+left+',top='+top+',toolbar=no,menubar=no,location=no,status=no');
+
+			// 通过监听，实现父子页面之间通信（父：前端页面，子：小窗）
+			window.addEventListener('message', function (event) {
+				if (event.origin !== 'http://www.spartacus.run:3001') return;
+				// 保存token
+				localStorage.setItem('social-jwt', JSON.stringify(event.data));
+				var jwt = JSON.parse(localStorage.getItem('social-jwt') || '[]');
+			}, false)
+		}
+	</script>
+
+</body>
+</html>

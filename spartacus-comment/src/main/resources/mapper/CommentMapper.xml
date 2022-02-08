@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.comment.mapper.CommentMapper">
+
+    <insert id="save" parameterType="com.xlc.spartacus.comment.pojo.Comment">
+        insert into tb_comment
+        (
+        id,
+        ref_id,
+        front_id,
+        rear_id,
+        article_id,
+        article_title,
+        content,
+        publish_time,
+        level,
+        status,
+        ip,
+        ip_city,
+        provider_id,
+        provider_user_id,
+        nickname,
+        head_img
+        )
+        values
+        (
+        #{id},
+        #{refId},
+        #{frontId},
+        #{rearId},
+        #{articleId},
+        #{articleTitle},
+        #{content},
+        #{publishTime},
+        #{level},
+        #{status},
+        #{ip},
+        #{ipCity},
+        #{providerId},
+        #{providerUserId},
+        #{nickname},
+        #{headImg}
+        )
+    </insert>
+
+    <select id="getRecentComments" resultType="com.xlc.spartacus.comment.pojo.Comment">
+        SELECT
+            t.id "id",
+            t.ref_id "refId",
+            t.front_id "frontId",
+            t.rear_id "rearId",
+            t.article_id "articleId",
+            t.article_title "articleTitle",
+            t.content "content",
+            t.publish_time "publishTime",
+            t.level "level",
+            t.status "status",
+            t.ip "ip",
+            t.ip_city "ipCity",
+            t.provider_id "providerId",
+            t.provider_user_id "providerUserId",
+            t.nickname "nickname",
+            t.head_img "headImg"
+        FROM
+            tb_comment t
+        where t.status = 1
+        ORDER BY
+            publish_time DESC LIMIT 20
+    </select>
+
+    <delete id="deleteByFrontId" parameterType="java.lang.Long">
+        delete from
+            tb_comment
+        where
+            front_id=#{frontId}
+    </delete>
+
+    <update id="updateStatusByRefId">
+        UPDATE
+            tb_comment t
+        SET
+            t.status=#{status}
+        where
+            t.ref_id=#{refId}
+    </update>
+
+    <update id="updateStatusById">
+        UPDATE
+            tb_comment t
+        SET
+            t.status=#{status}
+        where
+            t.id=#{id}
+    </update>
+
+    <update id="modifyCommentNumber">
+        update tb_article set comment_number=comment_number+#{increaseNumber} where id=#{id}
+    </update>
+
+    <update id="setRearId">
+        UPDATE
+            tb_comment t
+        SET
+            t.rear_id=#{rearId}
+        where
+            t.id=#{id}
+    </update>
+
+    <select id="getLinkedCommentIdListById" parameterType="java.lang.Long" resultType="java.lang.Long">
+        SELECT t.id FROM tb_comment t WHERE front_id=#{id}
+    </select>
+
+    <select id="countByRefIdAndStatus" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            tb_comment t
+        WHERE
+            t.status=#{status}
+          AND
+            t.ref_id=#{refId}
+    </select>
+
+    <select id="getStatusById" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        SELECT
+            t.status "status"
+        FROM
+            tb_comment t
+        WHERE
+            t.id=#{id}
+    </select>
+
+    <select id="findByStatus" parameterType="java.lang.Integer" resultType="com.xlc.spartacus.comment.pojo.Comment">
+        SELECT
+            t.id "id",
+            t.ref_id "refId",
+            t.front_id "frontId",
+            t.rear_id "rearId",
+            t.article_id "articleId",
+            t.article_title "articleTitle",
+            t.content "content",
+            t.publish_time "publishTime",
+            t.level "level",
+            t.status "status",
+            t.ip "ip",
+            t.ip_city "ipCity",
+            t.provider_id "providerId",
+            t.provider_user_id "providerUserId",
+            t.nickname "nickname",
+            t.head_img "headImg"
+        FROM
+            tb_comment t
+        WHERE
+            t.status=#{status}
+    </select>
+
+    <select id="findById" parameterType="java.lang.Integer" resultType="com.xlc.spartacus.comment.pojo.Comment">
+        SELECT
+            t.id "id",
+            t.ref_id "refId",
+            t.front_id "frontId",
+            t.rear_id "rearId",
+            t.article_id "articleId",
+            t.article_title "articleTitle",
+            t.content "content",
+            t.publish_time "publishTime",
+            t.level "level",
+            t.status "status",
+            t.ip "ip",
+            t.ip_city "ipCity",
+            t.provider_id "providerId",
+            t.provider_user_id "providerUserId",
+            t.nickname "nickname",
+            t.head_img "headImg"
+        FROM
+            tb_comment t
+        WHERE
+            t.id=#{id}
+    </select>
+
+    <select id="findByCondition" parameterType="com.xlc.spartacus.comment.pojo.Comment" resultType="com.xlc.spartacus.comment.pojo.Comment">
+        SELECT
+            t.id "id",
+            t.ref_id "refId",
+            t.front_id "frontId",
+            t.rear_id "rearId",
+            t.article_id "articleId",
+            t.article_title "articleTitle",
+            t.content "content",
+            t.publish_time "publishTime",
+            t.level "level",
+            t.status "status",
+            t.ip "ip",
+            t.ip_city "ipCity",
+            t.provider_id "providerId",
+            t.provider_user_id "providerUserId",
+            t.nickname "nickname",
+            t.head_img "headImg"
+        FROM
+            tb_comment t
+        <where>
+            <if test="id !=null">
+                and t.id = #{id}
+            </if>
+            <if test="refId !=null">
+                and t.ref_id = #{refId}
+            </if>
+            <if test="frontId !=null">
+                and t.front_id = #{frontId}
+            </if>
+            <if test="rearId !=null">
+                and t.rear_id = #{rearId}
+            </if>
+            <if test="articleId !=null">
+                and t.article_id = #{articleId}
+            </if>
+            <if test="level !=null">
+                and t.level = #{level}
+            </if>
+            <if test="status !=null">
+                and t.status = #{status}
+            </if>
+        </where>
+           order by t.publish_time desc
+    </select>
+
+    <select id="findSubByCondition" parameterType="com.xlc.spartacus.comment.pojo.Comment" resultType="com.xlc.spartacus.comment.pojo.Comment">
+        SELECT
+        t.id "id",
+        t.ref_id "refId",
+        t.front_id "frontId",
+        t.rear_id "rearId",
+        t.article_id "articleId",
+        t.article_title "articleTitle",
+        t.content "content",
+        t.publish_time "publishTime",
+        t.level "level",
+        t.status "status",
+        t.ip "ip",
+        t.ip_city "ipCity",
+        t.provider_id "providerId",
+        t.provider_user_id "providerUserId",
+        t.nickname "nickname",
+        t.head_img "headImg"
+        FROM
+        tb_comment t
+        <where>
+            <if test="id !=null">
+                and t.id = #{id}
+            </if>
+            <if test="refId !=null">
+                and t.ref_id = #{refId}
+            </if>
+            <if test="frontId !=null">
+                and t.front_id = #{frontId}
+            </if>
+            <if test="rearId !=null">
+                and t.rear_id = #{rearId}
+            </if>
+            <if test="articleId !=null">
+                and t.article_id = #{articleId}
+            </if>
+            <if test="level !=null">
+                and t.level = #{level}
+            </if>
+            <if test="status !=null">
+                and t.status = #{status}
+            </if>
+        </where>
+        order by t.id asc
+    </select>
+
+
+</mapper>

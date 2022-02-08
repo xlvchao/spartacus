@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xlc.spartacus.monitor.mapper.ScheduleTaskMapper">
+
+    <select id="getRecentTaskExeRecords" resultType="java.util.Map">
+        SELECT
+            t.executor_handler "executorHandler",
+            t.executor_fail_retry_count "executorFailRetryCount",
+            t.trigger_time "triggerTime",
+            t.trigger_code "triggerCode",
+            t.handle_time "handleTime",
+            t.handle_code "handleCode"
+        FROM xxl_job_log t ORDER BY t.trigger_time DESC,t.handle_time DESC LIMIT 20
+    </select>
+
+</mapper>

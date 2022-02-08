@@ -1,0 +1,102 @@
+/* 右侧的边栏滚动条 */
+.full-height-scroll {
+    /*默认显示滚动条，设置为白色看不出来*/
+    overflow: scroll;
+    height: 500px;
+}
+.full-height-scroll::-webkit-scrollbar {
+    width: 8px;
+    background-color: #fff;
+}
+.full-height-scroll:hover ::-webkit-scrollbar-track-piece {
+    /*鼠标移动上去再显示滚动条*/
+    background-color: #fff;
+    /* 滚动条的背景颜色 */
+    border-radius: 6px;
+    /* 滚动条的圆角宽度 */
+}
+.full-height-scroll:hover::-webkit-scrollbar-thumb:hover {
+    background-color: #c0cecc;
+}
+.full-height-scroll:hover::-webkit-scrollbar-thumb:vertical {
+    background-color: #c0cedc;
+    border-radius: 6px;
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+    border: 2px solid #fff;
+}
+
+/* body滚动条 */
+.body-height-scroll {
+    /*默认显示滚动条，设置为白色看不出来*/
+    overflow: scroll;
+    /*height: 500px;*/
+}
+.body-height-scroll::-webkit-scrollbar {
+    width: 8px;
+    background-color: #fff;
+}
+.body-height-scroll:hover ::-webkit-scrollbar-track-piece {
+    /*鼠标移动上去再显示滚动条*/
+    background-color: #fff;
+    /* 滚动条的背景颜色 */
+    border-radius: 6px;
+    /* 滚动条的圆角宽度 */
+}
+.body-height-scroll:hover::-webkit-scrollbar-thumb:hover {
+    background-color: #c0cecc;
+}
+.body-height-scroll:hover::-webkit-scrollbar-thumb:vertical {
+    background-color: #c0cedc;
+    border-radius: 6px;
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+    border: 2px solid #fff;
+}
+
+/* 点赞状态的背景色 */
+.like-status-bgcolor {
+    color: #EC547A;
+}
+
+/* 图标旋转90度 */
+.icon-rotate-90 {
+    -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+/* 评论内容的样式 */
+.comment_content {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -webkit-box-direction: normal;
+    box-sizing: inherit;
+    margin-top: 10px;
+    width: 100%;
+    font-size: 14px;
+    line-height: 24px;
+    color: #8599ab;
+    margin-bottom: 10px;
+}
+
+/* 顶部菜单选项背景色 */
+.top-menu-bg-color {
+    color: #3796f6;
+}
+
+/* wangEditor默认的z-index太大，会覆盖页面，因此这里覆盖默认设置 */
+.wang-editor-z-index {
+    z-index: 1 !important;
+}
+.w-e-toolbar {
+    z-index: 2 !important;
+}
+.w-e-text-container {
+    z-index: 1 !important;
+}

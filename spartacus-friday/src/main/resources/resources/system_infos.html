@@ -1,0 +1,661 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Spartacus | 为自由而生</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.7.0" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    
+    <link href="plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+        	<div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>CPU</h5>&nbsp;&nbsp;
+                        <font id="cpu_font_id">(物理核数：4,&nbsp;&nbsp;逻辑核数：4)</font>
+                        <div class="pull-right">
+							<select id="ip_select_id" class="selectpicker" data-style="btn-success btn-xs" data-width="fit">
+								<option value="127.0.0.1" port="80">127.0.0.1</option>
+							</select>
+                    	</div>
+                    </div>
+                    <div class="ibox-content" id="cpu_id" style="height:245px; padding: 5px 20px 10px 20px; border-width: 0px 0px; background-color: #ffffff;">
+                        <table id="cpu_table_id" class="table">
+                        		<tr>
+	                                <td>Usage percent</td>
+	                                <td>0 %</td>
+	                            </tr>
+	                            <tr>
+	                                <td>User</td>
+	                                <td>0 %</td>
+	                            </tr>
+	                            <tr>
+	                                <td>System</td>
+	                                <td>0 %</td>
+	                            </tr>
+	                            <tr>
+	                                <td>Idle</td>
+	                                <td>0 %</td>
+	                            </tr>
+	                            <tr>
+	                                <td>I/O wait</td>
+	                                <td>0 %</td>
+	                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>内存</h5>
+                        <div class="pull-right">
+							<span id="memory_ip_id" class="badge badge-info" style="border-radius: 3px;">127.0.0.1</span>
+                    	</div>
+                    </div>
+                    <div class="ibox-content" id="memory_id" style="height:245px; padding: 5px 20px 10px 20px; border-width: 0px 0px; background-color: #ffffff;">
+                        <table id="memory_table_id" class="table">
+                        		<tr>
+	                                <td>Usage percent</td>
+	                                <td>0 %</td>
+	                            </tr>
+	                            
+	                            <tr>
+	                                <td>Total</td>
+	                                <td>0 MB</td>
+	                            </tr>
+	                            <tr>
+	                                <td>Available</td>
+	                                <td>0 MB</td>
+	                            </tr>
+	                            <tr>
+	                                <td>Used</td>
+	                                <td>0 MB</td>
+	                            </tr>
+	                            <tr>
+	                                <td>Free</td>
+	                                <td>0 MB</td>
+	                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>SWAP</h5>
+                        <div class="pull-right">
+							<span id="swap_ip_id" class="badge badge-info" style="border-radius: 3px;">127.0.0.1</span>
+                    	</div>
+                    </div>
+                    <div class="ibox-content" id="swap_id" style="height:245px; padding: 5px 20px 10px 20px; border-width: 0px 0px; background-color: #ffffff;">
+                        <table id="swap_table_id" class="table">
+                        		<tr>
+	                                <td>Usage percent</td>
+	                                <td>0 %</td>
+	                            </tr>
+	                            <tr>
+	                                <td>Total</td>
+	                                <td>0 MB</td>
+	                            </tr>
+	                            <tr>
+	                                <td>Used</td>
+	                                <td>0 MB</td>
+	                            </tr>
+	                            <tr>
+	                                <td>Free</td>
+	                                <td>0 MB</td>
+	                            </tr>
+	                            <tr>
+	                                <td>Swapped in</td>
+	                                <td>0 MB</td>
+	                            </tr>
+	                            <tr>
+	                                <td>Swapped out</td>
+	                                <td>0 MB</td>
+	                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>磁盘</h5>
+                        <div class="pull-right">
+							<span id="disk_ip_id" class="badge badge-info" style="border-radius: 3px;">127.0.0.1</span>
+                    	</div>
+                    </div>
+                    <div class="ibox-content" id="disk_id" style="height:245px; padding: 5px 20px 10px 20px; border-width: 0px 0px; background-color: #ffffff;">
+                        <table id="disk_table_id" class="table">
+                    		<tr>
+                    			<td>Device</td>
+                    			<td>Total</td>
+                    			<td>Used</td>
+                    			<td>Free</td>
+                    			<td>Usage percent</td>
+                    		</tr>
+                            <tr>
+                                <td>C://</td>
+                                <td>0 GB</td>
+                                <td>0 GB</td>
+                                <td>0 GB</td>
+                                <td style="text-align:center;">80 %</td>
+                            </tr>
+                            <tr>
+                                <td>D://</td>
+                                <td>0 GB</td>
+                                <td>0 GB</td>
+                                <td>0 GB</td>
+                                <td style="text-align:center;">80 %</td>
+                            </tr>
+                            <tr>
+                                <td>E://</td>
+                                <td>0 GB</td>
+                                <td>0 GB</td>
+                                <td>0 GB</td>
+                                <td style="text-align:center;">80 %</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>出网流量</h5>
+                    	<div class="pull-right" style="margin-right: 10px;">
+                            <div class="btn-group">
+                                <button id="out_day_id" type="button" class="btn btn-xs btn-white active">日</button>
+                                <button id="out_month_id" type="button" class="btn btn-xs btn-white">月</button>
+                                <button id="out_year_id" type="button" class="btn btn-xs btn-white">年</button>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-right: 10px;">
+							<span id="net_out_ip_id" class="badge badge-info" style="border-radius: 3px;">127.0.0.1</span>
+                    	</div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div id="col-sm-12_out_id" class="col-sm-12">
+								<div id="main_out"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>入网流量</h5>
+                    	<div class="pull-right" style="margin-right: 10px;">
+                            <div class="btn-group">
+                                <button id="in_day_id" type="button" class="btn btn-xs btn-white active">日</button>
+                                <button id="in_month_id" type="button" class="btn btn-xs btn-white">月</button>
+                                <button id="in_year_id" type="button" class="btn btn-xs btn-white">年</button>
+                            </div>
+                        </div>
+                        <div class="pull-right" style="margin-right: 10px;">
+							<span id="net_in_ip_id" class="badge badge-info" style="border-radius: 3px;">127.0.0.1</span>
+                    	</div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div id="col-sm-12_in_id" class="col-sm-12">
+								<div id="main_in"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- 全局js -->
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- 自定义js -->
+<script src="js/content.js?v=1.0.0"></script>
+<script type="text/javascript" src="js/echarts/echarts.min.js"></script>
+<script src="js/loadconfig.js"></script>
+
+<script>
+
+    var base_domain = getConfig('base_domain');
+    var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+function getCpuStatus() {
+	var ip = $("#ip_select_id").val(); //获取Select选择的Value
+	var port = $("#ip_select_id").find("option:selected").attr("port");
+	$.ajax({
+	    type : "POST",
+	    url : base_domain+"/spartacus-monitor/server/getServerStatus",
+	    async : true,
+	    data : { //使用Json格式进行透传
+            "ip" : ip,
+            "port" : port,
+            "device" : "cpu"
+        },
+	    dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+	    success : function(result) {
+	        if (result.code==0) {
+	        	var data = result.data;
+				$("#cpu_font_id").html( "(物理核数："+data.physical_count+",&nbsp;&nbsp;逻辑核数："+data.logical_count+")");	        	
+	        	$("#cpu_table_id").children().remove();
+	        	if(data.platform=='windows') {
+                    $("#cpu_table_id").append("<tr> <td>Usage percent</td> <td style='text-align:right;'>"+data.usage_percent+" %</td> </tr> <tr> <td>User</td> <td style='text-align:right;'>"+data.user+" %</td> </tr> <tr> <td>System</td> <td style='text-align:right;'>"+data.system+" %</td> </tr> <tr> <td>Idle</td> <td style='text-align:right;'>"+data.idle+" %</td> </tr> <tr> <td>Interrupt</td> <td style='text-align:right;'>"+data.interrupt+" %</td> </tr><tr> <td>Dpc</td> <td style='text-align:right;'>"+data.dpc+" %</td> </tr>");
+                } else {
+                    $("#cpu_table_id").append("<tr> <td>Usage percent</td> <td style='text-align:right;'>"+data.usage_percent+" %</td> </tr> <tr> <td>User</td> <td style='text-align:right;'>"+data.user+" %</td> </tr> <tr> <td>System</td> <td style='text-align:right;'>"+data.system+" %</td> </tr> <tr> <td>Idle</td> <td style='text-align:right;'>"+data.idle+" %</td> </tr> <tr> <td>I/O wait</td> <td style='text-align:right;'>"+data.iowait+" %</td> </tr>");
+                }
+
+	        } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+	        }
+	    }
+	});
+}
+
+function getMemoryStatus() {
+	var ip = $("#ip_select_id").val(); //获取Select选择的Value
+	var port = $("#ip_select_id").find("option:selected").attr("port");
+	$("#memory_ip_id").html(ip);
+	$.ajax({
+	    type : "POST",
+	    url : base_domain+"/spartacus-monitor/server/getServerStatus",
+	    async : true,
+	    data : { //使用Json格式进行透传
+            "ip" : ip,
+            "port" : port,
+            "device" : "memory"
+        },
+	    dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+	    success : function(result) {
+	        if (result.code==0) {
+	        	var data = result.data;
+	        	$("#memory_table_id").children().remove();
+	        	$("#memory_table_id").append("<tr> <td>Usage percent</td> <td style='text-align:right;'>"+data.usage_percent+" %</td> </tr> <tr> <td>Total</td> <td style='text-align:right;'>"+data.total+" MB</td> </tr> <tr> <td>Available</td> <td style='text-align:right;'>"+data.available+" MB</td> </tr> <tr> <td>Used</td> <td style='text-align:right;'>"+data.used+" MB</td> </tr> <tr> <td>Free</td> <td style='text-align:right;'>"+data.free+" MB</td> </tr>");
+	        } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+	        }
+	    }
+	});
+}
+
+function getSwapStatus() {
+	var ip = $("#ip_select_id").val(); //获取Select选择的Value
+	var port = $("#ip_select_id").find("option:selected").attr("port");
+	$("#swap_ip_id").html(ip);
+	$.ajax({
+	    type : "POST",
+	    url : base_domain+"/spartacus-monitor/server/getServerStatus",
+	    async : true,
+	    data : { //使用Json格式进行透传
+            "ip" : ip,
+            "port" : port,
+            "device" : "swap"
+        },
+	    dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+	    success : function(result) {
+	        if (result.code==0) {
+	        	var data = result.data;
+	        	$("#swap_table_id").children().remove();
+	        	$("#swap_table_id").append("<tr> <td>Usage percent</td> <td style='text-align:right;'>"+data.usage_percent+" %</td> </tr> <tr> <td>Total</td> <td style='text-align:right;'>"+data.total+" MB</td> </tr> <tr> <td>Used</td> <td style='text-align:right;'>"+data.used+" MB</td> </tr> <tr> <td>Free</td> <td style='text-align:right;'>"+data.free+" MB</td> </tr> <tr> <td>Swapped in</td> <td style='text-align:right;'>"+data.sin+" MB</td> </tr> <tr> <td>Swapped out</td> <td style='text-align:right;'>"+data.sout+" MB</td> </tr>");
+	        } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+	        }
+	    }
+	});
+}
+
+function getDiskStatus() {
+	var ip = $("#ip_select_id").val(); //获取Select选择的Value
+	var port = $("#ip_select_id").find("option:selected").attr("port");
+	$("#disk_ip_id").html(ip);
+	$.ajax({
+	    type : "POST",
+	    url : base_domain+"/spartacus-monitor/server/getServerStatus",
+	    async : true,
+	    data : { //使用Json格式进行透传
+            "ip" : ip,
+            "port" : port,
+            "device" : "disk"
+        },
+	    dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+	    success : function(result) {
+	        if (result.code==0) {
+	        	var data = result.data;
+	        	$("#disk_table_id").children().remove();
+	        	$("#disk_table_id").append("<tr> <td>Device</td> <td>Total</td> <td>Used</td> <td>Free</td> <td>Usage percent</td> </tr>");
+	        	for(var key in data) {
+		        	$("#disk_table_id").append("<tr> <td>"+key+"</td> <td>"+data[key].total+" GB</td> <td>"+data[key].used+" GB</td> <td>"+data[key].free+" GB</td> <td style='text-align:center;'>"+data[key].usage_percent+" %</td> </tr>");
+	        	}
+	        } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+	        }
+	    }
+	});
+}
+
+
+//基于准备好的dom, 自适应宽高, 初始化echarts实例
+var div_out = document.getElementById('col-sm-12_out_id');
+var chartContainer_out = document.getElementById('main_out');
+var chartContainer_in = document.getElementById('main_in');
+
+var div_cpu = document.getElementById('cpu_id');
+var div_memory = document.getElementById('memory_id');
+var div_swap = document.getElementById('swap_id');
+var div_disk = document.getElementById('disk_id');
+
+var maxHeight = div_cpu.clientHeight;
+if(maxHeight < div_memory.clientHeight) {
+	maxHeight = div_memory.clientHeight;
+}
+if(maxHeight < div_swap.clientHeight) {
+	maxHeight = div_swap.clientHeight;
+}
+if(maxHeight < div_disk.clientHeight) {
+	maxHeight = div_disk.clientHeight;
+}
+var resizeMyChartContainer = function () {
+    chartContainer_out.style.width = div_out.clientWidth+'px';
+    chartContainer_out.style.height = maxHeight+'px';
+    chartContainer_in.style.width = div_out.clientWidth+'px';
+    chartContainer_in.style.height = maxHeight+'px';
+    
+    div_cpu.style.height = maxHeight+'px';
+    div_memory.style.height = maxHeight+'px';
+    div_swap.style.height = maxHeight+'px';
+    div_disk.style.height = maxHeight+'px';
+};
+resizeMyChartContainer();
+var myChart_out = echarts.init(chartContainer_out);
+var myChart_in = echarts.init(chartContainer_in);
+
+//监听窗口大小变化，使chart自适应窗口的高度和宽度
+window.onresize = function () {
+    resizeMyChartContainer();
+    myChart_out.resize();
+    myChart_in.resize();
+};
+
+
+function drawChart(datas, flag, name) {
+	var datax = new Array();
+	var datay = new Array();
+	for(var key in datas){
+		datax.push(key);
+		datay.push(datas[key]);
+	}
+	//访问统计报表
+    var option = {
+	    grid: {
+	    	top:'10%',
+	    	bottom:'10%',
+	    	left:'4%',
+	    	right:'4%',
+	    	
+	    },
+	    tooltip: {
+	        trigger: 'axis',
+	        axisPointer: {
+	            type: 'cross'
+	        }
+	    },
+	    xAxis:  {
+	        type: 'category',
+	        boundaryGap: false,
+	        data: datax
+	    },
+	    yAxis: {
+	        type: 'value',
+	        axisLabel: {
+	            formatter: '{value}MB'
+	        },
+	        axisPointer: {
+	            snap: true
+	        }
+	    },
+	    visualMap: {
+	        show: false,
+	        dimension: 1,
+	        pieces: [{
+	        	gte: 0,
+	            lte: 1000,
+	            color: '#1AB394'
+	        }, {
+	            gt: 1000,
+	            color: '#ED5565'
+	        }]
+	    },
+	    series: [
+	        {
+	            name: name,
+	            type: 'line',
+	            smooth: true,
+	            data: datay,
+	            areaStyle: {normal: {}}
+	        }
+	    ]
+	};
+	
+	if(flag == 'out') {
+		myChart_out.setOption(option);
+	} else {
+		myChart_in.setOption(option);
+	}
+}
+
+var data;
+function getNetIoCountDetails() {
+	var ip = $("#ip_select_id").val(); //获取Select选择的Value
+	$("#net_in_ip_id").html(ip);
+	$("#net_out_ip_id").html(ip);
+	$.ajax({
+	    type : "POST",
+	    url : base_domain+"/spartacus-monitor/server/getNetIoCountDetails",
+	    async : true,
+	    data : { //使用Json格式进行透传
+            "ip" : ip
+        },
+	    dataType:"json",
+        headers: {
+            "clientId":"spartacus-friday",
+            "Authorization":"bearer " + jwt.access_token//自定义请求头
+        },
+	    success : function(result) {
+	        if (result.code==0) {
+	        	data = result.data;
+				$("#out_day_id").addClass("active");
+				$("#out_month_id").removeClass("active");
+				$("#out_year_id").removeClass("active");
+				var data_day_out = result.data.day.ioOut;
+				drawChart(data_day_out, 'out', '出网流量');
+			
+				$("#in_day_id").addClass("active");
+				$("#in_month_id").removeClass("active");
+				$("#in_year_id").removeClass("active");
+				var data_day_in = result.data.day.ioIn;
+				drawChart(data_day_in, 'in', '入网流量');
+				
+				$("#out_day_id").click(function() {
+					$("#out_day_id").addClass("active");
+					$("#out_month_id").removeClass("active");
+					$("#out_year_id").removeClass("active");
+					var data_day_out = data.day.ioOut;
+					drawChart(data_day_out, 'out', '出网流量');
+				});
+				$("#out_month_id").click(function() {
+					$("#out_day_id").removeClass("active");
+					$("#out_month_id").addClass("active");
+					$("#out_year_id").removeClass("active");
+					var data_month_out = data.month.ioOut;
+					drawChart(data_month_out, 'out', '出网流量');
+				});
+				$("#out_year_id").click(function() {
+					$("#out_day_id").removeClass("active");
+					$("#out_month_id").removeClass("active");
+					$("#out_year_id").addClass("active");
+					var data_year_out = data.year.ioOut;
+					drawChart(data_year_out, 'out', '出网流量');
+				});
+				
+				$("#in_day_id").click(function() {
+					$("#in_day_id").addClass("active");
+					$("#in_month_id").removeClass("active");
+					$("#in_year_id").removeClass("active");
+					var data_day_in = data.day.ioIn;
+					drawChart(data_day_in, 'in', '出网流量');
+				});
+				$("#in_month_id").click(function() {
+					$("#in_day_id").removeClass("active");
+					$("#in_month_id").addClass("active");
+					$("#in_year_id").removeClass("active");
+					var data_month_in = data.month.ioIn;
+					drawChart(data_month_in, 'in', '出网流量');
+				});
+				$("#in_year_id").click(function() {
+					$("#in_day_id").removeClass("active");
+					$("#in_month_id").removeClass("active");
+					$("#in_year_id").addClass("active");
+					var data_year_in = data.year.ioIn;
+					drawChart(data_year_in, 'in', '出网流量');
+				});
+				
+	        } else {
+                parent.layer.msg(result.message, {
+                    icon: 2,
+                    time:1000
+                });
+	        }
+	    }
+	});
+}
+
+
+$.ajax({
+    type : "GET",
+    url : base_domain+"/spartacus-monitor/server/getServerHosts",
+    async : true,
+    dataType:"json",
+    headers: {
+        "clientId":"spartacus-friday",
+        "Authorization":"bearer " + jwt.access_token//自定义请求头
+    },
+    success : function(result) {
+        if (result.code==0) {
+        	hosts = result.data;
+        	var i=0
+        	$("#ip_select_id").children().remove();
+			for(var key in hosts) { //对于bootstrap-select的神奇用法也是无语了
+    			if(i==0) {
+    				$("#ip_select_id.selectpicker").append("<option value='"+key+"' port='"+hosts[key]+"' selected='selected'>"+key+"</option>");
+    			} else {
+    				$("#ip_select_id.selectpicker").append("<option value='"+key+"' port='"+hosts[key]+"'>"+key+"</option>");
+    			}
+    			i++;
+    		}
+			$('#ip_select_id').selectpicker('refresh'); //居然还需要一个这个鸡巴操作，才能刷新下拉框
+			
+			getCpuStatus();
+			getMemoryStatus();
+			getSwapStatus();
+			getDiskStatus();
+			getNetIoCountDetails();
+			
+			window.setInterval(function () {
+				getCpuStatus();
+				getMemoryStatus();
+				getSwapStatus();
+				getDiskStatus();
+				getNetIoCountDetails();
+			}, 30000);
+
+			$("#ip_select_id").change(function() {//为Select添加事件，当选择其中一项时触发
+				getCpuStatus();
+				getMemoryStatus();
+				getSwapStatus();
+				getDiskStatus();
+				getNetIoCountDetails();
+			});
+
+        } else {
+            parent.layer.msg(result.message, {
+                icon: 2,
+                time:1000
+            });
+        }
+    }
+});
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+version: '3.4'
+services:
+  slave1:
+    image: pxc:5.7
+    restart: always
+    container_name: pxc_slave1
+    privileged: true
+    ports:
+      - 13307:3306
+    environment:
+      - CLUSTER_NAME=pxc_cluster
+      - MYSQL_ROOT_PASSWORD=Pwd@123
+      - XTRABACKUP_PASSWORD=Pwd@123
+      - CLUSTER_JOIN=172.19.0.6
+    volumes:
+      - db_slave1_data:/var/lib/mysql
+    networks:
+      default:
+        ipv4_address: 172.19.0.7
+  slave2:
+    image: pxc:5.7
+    restart: always
+    container_name: pxc_slave2
+    privileged: true
+    ports:
+      - 13308:3306
+    environment:
+      - CLUSTER_NAME=pxc_cluster
+      - MYSQL_ROOT_PASSWORD=Pwd@123
+      - XTRABACKUP_PASSWORD=Pwd@123
+      - CLUSTER_JOIN=172.19.0.6
+    volumes:
+      - db_slave2_data:/var/lib/mysql
+    networks:
+      default:
+        ipv4_address: 172.19.0.8
+networks:
+  default:
+    external:
+      name: pxc_net
+volumes:
+  db_slave1_data: {}
+  db_slave2_data: {}

@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+    
+  <title>Spartacus | 为自由而生</title>
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+	
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	
+	<link rel="stylesheet" href="plugins/login/style.css" media="all"/>
+
+
+<script type="text/css">
+@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) { select:focus, textarea:focus, input:focus { font-size: 16px !important; } }
+</script>
+
+</head>
+  
+ <body>
+	
+  <table height="100%" width="100%" style="border-spacing: 0px">
+	<tr>
+		<td align="center" valign="middle">
+		<h1>Spartacus</h1>
+		<div class="container">
+	    <div class="contact-form">
+		 	<div class="signin" style="padding:20px 20px 20px 20px;">
+
+					<form id="shareForm" method="post" onsubmit="return onCheck();">
+						<p>Username&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<font id="tips" color="red" style="display: none;">登录失败，请检查用户名、密码、验证码是否正确！</font>
+						</p>
+						<input type="text" id="username" class="user" name="username" autocomplete="new-password" style="-webkit-appearance: none" />
+
+						<p>Password</p>
+						<input type="password" id="password" class="pass" name="password" autocomplete="new-password" style="-webkit-appearance: none" />
+						<p>
+							<table width="100%">
+								<tr>
+									<td style="font-family: Oswald-Regular; color: #C6CACD">Verification code</td>
+									<td>
+										<a href="javascript:refreshImageCode()">
+											<img id="img" style="height: auto;width: auto">换一张
+										</a>
+									</td>
+								</tr>
+							</table>
+						</p>
+					<input type="text" id="imageCode" name="imageCode" autocomplete="new-password" style="-webkit-appearance: none; width: 100%;background: #74797C url('')" />
+
+					<!--<input id="remember-me" name="remember-me" type="checkbox"/> Remember me-->
+					<a href="javascript:getTiyanAccount()" style="color: #30D4E3">
+						获取体验账号
+						<img id="tiyan_qrcode" src="img/tiyan_qrcode.jpg" style="display: none">
+					</a>
+
+					<input type="button" id="login" value="Login" style="-webkit-appearance: none" onclick="form_login()" />
+		 		</form>
+		 	</div>
+		 </div>	 
+		</div>
+	  </td>
+  </tr>
+ </table>
+ 
+ 
+  <script src="js/jquery.min.js?v=2.1.4"></script>
+  <script src="js/plugins/layer-3.5.1/layer.js"></script>
+  <script src="js/security.js"></script>
+  <script src="js/common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="js/loadconfig.js"></script>
+  <script src="js/authxxx.js"></script>
+
+
+
+<script>
+
+	var base_domain = getConfig('base_domain');
+
+	function getTiyanAccount() {
+		layer.open({
+			type: 1,
+			title: false,
+			closeBtn: 0,
+			area: ['auto'],
+			skin: 'layui-layer-nobg', //没有背景色
+			shadeClose: true,
+			content: $('#tiyan_qrcode')
+		});
+	}
+
+window.onload = function() {
+	document.oncontextmenu = function(){return false;};
+
+	refreshImageCode();
+
+	$("#username").focus();
+	
+	if(getUrlParam('error') != null && getUrlParam('error') === "true") {
+		$("#tips").removeAttr("style");
+	} else {
+		$("#tips").attr("style", "display: none;");
+	}
+};
+
+function onCheck() {
+	var re = /(^\s*)|(\s*$)|( )/g; //空格正则表达式
+	var username = $("#username").val();
+	var password = $("#password").val();
+	var imageCode = $("#imageCode").val();
+	
+	if(username.replace(re,'')=='') {
+		parent.layer.msg('用户名不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(password.replace(re,'')=='') {
+		parent.layer.msg('密码不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(imageCode.replace(re,'')=='') {
+		parent.layer.msg('验证码不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+
+	return true;
+}
+
+function refreshImageCode() {
+	axios.get(base_domain+'/spartacus-auth/code/image?width=75&height=28&time='+ new Date().getTime(), {
+		// params: param,
+		headers: {'deviceId' : 'spartacus', "clientId":"spartacus-friday"},
+		responseType: 'arraybuffer'
+	}).then(response => {
+		return 'data:image/png;base64,' + btoa(
+				new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+		);
+	}).then(data => {
+		$("#img").attr("src", data);
+	});
+}
+
+function form_login() {
+	if(onCheck() == false) {
+		return;
+	}
+
+	var username = $("#username").val();
+	var password = $("#password").val();
+	var imageCode = $("#imageCode").val();
+	$.ajax({
+		url: base_domain+"/spartacus-auth/rsa/passRsaPublicKey",
+		type: "post",
+		dataType: "json",//预期服务器返回的数据类型
+		data: {"username" : username},
+		async: false, //使用同步的方式,true为异步方式
+		headers: {
+			"clientId":"spartacus-friday"
+		},
+		success: function(result) {
+			if(result != null && result.code == 200) {
+				// 加密模
+				var modulus = result.data.modulus;
+				// 公钥指数
+				var public_exponent = result.data.public_exponent;
+				// 通过模和公钥参数获取公钥
+				var key = new RSAUtils.getKeyPair(public_exponent, "", modulus);
+				// 颠倒密码的顺序，要不然后解密后会发现密码顺序是反的
+				var reversedPwd = password.split("").reverse().join("");
+				// 对密码进行加密
+				var encrypedPwd = RSAUtils.encryptedString(key, reversedPwd);
+
+				//提交登陆
+				$.ajax({
+					//几个参数需要注意一下
+					type: "POST",//方法类型
+					dataType: "json",//预期服务器返回的数据类型
+					url: base_domain+"/spartacus-auth/authentication/form" ,
+					data: {"username":username, "password":encrypedPwd, "imageCode":imageCode},
+					async: false, //使用同步的方式,true为异步方式
+					headers: {
+						"deviceId":"spartacus"//自定义请求头
+					},
+					success: function (result) {
+						// console.log(result);//打印服务端返回的数据(调试用)
+						if(result.code == 200) {
+							window.localStorage.setItem('spartacus-jwt', JSON.stringify(result.data));
+							jumpToIndex();
+						} else {
+							parent.layer.msg(result.message, {
+								icon: 2,
+								time:1000
+							});
+							refreshImageCode();
+						}
+					}
+				});
+
+			} else {
+				parent.layer.msg('获取公钥失败！', {
+					icon: 2,
+					time:1000
+				});
+			}
+		}
+	})
+}
+
+</script>
+
+ </body>
+</html>

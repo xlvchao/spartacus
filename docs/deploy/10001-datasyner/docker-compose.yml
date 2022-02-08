@@ -1,0 +1,49 @@
+version: "3.4"
+networks:
+  #可以自定义network名称，这里使用default表示如果不在service中单独配置就使用该设置 
+  default: 
+    external: 
+      name: app-net
+services:
+  datasyner1:
+    image: xlvchao/spartacus-datasyner:1.0.0
+    container_name: datasyner1
+    restart: always
+    environment:
+      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+      - instanceIp=10.0.0.10
+      - instancePort=10001
+      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+      - APOLLO_ACCESSKEY_SECRET=2b47a4893431479092744c1ab70b1d3e
+    volumes:
+      - /opt/settings:/opt/settings
+    ports:
+      - 10001:10001
+#  datasyner2:
+#    image: xlvchao/spartacus-datasyner:1.0.0
+#    container_name: datasyner2
+#    restart: always
+#    environment:
+#      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+#      - instanceIp=10.0.0.4
+#      - instancePort=10002
+#      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+#      - APOLLO_ACCESSKEY_SECRET=2b47a4893431479092744c1ab70b1d3e
+#    volumes:
+#      - /opt/settings:/opt/settings
+#    ports:
+#      - 10002:10002
+#  datasyner3:
+#    image: xlvchao/spartacus-datasyner:1.0.0
+#    container_name: datasyner3
+#    restart: always
+#    environment:
+#      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+#      - instanceIp=10.0.0.14
+#      - instancePort=10003
+#      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+#      - APOLLO_ACCESSKEY_SECRET=2b47a4893431479092744c1ab70b1d3e
+#    volumes:
+#      - /opt/settings:/opt/settings
+#    ports:
+#      - 10003:10003

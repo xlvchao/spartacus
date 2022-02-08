@@ -1,0 +1,55 @@
+version: "3.4"
+networks:
+  #可以自定义network名称，这里使用default表示如果不在service中单独配置就使用该设置 
+  default: 
+    external: 
+      name: app-net
+services:
+  chat1:
+    image: xlvchao/spartacus-chat:1.0.0
+    container_name: chat1
+    restart: always
+    environment:
+      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+      - instanceIp=10.0.0.10
+      - instancePort=9001
+      - xxlJobExecutorPort=9011
+      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+      - APOLLO_ACCESSKEY_SECRET=cf89238aa3a44f65bf9efde0fd1ad3cb
+    volumes:
+      - /opt/settings:/opt/settings
+    ports:
+      - 9001:9001
+      - 9011:9011
+#  chat2:
+#    image: xlvchao/spartacus-chat:1.0.0
+#    container_name: chat2
+#    restart: always
+#    environment:
+#      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+#      - instanceIp=10.0.0.4
+#      - instancePort=9002
+#      - xxlJobExecutorPort=9022
+#      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+#      - APOLLO_ACCESSKEY_SECRET=cf89238aa3a44f65bf9efde0fd1ad3cb
+#    volumes:
+#      - /opt/settings:/opt/settings
+#    ports:
+#      - 9002:9002
+#      - 9022:9022
+#  chat3:
+#    image: xlvchao/spartacus-chat:1.0.0
+#    container_name: chat3
+#    restart: always
+#    environment:
+#      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+#      - instanceIp=10.0.0.14
+#      - instancePort=9003
+#      - xxlJobExecutorPort=9033
+#      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+#      - APOLLO_ACCESSKEY_SECRET=cf89238aa3a44f65bf9efde0fd1ad3cb
+#    volumes:
+#      - /opt/settings:/opt/settings
+#    ports:
+#      - 9003:9003
+#      - 9033:9033

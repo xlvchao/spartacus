@@ -1,0 +1,66 @@
+/* wangEditor表情选择器滚动条 */
+.w-e-panel-tab-content {
+    /*默认显示滚动条，设置为白色看不出来*/
+    overflow: scroll;
+    /*height: 500px;*/
+}
+.w-e-panel-tab-content::-webkit-scrollbar {
+    width: 8px;
+    background-color: #fff;
+}
+.w-e-panel-tab-content:hover ::-webkit-scrollbar-track-piece {
+    /*鼠标移动上去再显示滚动条*/
+    background-color: #fff;
+    /* 滚动条的背景颜色 */
+    border-radius: 6px;
+    /* 滚动条的圆角宽度 */
+}
+.w-e-panel-tab-content:hover::-webkit-scrollbar-thumb:hover {
+    background-color: #c0cecc;
+}
+.w-e-panel-tab-content:hover::-webkit-scrollbar-thumb:vertical {
+    background-color: #c0cedc;
+    border-radius: 6px;
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+    border: 2px solid #fff;
+}
+
+/* wangEditor输入框滚动条 */
+ .w-e-text {
+     /*默认显示滚动条，设置为白色看不出来*/
+     overflow: scroll;
+     /*height: 500px;*/
+ }
+.w-e-text::-webkit-scrollbar {
+    width: 8px;
+    background-color: #fff;
+}
+.w-e-text:hover ::-webkit-scrollbar-track-piece {
+    /*鼠标移动上去再显示滚动条*/
+    background-color: #fff;
+    /* 滚动条的背景颜色 */
+    border-radius: 6px;
+    /* 滚动条的圆角宽度 */
+}
+.w-e-text:hover::-webkit-scrollbar-thumb:hover {
+    background-color: #c0cecc;
+}
+.w-e-text:hover::-webkit-scrollbar-thumb:vertical {
+    background-color: #c0cedc;
+    border-radius: 6px;
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+    border: 2px solid #fff;
+}
+
+/* 层级太高遮挡了主页面，因此这里设置成最低层级 */
+.w-e-toolbar {
+    z-index: 1 !important;
+}
+.w-e-menu {
+    z-index: 0 !important;
+}
+.w-e-text-container {
+    z-index: 0 !important;
+}

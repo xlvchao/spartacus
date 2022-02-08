@@ -1,0 +1,975 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta http-equiv="Cache" content="no-cache">
+	
+    <title>超人.FM|Superman.fm</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <!--全局css-->
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.7.0" rel="stylesheet">
+    <link type="text/css" href="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.css" rel="stylesheet">
+    <!--这个CSS会与summernote的模态窗口冲突-->
+    <!--<link href="/css/animate.css" rel="stylesheet">-->
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+	
+	<!-- SUMMERNOTE -->
+    <link href="plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="plugins/summernote/summernote-bs4.css" rel="stylesheet">
+    <link href="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.css" rel="stylesheet">
+    	
+<style type="text/css">
+	#tbody_id tr td {
+		position: relative;
+		border: 1px solid #e7eaec;
+	}
+	
+	.hidden_button {
+		position: absolute;
+		right: 20px;
+		bottom: 5px;
+	}
+	
+</style>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>评论列表</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row m-b-sm m-t-sm">
+                        <div id="botton_group_id" class="col-md-12">
+                            <button type="button" id="refresh_id" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>&nbsp;Refresh</button>
+                            <button type="button" id="all_none_select_id" class="btn btn-white btn-sm"><i class="fa fa-signing"></i>&nbsp;全选/全不选</button>
+                            <!--<button type="button" id="batch_pass_id" class="btn btn-white btn-sm" onclick="batchUpdateStatus(1)"><i class="fa fa-telegram"></i>&nbsp;批量通过</button>
+                            <button type="button" id="batch_trash_id" class="btn btn-white btn-sm"><i class="fa fa-trash" onclick="batchUpdateStatus(2)"></i>&nbsp;批量垃圾</button>
+                            <button type="button" id="batch_delete_id" class="btn btn-white btn-sm"><i class="fa fa-times-circle" onclick="batchDelete()"></i>&nbsp;批量删除</button>-->
+                        </div>
+                        <!--<div class="col-md-11">
+                            <div class="input-group">
+                                <input id="search_input_id" type="text" placeholder="请输入搜索内容..." class="input-sm form-control">
+                                <span class="input-group-btn">
+                                    <button id="search_id" class="btn btn-sm btn-primary">&nbsp;搜索</button>
+                                </span>
+                            </div>
+                        </div>-->
+                    </div>
+
+<div class="project-list">
+<table class="table table-hover">
+	<tbody id="tbody_id">
+		<tr>
+			<td class="project-status" style="width: 2%;">
+				<input type="checkbox">
+			</td>
+			<td class="project-title" style="width: 18%;">
+				<div class="social-feed-box" style="border: none; background: none; margin-bottom: 0;">
+					<div class="social-avatar" style="padding: 0;">
+						<img alt="image" src="http://ozjle9lih.bkt.clouddn.com/demo.jpg"><br>
+						<small class="text-muted">昵称: 追光者</small><br>
+						<small class="text-muted">来源: qq</small><br>
+						<small class="text-muted">IP: 192.168.1.1</small><br>
+						<small class="text-muted">城市: 深圳</small><br>
+						<small class="text-muted">发表时间: 2018-03-14 10:30:21</small>
+					</div>
+				</div>
+			</td>
+			<td class="project-people" style="width: 65%; vertical-align: top; text-align: left;">
+				<p>
+					<a href="/article_detail.html?article_id=83e43bcf3d6f45ed8740d2f940f23df3">
+						文章标题：崔永元人身受到威胁
+					</a>
+				</p><br>
+				<p>
+					崔永元很有知识分子骨气，很有胆量，很有正义精神！崔永元很有知识分子骨气，很有胆量，很有正义精神！崔永元很有知识分子骨气，很有胆量，很有正义精神！崔永元很有知识分子骨气，很有胆量，很有正义精神！崔永元很有知识分子骨气，很有胆量，很有正义精神！
+				</p>
+				<a class="hidden_button" onclick="replyComment(this);" ref-id="" comment-id="" reply-to="BB">回复</a>
+			</td>
+			<td id="project-actions-0" class="project-actions" style="width: 15%; vertical-align: middle;text-align: center;">
+				<button article-id="83e43bcf3d6f45ed8740d2f940f23df3" id="pass_0" type="button" class="btn btn-primary" style="margin-bottom: 5px;">
+					<i class="fa fa-telegram">
+					</i>
+					&nbsp;通过
+				</button><br>
+				<button article-id="83e43bcf3d6f45ed8740d2f940f23df3" id="delete_0" type="button" class="btn btn-danger">
+					<i class="fa fa-times-circle">
+					</i>
+					&nbsp;删除
+				</button>
+			</td>
+		</tr>
+    </tbody>
+</table>
+                            
+<!--分页-->
+<div class="text-center">
+	<!-- 下面是控制分页控件，必须要是ul元素才行 -->
+	<ul id='page_element_id' class="pagination pagination-lg"></ul>
+	
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/content.js?v=1.0.0"></script>
+<script src="js/layer/layer.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.js"></script>
+
+<!-- SUMMERNOTE -->
+<script src="plugins/summernote/summernote.js"></script>
+<script src="plugins/summernote/lang/summernote-zh-CN.js"></script>
+<script src="plugins/summernote/plugin/emoji/summernote-ext-emoji-ajax.js"></script>
+
+<!-- layerDate -->
+<script src="js/plugins/layer/laydate/laydate.js"></script>
+
+<script src="js/common.js"></script>
+<script src="js/loadconfig.js"></script>
+
+<script type="text/javascript">
+
+	var base_domain = getConfig('base_domain');
+	var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+//全局变量
+var origin_status;
+var origin_currentPage;
+var origin_pageSize;
+	
+var global_status;
+var global_currentPage;
+var global_pageSize;
+
+var global_replyObj;
+
+$(function() {
+	origin_status = parseInt(getUrlParam('status'));
+	origin_currentPage = parseInt(getUrlParam('cp'));
+	origin_pageSize = parseInt(getUrlParam('ps'));
+	
+	global_status = origin_status;
+	global_currentPage = origin_currentPage;
+	global_pageSize = origin_pageSize;
+	
+	
+	//顶部按钮组
+	if(global_status == 0) {
+		$("#botton_group_id").append("<button type='button' id='batch_pass_id' class='btn btn-white btn-sm' onclick='batchUpdateStatus(1)'><i class='fa fa-telegram'></i>&nbsp;批量通过</button>&nbsp;<button type='button' id='batch_delete_id' class='btn btn-white btn-sm' onclick='batchDelete()'><i class='fa fa-times-circle'></i>&nbsp;批量删除</button>");
+	} else if(global_status == 1) {
+		$("#botton_group_id").append("&nbsp;<button type='button' id='batch_delete_id' class='btn btn-white btn-sm' onclick='batchDelete()'><i class='fa fa-times-circle'></i>&nbsp;批量删除</button>");
+	} else if(global_status == 2) {
+		$("#botton_group_id").append("<button type='button' id='batch_pass_id' class='btn btn-white btn-sm' onclick='batchUpdateStatus(1)'><i class='fa fa-telegram'></i>&nbsp;批量通过</button>");
+	}
+	
+	//加载首页数据
+	findByStatus(global_status, global_currentPage, global_pageSize);
+	
+	//刷新首页数据
+	$('#refresh_id').click(function () {
+	    btn = $(this);
+	    btn.children().addClass('fa-spin');
+	    btn.contents().last().replaceWith(" Loading");
+	   	findByStatus(origin_status, origin_currentPage, origin_pageSize);
+	    window.setTimeout(function () {
+	        btn.children().removeClass('fa-spin');
+	        btn.contents().last().replaceWith(" Refresh");
+	    }, 1000);
+	});
+	
+	//全选/全不选
+	var flag = 'all';
+	$('#all_none_select_id').click(function () {
+	    // 获取所有的复选框
+		var checkElements=document.getElementsByName('checkbox');
+		if(flag == 'all') {
+			for(var i=0;i<checkElements.length;i++) {
+				var checkElement=checkElements[i];
+				checkElement.checked="checked";
+			}
+			flag = 'none';
+		} else if(flag == 'none') {
+			for(var i=0;i<checkElements.length;i++) {
+				var checkElement=checkElements[i];
+				checkElement.checked=null;
+			}
+			flag = 'all';
+		}
+	});
+	
+});
+
+
+function updateStatus(newStatus, elementId) {
+	var articleId = $(elementId).attr("article-id");
+	var commentId = $(elementId).attr("comment-id");
+	var level = $(elementId).attr("comment-level");
+	var frontId = level == '2' ? $(elementId).attr("front-id") : '0'; //空值或null，后端接口接收到并转换时会报错
+	var oldStatus = $(elementId).attr("comment-status");
+
+	// console.log("articleId:" + articleId );
+	// console.log("commentId:" + commentId );
+	// console.log("frontId:" + frontId );
+	// console.log("level:" + level );
+	// console.log("oldStatus:" + oldStatus );
+	// console.log("newStatus:" + newStatus );
+
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-comment/comment/updateStatus",
+        async : true,
+        data : { //使用Json格式进行透传
+        	"articleId" : articleId,
+            "commentId" : commentId,
+			"frontId"   : frontId,
+			"level"     : level,
+            "oldStatus" : oldStatus,
+            "newStatus" : newStatus
+        },
+        dataType:"json",
+		headers: {
+			"clientId":"spartacus-friday",
+			"Authorization":"bearer " + jwt.access_token//自定义请求头
+		},
+        success : function(result) {
+            if (result.code==0) {
+            	findByStatus(global_status, global_currentPage, global_pageSize);
+		        if(newStatus==1) {
+						parent.layer.msg('已通过！', {
+						    icon: 1,
+							time:1000
+						});
+					} else if(newStatus==2) {
+						parent.layer.msg('已删除！', {
+						    icon: 1,
+							time:1000
+						});
+					}
+					
+        	} else {
+				parent.layer.msg(result.message, {
+					icon: 2,
+					time:2000
+				});
+        	}
+        }
+    });
+}
+
+
+function batchUpdateStatus(newStatus) {
+    // 获取所有的复选框
+    var count = 0;
+    var params = [];
+	var checkElements=document.getElementsByName('checkbox');
+	for(var i=0;i<checkElements.length;i++) {
+		var checkElement=checkElements[i];
+		if(checkElement.checked) {
+			count++;
+			var articleId = $(checkElement).attr("article-id");
+			var commentId = $(checkElement).attr("comment-id");
+			var commentStatus = $(checkElement).attr("comment-status");
+			params.push({"articleId":articleId, "commentId":commentId, "oldStatus":parseInt(commentStatus), "newStatus":parseInt(newStatus)});
+		}
+	}
+	
+	if(count == 0) {
+		parent.layer.msg('请至少选中一条数据！', {
+		    icon: 2,
+			time:1000
+		});
+	} else {
+		$.ajax({
+	        type : "POST",
+	        url : base_domain+"/spartacus-comment/comment/batchUpdateStatus",
+	        async : true,
+	        data : { //使用Json格式进行透传
+	            "jsonParams" : JSON.stringify(params)
+	        },
+	        dataType:"json",
+			headers: {
+				"clientId":"spartacus-friday",
+				"Authorization":"bearer " + jwt.access_token//自定义请求头
+			},
+	        success : function(result) {
+	            if (result.code==0) {
+	            	findByStatus(global_status, global_currentPage, global_pageSize);
+			        if(newStatus==1) {
+						parent.layer.msg('批量审核成功！', {
+						    icon: 1,
+							time:1000
+						});
+					} else if(newStatus==2) {
+						parent.layer.msg('批量放入垃圾箱成功！', {
+						    icon: 1,
+							time:1000
+						});
+					}
+					
+	        	} else {
+					parent.layer.msg(result.message, {
+						icon: 2,
+						time:1000
+					});
+	        	}
+	        }
+	    });
+	}
+}
+
+
+function _delete(elementId) {
+	//询问框
+	parent.layer.confirm('这条评论的所有追评会同时被删除，确定删除吗？', {
+		icon: 0,
+	  	btn: ['确定','取消'] //按钮
+	}, function() {
+		var commentId = $(elementId).attr("comment-id");
+		var status = $(elementId).attr("comment-status");
+		var level = $(elementId).attr("comment-level");
+		var articleId = $(elementId).attr("article-id");
+	    $.ajax({
+	        type : "POST",
+	        url : base_domain+"/spartacus-comment/comment/delete",
+	        async : true,
+	        data : { //使用Json格式进行透传
+	            "commentId" : commentId,
+	            "status" : status,
+	            "level" : level,
+	            "articleId" : articleId
+	        },
+	        dataType:"json",
+			headers: {
+				"clientId":"spartacus-friday",
+				"Authorization":"bearer " + jwt.access_token//自定义请求头
+			},
+	        success : function(result) {
+	            if (result.code==0) {
+	            	findByStatus(global_status, global_currentPage, global_pageSize);
+					parent.layer.msg('删除成功！', {
+					    icon: 1,
+						time:1000
+					});
+					
+	        	} else {
+					parent.layer.msg(result.message, {
+						icon: 2,
+						time:1000
+					});
+	        	}
+	        }
+	    });
+    });
+}
+
+
+function batchDelete() {
+	// 获取所有的复选框
+    var count = 0;
+    var params = [];
+	var checkElements=document.getElementsByName('checkbox');
+	for(var i=0;i<checkElements.length;i++) {
+		var checkElement=checkElements[i];
+		if(checkElement.checked) {
+			count++;
+			var commentId = $(checkElement).attr("comment-id");
+			var level = $(checkElement).attr("comment-level");
+			var status = $(checkElement).attr("comment-status");
+			var articleId = $(checkElement).attr("article-id");
+			params.push({"commentId":commentId, "status":parseInt(status), "level":parseInt(level), "articleId":articleId});
+		}
+	}
+    
+	if(count == 0) {
+		parent.layer.msg('请至少选中一条数据！', {
+		    icon: 2,
+			time:1000
+		});
+	} else {
+		//询问框
+		parent.layer.confirm('这些评论的所有追评会同时被删除，确定删除吗？', {
+			icon: 0,
+		  	btn: ['确定','取消'] //按钮
+		}, function() {
+			$.ajax({
+		        type : "POST",
+		        url : base_domain+"/spartacus-comment/comment/batchDelete",
+		        async : true,
+		        data : { //使用Json格式进行透传
+		            "jsonParams" : JSON.stringify(params)
+		        },
+		        dataType:"json",
+				headers: {
+					"clientId":"spartacus-friday",
+					"Authorization":"bearer " + jwt.access_token//自定义请求头
+				},
+		        success : function(result) {
+		            if (result.code==0) {
+		            	findByStatus(global_status, global_currentPage, global_pageSize);
+						parent.layer.msg('批量删除成功！', {
+						    icon: 1,
+							time:1000
+						});
+						
+		        	} else {
+						parent.layer.msg(result.message, {
+							icon: 2,
+							time:1000
+						});
+		        	}
+		        }
+		    });
+	    });
+	}
+}
+
+
+function forbid(obj, forbidType) {
+	var ip = $(obj).attr('ip');
+	var ipCity = $(obj).attr('ipCity');
+	var providerUserId = $(obj).attr('providerUserId');
+	var providerId = $(obj).attr('providerId');
+	var headImg = $(obj).attr('headImg');
+	var nickname = $(obj).attr('nickname');
+	var articleTitle = $(obj).attr('articleTitle');
+	var content = $(obj).attr('content');
+	var reason = '文章：' + articleTitle + '<br>' + '评论：' + content;
+	var forbidType = forbidType;
+	
+	$.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-comment/comment/forbid",
+        async : true,
+        data : { //使用Json格式进行透传
+            "ip" : ip,
+			"ipCity" : ipCity,
+			"providerUserId" : providerUserId,
+			"providerId" : providerId,
+			"headImg" : headImg,
+			"nickname" : nickname,
+			"reason" : reason,
+			"forbidType" : forbidType,
+			"operateTime" : convertDateToGivenFormat(new Date(), "yyyy-MM-dd HH:mm:ss")
+        },
+        dataType:"json",
+		headers: {
+			"clientId":"spartacus-friday",
+			"Authorization":"bearer " + jwt.access_token//自定义请求头
+		},
+        success : function(result) {
+            if (result.code==0) {
+            	findByStatus(global_status, global_currentPage, global_pageSize);
+				parent.layer.msg('封禁成功！', {
+				    icon: 1,
+					time:1000
+				});
+        	} else {
+				parent.layer.msg(result.message, {
+					icon: 2,
+					time:1000
+				});
+        	}
+        }
+    });
+}
+
+
+function unForbid(obj, forbidType) {
+	var ip = $(obj).attr('ip');
+	var providerUserId = $(obj).attr('providerUserId');
+	
+	$.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-comment/comment/unForbid",
+        async : true,
+        data : { //使用Json格式进行透传
+            "ip" : ip,
+			"providerUserId" : providerUserId,
+			"forbidType" : forbidType
+        },
+        dataType:"json",
+		headers: {
+			"clientId":"spartacus-friday",
+			"Authorization":"bearer " + jwt.access_token//自定义请求头
+		},
+        success : function(result) {
+            if (result.code==0) {
+            	findByStatus(global_status, global_currentPage, global_pageSize);
+            	parent.layer.msg('解禁成功！', {
+				    icon: 1,
+					time:1000
+				});
+        	} else {
+				parent.layer.msg(result.message, {
+					icon: 2,
+					time:1000
+				});
+        	}
+        }
+    });
+	
+}
+
+function findByStatus(status, cp, ps) {
+	global_status = status;
+	global_currentPage = cp;
+	global_pageSize = ps;
+	
+	$.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-comment/comment/findByStatus",
+        async : true,
+        data : { //使用Json格式进行透传
+        	"status" : status,
+            "currentPage" : cp,
+            "pageSize" : ps
+        },
+        dataType:"json",
+		headers: {
+			"clientId":"spartacus-friday",
+			"Authorization":"bearer " + jwt.access_token//自定义请求头
+		},
+        success : function(result) {
+            if (result.code==0) {
+//          	console.log(result);
+				$("#tbody_id").children().remove();
+				
+				var comments = result.data.comments;
+				var forbiddenIps = result.data.forbiddenIps;
+				var forbiddenIds = result.data.forbiddenIds;
+				for(var i = 0; i < comments.length; i++) {
+					var id = comments[i]['id'];
+					var refId = comments[i]['refId'];
+					var frontId = comments[i]['frontId'];
+					var rearId = comments[i]['rearId'];
+					var status = comments[i]['status'];
+					var content = comments[i]['content'];
+					var subComments = comments[i]['subComments'];
+					var level = comments[i]['level'];
+					var publishTime = millisecondsToLocalDate(comments[i]['publishTime']);
+					
+					var articleId = comments[i]['articleId'];
+					var articleTitle = comments[i]['articleTitle'];
+					
+					var headImg = comments[i]['headImg'];
+					var nickname = comments[i]['nickname'];
+					var providerId = comments[i]['providerId'];
+					var providerUserId = comments[i]['providerUserId'];
+					var ip = comments[i]['ip'];
+					var ipCity = comments[i]['ipCity'];
+					
+					if(parseInt(level) == 1) { //ref-id用id
+//						$("#tbody_id").append("<tr> <td class='project-status' style='width: 2%;'> <input type='checkbox' name='checkbox' article-id='"+articleId+"' comment-id='"+id+"' comment-status='"+status+"' comment-level='"+level+"'> </td> <td class='project-title' style='width: 18%;'> <div class='social-feed-box' style='border: none; background: none; margin-bottom: 0;'> <div class='social-avatar' style='padding: 0;'> <img alt='image' src='"+headImg+"'><br> <small class='text-muted'>昵称: "+nickname+"</small><br> <small class='text-muted'>来源: "+providerId+"</small><br><small class='text-muted'>OPENID: "+providerUserId+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,0,1)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>IP: "+ip+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,1,0)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>城市: "+ipCity+"</small><br> <small class='text-muted'>发表时间: "+publishTime+"</small> </div> </div> </td> <td class='project-people' style='width: 65%; vertical-align: top; text-align: left;'> <p> <a href='/article_detail.html?article_id="+articleId+"'> 文章标题："+articleTitle+" </a> <small class='pull-right'>level: "+level+"</small> </p><br> <p> "+content+" </p> <a class='hidden_button' onclick='replyComment(this);' article-id='"+articleId+"' article-title='"+articleTitle+"' ref-id='"+id+"' comment-id='"+id+"' reply-to='"+nickname+"'>回复</a> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 15%; vertical-align: middle;text-align: center;'></td> </tr>");
+						if(forbiddenIps.indexOf(ip) > -1) {
+							if(forbiddenIds.indexOf(providerUserId) > -1) {
+								$("#tbody_id").append("<tr> <td class='project-status' style='width: 2%;'> <input type='checkbox' name='checkbox' article-id='"+articleId+"' comment-id='"+id+"' comment-status='"+status+"' comment-level='"+level+"'> </td> <td class='project-title' style='width: 18%;'> <div class='social-feed-box' style='border: none; background: none; margin-bottom: 0;'> <div class='social-avatar' style='padding: 0;'> <img alt='image' src='"+headImg+"'><br> <small class='text-muted'>昵称: "+nickname+"</small><br> <small class='text-muted'>来源: "+providerId+"</small><br><small class='text-muted'>ID: "+providerUserId+"</small>&nbsp;<a style='color:#377BB5;' onclick='unForbid(this,0)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[解封]</small></a><br> <small class='text-muted'>IP: "+ip+"</small>&nbsp;<a style='color:#377BB5;' onclick='unForbid(this,1)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[解封]</small></a><br> <small class='text-muted'>城市: "+ipCity+"</small><br> <small class='text-muted'>发表时间: "+publishTime+"</small> </div> </div> </td> <td class='project-people' style='width: 65%; vertical-align: top; text-align: left;'> <p> <a href='./article_detail.html?article_id="+articleId+"'> 文章标题："+articleTitle+" </a> <small class='pull-right'>level:"+level+"&nbsp;&nbsp;&nbsp;id:"+id+"</small></p><br> <p> "+content+" </p> <a class='hidden_button' onclick='replyComment(this);' article-id='"+articleId+"' article-title='"+articleTitle+"' ref-id='"+id+"' comment-id='"+id+"' reply-to='"+nickname+"'>回复</a> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 15%; vertical-align: middle;text-align: center;'></td> </tr>");
+							} else {
+								$("#tbody_id").append("<tr> <td class='project-status' style='width: 2%;'> <input type='checkbox' name='checkbox' article-id='"+articleId+"' comment-id='"+id+"' comment-status='"+status+"' comment-level='"+level+"'> </td> <td class='project-title' style='width: 18%;'> <div class='social-feed-box' style='border: none; background: none; margin-bottom: 0;'> <div class='social-avatar' style='padding: 0;'> <img alt='image' src='"+headImg+"'><br> <small class='text-muted'>昵称: "+nickname+"</small><br> <small class='text-muted'>来源: "+providerId+"</small><br><small class='text-muted'>ID: "+providerUserId+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,0)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>IP: "+ip+"</small>&nbsp;<a style='color:#377BB5;' onclick='unForbid(this,1)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[解封]</small></a><br> <small class='text-muted'>城市: "+ipCity+"</small><br> <small class='text-muted'>发表时间: "+publishTime+"</small> </div> </div> </td> <td class='project-people' style='width: 65%; vertical-align: top; text-align: left;'> <p> <a href='./article_detail.html?article_id="+articleId+"'> 文章标题："+articleTitle+" </a> <small class='pull-right'>level:"+level+"&nbsp;&nbsp;&nbsp;id:"+id+"</small> </p><br> <p> "+content+" </p> <a class='hidden_button' onclick='replyComment(this);' article-id='"+articleId+"' article-title='"+articleTitle+"' ref-id='"+id+"' comment-id='"+id+"' reply-to='"+nickname+"'>回复</a> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 15%; vertical-align: middle;text-align: center;'></td> </tr>");
+							}
+						} else {
+							if(forbiddenIds.indexOf(providerUserId) > -1) {
+								$("#tbody_id").append("<tr> <td class='project-status' style='width: 2%;'> <input type='checkbox' name='checkbox' article-id='"+articleId+"' comment-id='"+id+"' comment-status='"+status+"' comment-level='"+level+"'> </td> <td class='project-title' style='width: 18%;'> <div class='social-feed-box' style='border: none; background: none; margin-bottom: 0;'> <div class='social-avatar' style='padding: 0;'> <img alt='image' src='"+headImg+"'><br> <small class='text-muted'>昵称: "+nickname+"</small><br> <small class='text-muted'>来源: "+providerId+"</small><br><small class='text-muted'>ID: "+providerUserId+"</small>&nbsp;<a style='color:#377BB5;' onclick='unForbid(this,0)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[解封]</small></a><br> <small class='text-muted'>IP: "+ip+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,1)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>城市: "+ipCity+"</small><br> <small class='text-muted'>发表时间: "+publishTime+"</small> </div> </div> </td> <td class='project-people' style='width: 65%; vertical-align: top; text-align: left;'> <p> <a href='./article_detail.html?article_id="+articleId+"'> 文章标题："+articleTitle+" </a> <small class='pull-right'>level:"+level+"&nbsp;&nbsp;&nbsp;id:"+id+"</small> </p><br> <p> "+content+" </p> <a class='hidden_button' onclick='replyComment(this);' article-id='"+articleId+"' article-title='"+articleTitle+"' ref-id='"+id+"' comment-id='"+id+"' reply-to='"+nickname+"'>回复</a> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 15%; vertical-align: middle;text-align: center;'></td> </tr>");
+							} else {
+								$("#tbody_id").append("<tr> <td class='project-status' style='width: 2%;'> <input type='checkbox' name='checkbox' article-id='"+articleId+"' comment-id='"+id+"' comment-status='"+status+"' comment-level='"+level+"'> </td> <td class='project-title' style='width: 18%;'> <div class='social-feed-box' style='border: none; background: none; margin-bottom: 0;'> <div class='social-avatar' style='padding: 0;'> <img alt='image' src='"+headImg+"'><br> <small class='text-muted'>昵称: "+nickname+"</small><br> <small class='text-muted'>来源: "+providerId+"</small><br><small class='text-muted'>ID: "+providerUserId+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,0)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>IP: "+ip+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,1)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>城市: "+ipCity+"</small><br> <small class='text-muted'>发表时间: "+publishTime+"</small> </div> </div> </td> <td class='project-people' style='width: 65%; vertical-align: top; text-align: left;'> <p> <a href='./article_detail.html?article_id="+articleId+"'> 文章标题："+articleTitle+" </a> <small class='pull-right'>level:"+level+"&nbsp;&nbsp;&nbsp;id:"+id+"</small> </p><br> <p> "+content+" </p> <a class='hidden_button' onclick='replyComment(this);' article-id='"+articleId+"' article-title='"+articleTitle+"' ref-id='"+id+"' comment-id='"+id+"' reply-to='"+nickname+"'>回复</a> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 15%; vertical-align: middle;text-align: center;'></td> </tr>");
+							}
+						}
+					} else if(parseInt(level) == 2) { //ref-id用refId
+//						$("#tbody_id").append("<tr> <td class='project-status' style='width: 2%;'> <input type='checkbox' name='checkbox' article-id='"+articleId+"' comment-id='"+id+"' comment-status='"+status+"' comment-level='"+level+"'> </td> <td class='project-title' style='width: 18%;'> <div class='social-feed-box' style='border: none; background: none; margin-bottom: 0;'> <div class='social-avatar' style='padding: 0;'> <img alt='image' src='"+headImg+"'><br> <small class='text-muted'>昵称: "+nickname+"</small><br> <small class='text-muted'>来源: "+providerId+"</small><br><small class='text-muted'>ID: "+providerUserId+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,0,1)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>IP: "+ip+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,1,0)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>城市: "+ipCity+"</small><br> <small class='text-muted'>发表时间: "+publishTime+"</small> </div> </div> </td> <td class='project-people' style='width: 65%; vertical-align: top; text-align: left;'> <p> <a href='/article_detail.html?article_id="+articleId+"'> 文章标题："+articleTitle+" </a> <small class='pull-right'>level: "+level+"</small> </p><br> <p> "+content+" </p> <a class='hidden_button' onclick='replyComment(this);' article-id='"+articleId+"' article-title='"+articleTitle+"' ref-id='"+refId+"' comment-id='"+id+"' reply-to='"+nickname+"'>回复</a> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 15%; vertical-align: middle;text-align: center;'></td> </tr>");
+						if(forbiddenIps.indexOf(ip) > -1) {
+							if(forbiddenIds.indexOf(providerUserId) > -1) {
+								$("#tbody_id").append("<tr> <td class='project-status' style='width: 2%;'> <input type='checkbox' name='checkbox' article-id='"+articleId+"' comment-id='"+id+"' comment-status='"+status+"' comment-level='"+level+"'> </td> <td class='project-title' style='width: 18%;'> <div class='social-feed-box' style='border: none; background: none; margin-bottom: 0;'> <div class='social-avatar' style='padding: 0;'> <img alt='image' src='"+headImg+"'><br> <small class='text-muted'>昵称: "+nickname+"</small><br> <small class='text-muted'>来源: "+providerId+"</small><br><small class='text-muted'>ID: "+providerUserId+"</small>&nbsp;<a style='color:#377BB5;' onclick='unForbid(this,0)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[解封]</small></a><br> <small class='text-muted'>IP: "+ip+"</small>&nbsp;<a style='color:#377BB5;' onclick='unForbid(this,1)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[解封]</small></a><br> <small class='text-muted'>城市: "+ipCity+"</small><br> <small class='text-muted'>发表时间: "+publishTime+"</small> </div> </div> </td> <td class='project-people' style='width: 65%; vertical-align: top; text-align: left;'> <p> <a href='./article_detail.html?article_id="+articleId+"'> 文章标题："+articleTitle+" </a> <small class='pull-right'>level:"+level+"&nbsp;&nbsp;&nbsp;id:"+id+"&nbsp;&nbsp;&nbsp;front-id:"+frontId+"</small> </p><br> <p> "+content+" </p> <a class='hidden_button' onclick='replyComment(this);' article-id='"+articleId+"' article-title='"+articleTitle+"' ref-id='"+refId+"' comment-id='"+id+"' reply-to='"+nickname+"'>回复</a> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 15%; vertical-align: middle;text-align: center;'></td> </tr>");
+							} else {
+								$("#tbody_id").append("<tr> <td class='project-status' style='width: 2%;'> <input type='checkbox' name='checkbox' article-id='"+articleId+"' comment-id='"+id+"' comment-status='"+status+"' comment-level='"+level+"'> </td> <td class='project-title' style='width: 18%;'> <div class='social-feed-box' style='border: none; background: none; margin-bottom: 0;'> <div class='social-avatar' style='padding: 0;'> <img alt='image' src='"+headImg+"'><br> <small class='text-muted'>昵称: "+nickname+"</small><br> <small class='text-muted'>来源: "+providerId+"</small><br><small class='text-muted'>ID: "+providerUserId+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,0)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>IP: "+ip+"</small>&nbsp;<a style='color:#377BB5;' onclick='unForbid(this,1)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[解封]</small></a><br> <small class='text-muted'>城市: "+ipCity+"</small><br> <small class='text-muted'>发表时间: "+publishTime+"</small> </div> </div> </td> <td class='project-people' style='width: 65%; vertical-align: top; text-align: left;'> <p> <a href='./article_detail.html?article_id="+articleId+"'> 文章标题："+articleTitle+" </a> <small class='pull-right'>level:"+level+"&nbsp;&nbsp;&nbsp;id:"+id+"&nbsp;&nbsp;&nbsp;front-id:"+frontId+"</small> </p><br> <p> "+content+" </p> <a class='hidden_button' onclick='replyComment(this);' article-id='"+articleId+"' article-title='"+articleTitle+"' ref-id='"+refId+"' comment-id='"+id+"' reply-to='"+nickname+"'>回复</a> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 15%; vertical-align: middle;text-align: center;'></td> </tr>");
+							}
+						} else {
+							if(forbiddenIds.indexOf(providerUserId) > -1) {
+								$("#tbody_id").append("<tr> <td class='project-status' style='width: 2%;'> <input type='checkbox' name='checkbox' article-id='"+articleId+"' comment-id='"+id+"' comment-status='"+status+"' comment-level='"+level+"'> </td> <td class='project-title' style='width: 18%;'> <div class='social-feed-box' style='border: none; background: none; margin-bottom: 0;'> <div class='social-avatar' style='padding: 0;'> <img alt='image' src='"+headImg+"'><br> <small class='text-muted'>昵称: "+nickname+"</small><br> <small class='text-muted'>来源: "+providerId+"</small><br><small class='text-muted'>ID: "+providerUserId+"</small>&nbsp;<a style='color:#377BB5;' onclick='unForbid(this,0)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[解封]</small></a><br> <small class='text-muted'>IP: "+ip+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,1)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>城市: "+ipCity+"</small><br> <small class='text-muted'>发表时间: "+publishTime+"</small> </div> </div> </td> <td class='project-people' style='width: 65%; vertical-align: top; text-align: left;'> <p> <a href='./article_detail.html?article_id="+articleId+"'> 文章标题："+articleTitle+" </a> <small class='pull-right'>level:"+level+"&nbsp;&nbsp;&nbsp;id:"+id+"&nbsp;&nbsp;&nbsp;front-id:"+frontId+"</small> </p><br> <p> "+content+" </p> <a class='hidden_button' onclick='replyComment(this);' article-id='"+articleId+"' article-title='"+articleTitle+"' ref-id='"+refId+"' comment-id='"+id+"' reply-to='"+nickname+"'>回复</a> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 15%; vertical-align: middle;text-align: center;'></td> </tr>");
+							} else {
+								$("#tbody_id").append("<tr> <td class='project-status' style='width: 2%;'> <input type='checkbox' name='checkbox' article-id='"+articleId+"' comment-id='"+id+"' comment-status='"+status+"' comment-level='"+level+"'> </td> <td class='project-title' style='width: 18%;'> <div class='social-feed-box' style='border: none; background: none; margin-bottom: 0;'> <div class='social-avatar' style='padding: 0;'> <img alt='image' src='"+headImg+"'><br> <small class='text-muted'>昵称: "+nickname+"</small><br> <small class='text-muted'>来源: "+providerId+"</small><br><small class='text-muted'>ID: "+providerUserId+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,0)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>IP: "+ip+"</small>&nbsp;<a style='color:#377BB5;' onclick='forbid(this,1)' ip='"+ip+"' ipCity='"+ipCity+"' providerUserId='"+providerUserId+"' providerId='"+providerId+"' headImg='"+headImg+"' nickname='"+nickname+"' articleTitle='"+articleTitle+"' content='"+content+"'><small>[封]</small></a><br> <small class='text-muted'>城市: "+ipCity+"</small><br> <small class='text-muted'>发表时间: "+publishTime+"</small> </div> </div> </td> <td class='project-people' style='width: 65%; vertical-align: top; text-align: left;'> <p> <a href='./article_detail.html?article_id="+articleId+"'> 文章标题："+articleTitle+" </a> <small class='pull-right'>level:"+level+"&nbsp;&nbsp;&nbsp;id:"+id+"&nbsp;&nbsp;&nbsp;front-id:"+frontId+"</small> </p><br> <p> "+content+" </p> <a class='hidden_button' onclick='replyComment(this);' article-id='"+articleId+"' article-title='"+articleTitle+"' ref-id='"+refId+"' comment-id='"+id+"' reply-to='"+nickname+"'>回复</a> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 15%; vertical-align: middle;text-align: center;'></td> </tr>");
+							}
+						}
+					}
+					
+					if(status == 0) {
+						$("#project-actions-"+i).append("&nbsp;<button article-id='"+articleId+"' comment-id='"+id+"' ref-id='"+refId+"' front-id='"+frontId+"' comment-status='"+status+"' comment-level='"+level+"' id='pass_"+i+"' type='button' class='btn btn-success' style='margin-bottom: 5px;'><i class='fa fa-telegram'></i>&nbsp;通过</button><br>");
+						$("#pass_"+i).click(function(){
+							updateStatus(1, this);
+						});
+						/*$("#project-actions-"+i).append("&nbsp;<button article-id='"+articleId+"' comment-id='"+id+"' ref-id='"+refId+"' front-id='"+frontId+"' comment-status='"+status+"' comment-level='"+level+"' id='trash_"+i+"' type='button' class='btn btn-info' style='margin-bottom: 5px;'><i class='fa fa-trash'></i>&nbsp;垃圾</button><br>");
+						$("#trash_"+i).click(function(){
+							updateStatus(2, this);
+						});*/
+						$("#project-actions-"+i).append("&nbsp;<button article-id='"+articleId+"' comment-id='"+id+"' ref-id='"+refId+"' front-id='"+frontId+"' comment-status='"+status+"' comment-level='"+level+"' id='delete_"+i+"' type='button' class='btn btn-danger'><i class='fa fa-times-circle'></i>&nbsp;删除</button>");
+						$("#delete_"+i).click(function(){
+							_delete(this);
+						});
+						
+					} else if(status == 1) {
+						/*$("#project-actions-"+i).append("&nbsp;<button article-id='"+articleId+"' comment-id='"+id+"' ref-id='"+refId+"' front-id='"+frontId+"' comment-status='"+status+"' comment-level='"+level+"' id='trash_"+i+"' type='button' class='btn btn-info' style='margin-bottom: 5px;'><i class='fa fa-trash'></i>&nbsp;垃圾</button><br>");
+						$("#trash_"+i).click(function(){
+							updateStatus(2, this);
+						});*/
+						$("#project-actions-"+i).append("&nbsp;<button article-id='"+articleId+"' comment-id='"+id+"' ref-id='"+refId+"' front-id='"+frontId+"' comment-status='"+status+"' comment-level='"+level+"' id='delete_"+i+"' type='button' class='btn btn-danger'><i class='fa fa-times-circle'></i>&nbsp;删除</button>");
+						$("#delete_"+i).click(function(){
+							_delete(this);
+						});
+						
+					} else if(status == 2) {
+						$("#project-actions-"+i).append("&nbsp;<button article-id='"+articleId+"' comment-id='"+id+"' ref-id='"+refId+"' front-id='"+frontId+"' comment-status='"+status+"' comment-level='"+level+"' id='pass_"+i+"' type='button' class='btn btn-success' style='margin-bottom: 5px;'><i class='fa fa-telegram'></i>&nbsp;通过</button><br>");
+						$("#pass_"+i).click(function(){
+							updateStatus(1, this);
+						});
+						/*$("#project-actions-"+i).append("&nbsp;<button article-id='"+articleId+"' comment-id='"+id+"' ref-id='"+refId+"' front-id='"+frontId+"' comment-status='"+status+"' comment-level='"+level+"' id='delete_"+i+"' type='button' class='btn btn-danger'><i class='fa fa-times-circle'></i>&nbsp;删除</button>");
+						$("#delete_"+i).click(function(){
+							_delete(this);
+						});*/
+						
+					}
+				}
+				
+				//点击行，选中checkbox
+		        $("#tbody_id tr").click(function () {
+		        	var srcElement = window.event.srcElement;
+					if(srcElement.tagName.toLowerCase() == "td") {
+			            if ($(this).find(":checkbox").prop("checked")) {
+			                $(this).find(":checkbox").removeAttr("checked");
+			            } else {
+			                $(this).find(":checkbox").prop("checked", true);
+			            } 
+		            }
+		        });
+			    
+				//构造分页按钮组
+				var total = parseInt(result.data.total);
+			   	var page_element = BootstrapPagination($("#page_element_id"), {
+	                layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+	                //记录总数。
+	                total: total,
+	                //分页尺寸。指示每页最多显示的记录数量。
+	                pageSize: ps,
+	                //当前页索引编号。从0开始的整数。
+	                pageIndex: cp-1,
+	                //指示分页导航栏中最多显示的页索引数量。
+	                pageGroupSize: 10,
+	                //位于导航条左侧的输出信息格式化字符串
+	                //leftFormateString: "本页{count}条记录/共{total}条记录",
+	                //位于导航条右侧的输出信息格式化字符串
+	                rightFormateString: "共{totalPages}页",
+	                //页码文本格式化字符串。
+	                pageNumberFormateString: "{pageNumber}",
+	                //分页尺寸输出格式化字符串
+	                pageSizeListFormateString: "{pageSize}条/页",
+	                //上一页导航按钮文本。
+	                prevPageText: "上一页",
+	                //下一页导航按钮文本。
+	                nextPageText: "下一页",
+	                //上一组分页导航按钮文本。
+	                prevGroupPageText: "上一组",
+	                //下一组分页导航按钮文本。
+	                nextGroupPageText: "下一组",
+	                //首页导航按钮文本。
+	                firstPageText: "首页",
+	                //尾页导航按钮文本。
+	                lastPageText: "尾页",
+	                //设置页码输入框中显示的提示文本。
+	                pageInputPlaceholder: "go",
+	                //接受用户输入内容的延迟时间。单位：毫秒
+	                pageInputTimeout: 1000,
+	                //分页尺寸列表。
+	                pageSizeList: [5, 15, 20, 30, 45, 50],
+	                //当分页更改后引发此事件。
+	                pageChanged: function (pageIndex, pageSize) {
+	                    findByStatus(status, pageIndex+1, pageSize);
+	                },
+	            });
+	        } else {
+				parent.layer.msg(result.message, {
+					icon: 2,
+					time:1000
+				});
+			}
+        }
+    });
+}
+
+function createButton(summernoteId) {
+	var ui = $.summernote.ui;
+	var button = ui.button({
+	    contents: '<i class="fa fa-send-o"></i>&nbsp;提交评论',
+	    click: function () {
+			adminReplyComment(summernoteId);
+	    }
+	});
+	return button.render();  // return button as jquery object
+}
+
+function cancelButton(summernoteId) {
+	var ui = $.summernote.ui;
+	var button = ui.button({
+		contents: '<i class="fa fa-signing"></i>&nbsp;放弃评论',
+		click: function () {
+			cancelReply(summernoteId);
+		}
+	});
+	return button.render();  // return button as jquery object
+}
+
+function createEditor(summernoteId) {
+	$(summernoteId).summernote({
+        lang : 'zh-CN',
+        height : 100,   //set editable area's height
+	    codemirror : { // codemirror options
+	    	theme : 'monokai'
+		},
+		focus : true,
+		buttons: {
+		    submitbtn: createButton(summernoteId),
+			canceltbtn: cancelButton(summernoteId)
+		},
+		toolbar : [
+		     	['font', ['color']],
+		     	['fontstyle', ['italic', 'bold', 'underline']],
+		     	['insert', ['emoji', 'picture', 'link']],
+		     	['misc', ['undo', 'redo', 'help']],
+		     	['mybuttons', ['submitbtn', 'canceltbtn']]
+		],
+	    placeholder : '理性思考，文明回复...',
+        callbacks : {
+            onImageUpload: function (files) {
+                uploadFile(summernoteId, files[0]);
+            }
+	    }
+    });
+}
+
+function uploadFile(summernoteId, file) {
+	// 构造Form表单
+	var fromData = new FormData();
+	fromData.append("file", file);
+	$.ajax({
+		data: fromData,
+		type: "POST",
+		url: base_domain+"/spartacus-resource/cos/fileUpload",
+		cache: false,
+		contentType: false, //这里千万不要设置，否则无法上传
+		processData: false,
+		headers: {
+			"clientId":"spartacus-friday",
+			"Authorization":"bearer " + jwt.access_token//自定义请求头
+		},
+		success: function(result) {
+			if(result.code == 0) {
+				parent.layer.msg('上传成功！', {
+					icon: 1,
+					time:1000
+				});
+				$(summernoteId).summernote('insertImage', result.data);
+			} else {
+				parent.layer.msg(result.message, {
+					icon: 2,
+					time:1000
+				});
+			}
+		}
+	});
+}
+
+
+function cancelReply(obj) {
+	//销毁回复编辑器
+	$("#summernote_reply_comment").summernote('destroy');
+	$("#summernote_reply_comment").remove();
+	$("#summernote_cancel_reply").remove();
+	// $(obj).html('回复');
+	// $(obj).attr('onclick', 'replyComment(this);');
+
+	$(global_replyObj).css("display", "block");
+}
+
+
+function replyComment(obj) {
+	//如果存在未关闭回复编辑器，先销毁
+	// $(global_replyObj).html('回复');
+	// $(global_replyObj).attr('onclick', 'replyComment(this);');
+	$(global_replyObj).css("display", "block");
+	global_replyObj = obj;
+
+	$("#summernote_reply_comment").summernote('destroy');
+	$("#summernote_reply_comment").remove();
+	$("#summernote_cancel_reply").remove();
+
+
+	$(obj).before("<div id='summernote_reply_comment'></div>");
+	// $(obj).html('取消回复');
+	// $(obj).attr('onclick', 'cancelReply(this);');
+
+	$(obj).css("display", "none");
+
+	$('#summernote_reply_comment').attr('article-id',$(obj).attr('article-id'));
+	$('#summernote_reply_comment').attr('article-title',$(obj).attr('article-title'));
+    $('#summernote_reply_comment').attr('ref-id',$(obj).attr('ref-id'));
+    $('#summernote_reply_comment').attr('front-id',$(obj).attr('comment-id'));
+	$('#summernote_reply_comment').attr('reply-to',$(obj).attr('reply-to'));
+	createEditor('#summernote_reply_comment');
+}
+
+function adminReplyComment(summernoteId) {
+	var nickname = jwt.nickname;
+	var headImg = jwt.headimage;
+	var providerId = jwt.providerId;
+	var providerUserId = jwt.providerUserId;
+
+	var re0 = /&nbsp;/g; //&nbsp;类型空格
+	var re1 = /(^\s*)|(\s*$)|( )/g; //其他类型空格
+	var re2 = /<\/?((?!img).)*?\/?>/g; //去除img标签外其他所有html标签
+	var content = $(summernoteId).summernote('code').replace(re2,'');
+	if(content.replace(re0,'').replace(re1,'')=='') {
+		//重置操作的话则必须销毁、重新生成，所以这里自定义函数clearEditArea，避免重置编辑器
+		$(summernoteId).summernote('clearEditArea');
+		$(summernoteId).summernote('focus');
+		parent.layer.msg('评论内容不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return;
+	} else {
+		var publishTime = convertDateToGivenFormat(new Date(), "yyyy-MM-dd HH:mm:ss");
+		var articleId = $('#summernote_reply_comment').attr('article-id');
+		var articleTitle = $('#summernote_reply_comment').attr('article-title');
+		var refId = $('#summernote_reply_comment').attr('ref-id');
+		var frontId = $('#summernote_reply_comment').attr('front-id');
+		var replyTo = $('#summernote_reply_comment').attr('reply-to');
+
+        $.ajax({
+            type : "POST",
+            url : base_domain+"/spartacus-comment/comment/adminSubmitComment",
+            async : true,
+            data : {
+            	"articleId" : articleId,
+            	"articleTitle" : articleTitle,
+				"refId" : refId, //只有二级评论这个参数才有值
+				"frontId" : frontId, //只有二级评论这个参数才有值
+                "content" : content,
+                "publishTime" : publishTime,
+				"nickname" : nickname,
+				"headImg" : headImg,
+				"providerId" : providerId,
+				"providerUserId" : providerUserId,
+				"pageStatus" : origin_status
+            },
+            dataType:"json",
+			headers: {
+				"clientId":"spartacus-friday",
+				"Authorization":"bearer " + jwt.access_token//自定义请求头
+			},
+            success : function(result) {
+            	//销毁评论框
+				cancelReply(this);
+                if (result.code==0) {
+                	findByStatus(global_status, global_currentPage, global_pageSize);
+					parent.layer.msg('回复成功！', {
+					    icon: 1,
+						time:1000
+					});
+                    
+                } else {
+					parent.layer.msg(result.message, {
+						icon: 2,
+						time:1000
+					});
+                }
+            }
+        });
+    }
+}
+
+
+function checkNull() {
+	var re1 = /(^\s*)|(\s*$)|( )/g; //空格正则表达式
+	var re2 = /<[^>]+>/g; //html标签正则表达式
+	var re3 = /&nbsp;/g; //&nbsp;正则表达式
+	
+	var title = $("#title_id").val();
+	var labels = $("#labels_id").val();
+	var author = $("#author_id").val();
+	var publishTime = $("#publishTime_id").val();
+	var cname = $("#cname_id").val();
+	var fromWhere = $("#fromWhere_id").val();
+	var brief = $("#brief_id").val();
+	
+	if(title.replace(re1,'')=='') {
+		parent.layer.msg('标题不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(labels.replace(re1,'')=='') {
+		parent.layer.msg('标签不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(author.replace(re1,'')=='') {
+		parent.layer.msg('作者不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(publishTime.replace(re1,'')=='') {
+		parent.layer.msg('时间不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(cname=='请选择...') {
+		parent.layer.msg('分类不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(fromWhere=='请选择...') {
+		parent.layer.msg('来源不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(brief.replace(re1,'').replace(re2,'').replace(re3,'')=='') {
+		parent.layer.msg('摘要不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	return true;
+}
+
+
+</script>
+
+</body>
+</html>

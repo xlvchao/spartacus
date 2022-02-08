@@ -1,0 +1,55 @@
+version: "3.4"
+networks:
+  #可以自定义network名称，这里使用default表示如果不在service中单独配置就使用该设置 
+  default: 
+    external: 
+      name: app-net
+services:
+  comment1:
+    image: xlvchao/spartacus-comment:1.0.0
+    container_name: comment1
+    restart: always
+    environment:
+      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+      - instanceIp=10.0.0.10
+      - instancePort=6001
+      - xxlJobExecutorPort=6011
+      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+      - APOLLO_ACCESSKEY_SECRET=dc862862b1e74e4e9fb3b5b8d9333adf
+    volumes:
+      - /opt/settings:/opt/settings
+    ports:
+      - 6001:6001
+      - 6011:6011
+#  comment2:
+#    image: xlvchao/spartacus-comment:1.0.0
+#    container_name: comment2
+#    restart: always
+#    environment:
+#      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+#      - instanceIp=10.0.0.4
+#      - instancePort=6002
+#      - xxlJobExecutorPort=6012
+#      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+#      - APOLLO_ACCESSKEY_SECRET=dc862862b1e74e4e9fb3b5b8d9333adf
+#    volumes:
+#      - /opt/settings:/opt/settings
+#    ports:
+#      - 6002:6002
+#      - 6012:6012
+#  comment3:
+#    image: xlvchao/spartacus-comment:1.0.0
+#    container_name: comment3
+#    restart: always
+#    environment:
+#      - JAVA_OPTS=-server -Xms128M -Xmx256M -Xmn64M -XX:MetaspaceSize=64M -XX:MaxMetaspaceSize=128M
+#      - instanceIp=10.0.0.14
+#      - instancePort=6003
+#      - xxlJobExecutorPort=6013
+#      - APOLLO_META="http://10.0.0.11:8080,http://10.0.0.9:8081,http://10.0.0.16:8082"
+#      - APOLLO_ACCESSKEY_SECRET=dc862862b1e74e4e9fb3b5b8d9333adf
+#    volumes:
+#      - /opt/settings:/opt/settings
+#    ports:
+#      - 6003:6003
+#      - 6013:6013

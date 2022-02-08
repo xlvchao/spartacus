@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	
+<head>
+<meta charset="UTF-8">
+<title></title>
+	
+<link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+<link href="css/animate.css" rel="stylesheet">
+<link href="css/style.css?v=4.1.0" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="css/plugins/webuploader/webuploader.css">
+<link rel="stylesheet" type="text/css" href="css/demo/webuploader-demo.css">
+
+<style>
+	#filePicker div:nth-child(2){width:100%!important;height:100%!important;}
+	
+</style>
+</head>
+	
+<body>
+		
+    <div class="ibox float-e-margins">
+        <div class="ibox-content">
+            <div class="page-container">
+                <p>拖拽文件，或点击添加文件，或使用QQ、微信自带的截屏工具截屏后粘贴到这里</p>
+                <div id="uploader" class="wu-example">
+                    <div class="queueList">
+                        <div id="dndArea" class="placeholder">
+                            <div id="filePicker"></div>
+                            <p>单次最多可选<font id="fileNumLimit"></font>个文件，单个文件大小不得超过<font id="fileSingleSizeLimit"></font>M</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    	<input type="text" name="tags" id="tags_id" placeholder="标签：多个标签请使用中文或英文逗号分隔" class="form-control">
+                    </div>
+                    <div class="statusBar" style="display:none;">
+                        <div class="progress">
+                            <span class="text">0%</span>
+                            <span class="percentage"></span>
+                        </div>
+                        <div class="info"></div>
+                        <div class="btns">
+                            <div id="filePicker2"></div>
+                            <div class="uploadBtn">开始上传</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/content.js?v=1.0.0"></script>
+<script src="js/layer/layer.js"></script>
+<script src="js/common.js"></script>
+
+<script src="js/plugins/webuploader/webuploader.min.js"></script>
+<script src="js/loadconfig.js"></script>
+<script src="js/demo/webuploader-demo.js"></script>
+
+
+<script>
+
+    var base_domain = getConfig('base_domain');
+
+    $("#fileNumLimit").text(parent.fileNumLimit);
+    $("#fileSingleSizeLimit").text(parent.fileSingleSizeLimit);
+</script>
+
+</body>
+	
+</html>

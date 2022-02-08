@@ -1,0 +1,994 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta http-equiv="Cache" content="no-cache">	
+
+    <title>超人.FM|Superman.fm</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <!--全局css-->
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!--<link href="/css/animate.css" rel="stylesheet">-->
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+    <link type="text/css" href="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.css" rel="stylesheet">
+
+    
+<style type="text/css">
+	.date-wrap {
+	    margin: 0;
+	    padding: 0;
+	    width: 45px;
+	    background: url(img/digg_bg.png) top left no-repeat;
+	    text-align: center;
+	    top: 10px;
+	    height: 45px;
+	}
+	.date-monthday {
+	    margin: 0;
+	    padding: 0;
+	    width: 35px;
+	    color: #fff;
+	    font: bold 16px Georgia,"Times New Roman",Times,sans-serif;
+	    line-height: 21px;
+	    overflow: visible;
+	    height: 21px;
+	}
+	.date-year {
+	    margin: 0;
+	    padding: 0;
+	    width: 35px;
+	    color: #fff;
+	    font: bold 16px Georgia,"Times New Roman",Times,sans-serif;
+	    line-height: 21px;
+	    overflow: visible;
+	    height: 21px;
+	}
+</style>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>文章列表</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row m-b-sm m-t-sm">
+                        <div class="col-md-1">
+                            <button type="button" id="refresh_id" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>&nbsp;Refresh</button>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="input-group">
+                                <input id="search_input_id" type="text" placeholder="请输入搜索内容..." class="input-sm form-control">
+                                <span class="input-group-btn">
+                                    <button id="search_button_id" class="btn btn-sm btn-primary">&nbsp;搜索</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="project-list">
+<table class="table table-hover">
+	<tbody id="tbody_id">
+	
+    </tbody>
+</table>
+                            
+<!--弹出窗口（模态窗口）-->
+<div class="modal inmodal" id="myModal" tabindex="-1" data-backdrop="false" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+<!--            	<small id="small_article_id" class="sr-only" style="display: none;" hidden="hidden"></small>-->
+<!--                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                <table id="table_id" class="table table-hover">
+                    <tbody>
+				    	<tr align="left">
+				    		<td width="50%">
+				    			<small class="font-bold" style="font-size: 16px;">标题：</small>
+				    			<small id="small_title_id"></small>
+				    			<input id="title_id" type="text" class="sr-only"/>
+				    		</td>
+				    		<td width="50%">
+				    			<small class="font-bold" style="font-size: 16px;">作者：</small>
+				    			<small id="small_author_id"></small>
+				    			<input id="author_id" type="text" class="sr-only"/>
+				    		</td>
+				    	</tr>
+				    	<tr align="left">
+				    		<td width="50%">
+				    			<small class="font-bold" style="font-size: 16px;">时间：</small>
+				    			<small id="small_publishTime_id"></small>
+				    			<input id="publishTime_id" type="text" class="sr-only" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/>
+				    		</td>
+				    		<td width="50%">
+				    			<small class="font-bold" style="font-size: 16px;">分类：</small>
+				    			<small id="small_cname_id"></small>
+				    			<select id="cname_id" class="sr-only" name="account">
+				    				
+                                </select>
+				    		</td>
+				    	</tr>
+				    	<tr align="left">
+				    		<td width="50%">
+				    			<small class="font-bold" style="font-size: 16px;">来源：</small>
+				    			<small id="small_fromWhere_id"></small>
+				    			<select id="fromWhere_id" class="sr-only" name="account">
+	                                <option>原创</option>
+	                                <option>摘抄</option>
+	                                <option>转载</option>
+	                            </select>
+				    		</td>
+				    		<td width="50%">
+				    			<small class="font-bold" style="font-size: 16px;">标签：</small>
+				    			<small id="small_labels_id"></small>
+				    			<input id="labels_id" type="text" class="sr-only"/>
+				    		</td>
+				    	</tr>
+				    </tbody>
+				</table>
+            </div>
+            <div class="modal-body">
+                <small class="font-bold" style="font-size: 16px;">摘要：</small>
+                <small id="small_brief_id"></small>
+                <textarea id="brief_id" type="text" class="sr-only" rows="5"></textarea>
+            </div>
+            <div class="modal-footer">
+             	<table style="border-top:none ; width: 100%;" align="center">
+                    <tbody>
+                    	<tr align="center">
+                    		<td width="50%" align="center">
+                    		<button style="width: 99%;" id="edit_id" onclick="edit()" type="button" class="btn btn-primary">编辑</button>
+                    		</td>
+                    		<td width="50%" align="center">
+                    		<button style="width: 99%;" id="close_id" onclick="closeModal()" type="button" class="btn btn-primary">关闭</button>
+                    		</td>
+                    	</tr>
+                    </tbody>
+            	</table>
+            </div>
+        </div>
+    </div>
+</div>
+                            
+<!--分页-->
+<div class="text-center">
+	<!-- 下面是控制分页控件，必须要是ul元素才行 -->
+	<ul id='page_element_id1' class="pagination pagination-lg"></ul>
+	<ul id='page_element_id2' class="pagination pagination-lg"></ul>
+	
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/content.js?v=1.0.0"></script>
+<script src="js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+<script src="js/layer/layer.js"></script>
+<script src="js/plugins/layer/laydate/laydate.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/bootstrap-pagination-0.6.2/bootstrap-pagination.js"></script>
+    
+<script src="js/common.js"></script>
+<script src="js/loadconfig.js"></script>
+
+<script type="text/javascript">
+
+	var base_domain = getConfig('base_domain');
+	var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
+
+//给模态框中的分类下拉框赋值
+$.ajax({
+    type : "GET",
+    url : base_domain+"/spartacus-article/article/getCategory",
+    async : true,
+    dataType:"json",
+	headers: {
+		"clientId":"spartacus-friday",
+		"Authorization":"bearer " + jwt.access_token//自定义请求头
+	},
+    success : function(result) {
+    	if(result.code == 0) {
+			var categories = result.data;
+			for (var i = 0; i < categories.length; i++) {
+				$("#cname_id").append("<option value='" + categories[i].cname + "'>" + categories[i].cname + "</option>");
+			}
+		} else {
+			parent.layer.msg(result.message, {
+				icon: 2,
+				time:1000
+			});
+		}
+    }
+});
+
+
+//全局变量
+var origin_status;
+var origin_currentPage;
+var origin_pageSize;
+	
+var global_status;
+var global_currentPage;
+var global_pageSize;
+
+var articles;
+var _isSearch;
+var _currentPage;
+
+$(function() {
+	origin_currentPage = parseInt(getUrlParam('cp'));
+	origin_pageSize = parseInt(getUrlParam('ps'));
+	origin_status = parseInt(getUrlParam('status'));
+	
+	global_status = origin_status;
+	global_currentPage = origin_currentPage;
+	global_pageSize = origin_pageSize;
+
+	//加载首页数据
+	findByStatus(origin_currentPage, origin_pageSize, origin_status);
+	
+	//刷新首页数据
+	$('#refresh_id').click(function () {
+		$("#search_input_id").val("");
+        btn = $(this);
+        btn.children().addClass('fa-spin');
+        btn.contents().last().replaceWith(" Loading");
+       	findByStatus(origin_currentPage, origin_pageSize, origin_status);
+        window.setTimeout(function () {
+            btn.children().removeClass('fa-spin');
+            btn.contents().last().replaceWith(" Refresh");
+        }, 1000);
+    });
+    
+    //单击搜索按钮
+	$('#search_button_id').click(function () {
+        submitSearch(origin_currentPage, origin_pageSize, origin_status);
+    });
+});
+
+
+var isPaginatorExist1 = false;
+function findByStatus(cp, ps, status) {
+	global_currentPage = cp;
+	global_pageSize = ps;
+	global_status = status;
+	
+	$.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-article/article/findByStatus",
+        async : true,
+        data : { //使用Json格式进行透传
+            "currentPage" : cp,
+            "pageSize" : ps,
+            "status" : status
+        },
+        dataType:"json",
+		headers: {
+			"clientId":"spartacus-friday",
+			"Authorization":"bearer " + jwt.access_token//自定义请求头
+		},
+        success : function(result) {
+            if (result.code==0) {
+				$("#tbody_id").children().remove();
+				articles = result.data.records;
+				_isSearch = false;
+				for(var i = 0; i < articles.length; i++) {
+					var id = articles[i]['id'];
+					var author = articles[i]['author'];
+					var brief = articles[i]['brief'];
+					var cname = articles[i]['cname'];
+					var commentNumber = articles[i]['commentNumber'];
+					var fromWhere = articles[i]['fromWhere'];
+					var isTop = articles[i]['isTop'];
+					var labels = articles[i]['labels'];
+					var monthDay = articles[i]['monthDay'];
+					var pictures = [];
+					if(!isNullOrEmpty(articles[i].pictures)) {
+						pictures = articles[i].pictures.split(";");
+					}
+					var publishTime = articles[i]['publishTime'];
+					var scanNumber = articles[i]['scanNumber'];
+					var status = articles[i]['status'];
+					var title = articles[i]['title'];
+					var year = articles[i]['year'];
+					
+					$("#tbody_id").append("<tr> <td class='project-status' style='width: 5%;'> <div class='date-wrap'> <span class='date-monthday' id='monthDay_id'>"+monthDay+"</span> <span class='date-year' id='year_id'>"+year+"</span> </div> </td> <td class='project-title' style='width: 30%;'> <a href='./article_detail.html?article_id="+id+"'> "+title+" </a><br/> <small> <i class='fa fa-comments-o'></i>"+commentNumber+"&nbsp;评论 &nbsp; <i class='fa fa-eye'></i>"+scanNumber+"&nbsp;浏览 &nbsp; <i class='fa fa-flag'></i>&nbsp;"+cname+" </small> </td> <td class='project-people' style='width: 20%;'> <div id='lightBoxGallery-"+i+"' class='lightBoxGallery'> </div> <div id='blueimp-gallery' class='blueimp-gallery'> <div class='slides'></div> <h3 class='title'></h3> <a class='prev'>‹</a> <a class='next'>›</a> <a class='close'>×</a> <a class='play-pause'></a> <ol class='indicator'></ol> </div> </td> <td id='project-people-"+i+"' class='project-people' style='width: 20%;'> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 25%;'></td></tr>");
+					for (var j=1; j< pictures.length; j++) {
+						if(j < 6) {
+							$("#lightBoxGallery-"+i).append("<a href='"+ pictures[j] +"' data-gallery=''><img alt='image' class='img-circle' src='"+ pictures[j] +"'></a>");
+						} else {
+							$("#lightBoxGallery-"+i).append("<a href='"+ pictures[j] +"' data-gallery='' hidden='hidden'><img alt='image' class='img-circle' src='"+ pictures[j] +"'></a>");
+						}
+					}
+
+					if(status != 1 && status != 2) {
+						if(isTop == 0) {
+							$("#project-people-"+i).append("<button article-id='"+id+"' id='set_top_"+i+"' type='button' class='btn btn-default'>置顶</button>");
+							$("#project-people-"+i).append("&nbsp;<button type='button' class='btn btn-default' disabled='disabled'>取消置顶</button>");
+							$("#set_top_"+i).click(function(){
+								setTop(1, this);
+							});
+						}
+						if(isTop == 1) {
+							$("#project-people-"+i).append("<button type='button' class='btn btn-default' disabled='disabled'>置顶</button>");
+							$("#project-people-"+i).append("&nbsp;<button article-id='"+id+"' id='cancel_top_"+i+"' type='button' class='btn btn-default'>取消置顶</button>");
+							$("#cancel_top_"+i).click(function(){
+								setTop(0, this);
+							});
+						}
+					} else {
+						$("#project-people-"+i).append("<button type='button' class='btn btn-default' disabled='disabled'>置顶</button>");
+						$("#project-people-"+i).append("&nbsp;<button type='button' class='btn btn-default' disabled='disabled'>取消置顶</button>");
+					}
+
+
+					$("#project-actions-"+i).append("<button onclick='look("+i+")' id='look_"+i+"' type='button' class='btn btn-info' data-toggle='modal' data-target='#myModal'><i class='fa fa-eye'></i>&nbsp;查看</button>");
+					/*$("#look_"+i).click(function(){
+						look(title,author,publishTime,cname,fromWhere,labels,brief,id);        
+					});*/
+					if(status == 0) {
+						$("#project-actions-"+i).append("&nbsp;<button article-id='"+id+"' id='recall_"+i+"' type='button' class='btn btn-warning'><i class='fa fa-warning'></i>&nbsp;撤回</button>");
+						$("#recall_"+i).click(function(){
+							confirmOperation(2, this);
+						});
+					}
+					if(status == 1 || status == 2) {
+						$("#project-actions-"+i).append("&nbsp;<button article-id='"+id+"' id='release_"+i+"' type='button' class='btn btn-success'><i class='fa fa-send-o'></i>&nbsp;发布</button>");
+						$("#release_"+i).click(function(){
+							confirmOperation(0, this);
+						});
+					}
+					$("#project-actions-"+i).append("&nbsp;<button article-id='"+id+"' id='delete_"+i+"' type='button' class='btn btn-danger'><i class='fa fa-times-circle'></i>&nbsp;删除</button>");
+					$("#delete_"+i).click(function(){
+						confirmOperation(3, this);
+					});
+				}
+				
+				if(isPaginatorExist1 == false) {
+				    //构造分页按钮组
+				    $('#page_element_id2').children().remove();
+					var total = parseInt(result.data.total);
+				   	var page_element = BootstrapPagination($("#page_element_id1"), {
+		                layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+		                //记录总数。
+		                total: total,
+		                //分页尺寸。指示每页最多显示的记录数量。
+		                pageSize: ps,
+		                //当前页索引编号。从0开始的整数。
+		                pageIndex: cp-1,
+		                //指示分页导航栏中最多显示的页索引数量。
+		                pageGroupSize: 10,
+		                //位于导航条左侧的输出信息格式化字符串
+		                //leftFormateString: "本页{count}条记录/共{total}条记录",
+		                //位于导航条右侧的输出信息格式化字符串
+		                rightFormateString: "共{totalPages}页",
+		                //页码文本格式化字符串。
+		                pageNumberFormateString: "{pageNumber}",
+		                //分页尺寸输出格式化字符串
+		                pageSizeListFormateString: "{pageSize}条/页",
+		                //上一页导航按钮文本。
+		                prevPageText: "上一页",
+		                //下一页导航按钮文本。
+		                nextPageText: "下一页",
+		                //上一组分页导航按钮文本。
+		                prevGroupPageText: "上一组",
+		                //下一组分页导航按钮文本。
+		                nextGroupPageText: "下一组",
+		                //首页导航按钮文本。
+		                firstPageText: "首页",
+		                //尾页导航按钮文本。
+		                lastPageText: "尾页",
+		                //设置页码输入框中显示的提示文本。
+		                pageInputPlaceholder: "go",
+		                //接受用户输入内容的延迟时间。单位：毫秒
+		                pageInputTimeout: 1000,
+		                //分页尺寸列表。
+		                pageSizeList: [15, 20, 30, 45, 50],
+		                //当分页更改后引发此事件。
+		                pageChanged: function (pageIndex, pageSize) {
+		                    findByStatus(pageIndex+1, pageSize, status);
+		                },
+		            });
+		            isPaginatorExist1 = true;
+				}
+	        } else {
+				parent.layer.msg(result.message, {
+					icon: 2,
+					time:1000
+				});
+			}
+        }
+    });
+}
+
+
+var isPaginatorExist2 = false;
+function submitSearch(cp, ps, status) {
+	global_currentPage = cp;
+	global_pageSize = ps;
+	global_status = status;
+	
+	var searchContent = $("#search_input_id").val();
+	if(!$.trim(searchContent)){ // "",null,undefined
+		parent.layer.msg('搜索内容不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		$("#search_input_id").val("");
+		$("#search_input_id").focus();
+	} else {
+		$.ajax({
+	        type : "POST",
+	        url : base_domain+"/spartacus-article/article/search",
+	        async : true,
+	        data : { //使用Json格式进行透传
+	        	"searchText" : searchContent,
+	            "currentPage" : cp,
+	            "pageSize" : ps,
+	            "status" : status
+	        },
+	        dataType:"json",
+			headers: {
+				"clientId":"spartacus-friday",
+				"Authorization":"bearer " + jwt.access_token//自定义请求头
+			},
+	        success : function(result) {
+	            if (result.code==0) {
+					$("#tbody_id").children().remove();
+					articles = result.data.records;
+					_isSearch = true;
+					for(var i = 0; i < articles.length; i++) {
+						var id = articles[i]['id'];
+						var author = articles[i]['author'];
+						var brief = articles[i]['brief'];
+						var cname = articles[i]['cname'];
+						var commentNumber = articles[i]['commentNumber'];
+						var fromWhere = articles[i]['fromWhere'];
+						var isTop = articles[i]['isTop'];
+						var labels = articles[i]['labels'];
+						var monthDay = articles[i]['monthDay'];
+						var pictures = [];
+						if(!isNullOrEmpty(articles[i].pictures)) {
+							pictures = articles[i].pictures.split(";");
+						}
+						var publishTime = articles[i]['publishTime'];
+						var scanNumber = articles[i]['scanNumber'];
+						var status = articles[i]['status'];
+						var title = articles[i]['title'];
+						var year = articles[i]['year'];
+						
+						$("#tbody_id").append("<tr> <td class='project-status' style='width: 5%;'> <div class='date-wrap'> <span class='date-monthday' id='monthDay_id'>"+monthDay+"</span> <span class='date-year' id='year_id'>"+year+"</span> </div> </td> <td class='project-title' style='width: 30%;'> <a href='./article_detail.html?article_id="+id+"'> "+title+" </a><br/> <small> <i class='fa fa-comments-o'></i>"+commentNumber+"&nbsp;评论 &nbsp; <i class='fa fa-eye'></i>"+scanNumber+"&nbsp;浏览 &nbsp; <i class='fa fa-flag'></i>&nbsp;"+cname+" </small> </td> <td class='project-people' style='width: 20%;'> <div id='lightBoxGallery-"+i+"' class='lightBoxGallery'> </div> <div id='blueimp-gallery' class='blueimp-gallery'> <div class='slides'></div> <h3 class='title'></h3> <a class='prev'>‹</a> <a class='next'>›</a> <a class='close'>×</a> <a class='play-pause'></a> <ol class='indicator'></ol> </div> </td> <td id='project-people-"+i+"' class='project-people' style='width: 20%;'> </td> <td id='project-actions-"+i+"' class='project-actions' style='width: 25%;'></td></tr>");
+						for (var j=1; j< pictures.length; j++) {
+							if(j < 6) {
+								$("#lightBoxGallery-"+i).append("<a href='"+ pictures[j] +"' data-gallery=''><img alt='image' class='img-circle' src='"+ pictures[j] +"'></a>");
+							} else {
+								$("#lightBoxGallery-"+i).append("<a href='"+ pictures[j] +"' data-gallery='' hidden='hidden'><img alt='image' class='img-circle' src='"+ pictures[j] +"'></a>");
+							}
+						}
+						if(isTop == 0) {
+							$("#project-people-"+i).append("<button article-id='"+id+"' id='set_top_"+i+"' type='button' class='btn btn-default'>置顶</button>");
+							$("#project-people-"+i).append("&nbsp;<button type='button' class='btn btn-default' disabled='disabled'>取消置顶</button>");
+							$("#set_top_"+i).click(function(){
+						        setTop(1, this);
+						    });
+						}
+						if(isTop == 1) {
+							$("#project-people-"+i).append("<button type='button' class='btn btn-default' disabled='disabled'>置顶</button>");
+							$("#project-people-"+i).append("&nbsp;<button article-id='"+id+"' id='cancel_top_"+i+"' type='button' class='btn btn-default'>取消置顶</button>");
+							$("#cancel_top_"+i).click(function(){
+						        setTop(0, this);
+						    });
+						}
+						
+						$("#project-actions-"+i).append("<button onclick='look("+i+")' id='look_"+i+"' type='button' class='btn btn-info' data-toggle='modal' data-target='#myModal'><i class='fa fa-eye'></i>&nbsp;查看</button>");
+						/*$("#look_"+i).click(function(){
+							look(title,author,publishTime,cname,fromWhere,labels,brief,id);        
+						});*/
+						if(status == 0) {
+							$("#project-actions-"+i).append("&nbsp;<button article-id='"+id+"' id='recall_"+i+"' type='button' class='btn btn-warning'><i class='fa fa-warning'></i>&nbsp;撤回</button>");
+							$("#recall_"+i).click(function(){
+								confirmOperation(2, this);
+							});
+						}
+						if(status == 1 || status == 2) {
+							$("#project-actions-"+i).append("&nbsp;<button article-id='"+id+"' id='release_"+i+"' type='button' class='btn btn-success'><i class='fa fa-send-o'></i>&nbsp;发布</button>");
+							$("#release_"+i).click(function(){
+								confirmOperation(0, this);
+							});
+						}
+						$("#project-actions-"+i).append("&nbsp;<button article-id='"+id+"' id='delete_"+i+"' type='button' class='btn btn-danger'><i class='fa fa-times-circle'></i>&nbsp;删除</button>");
+						$("#delete_"+i).click(function(){
+							confirmOperation(3, this);
+						});
+					}
+					
+					if(isPaginatorExist2 == false) {
+					    //构造分页按钮组
+					    $('#page_element_id1').children().remove();
+						var total = parseInt(result.data.total);
+					   	var page_element = BootstrapPagination($("#page_element_id2"), {
+			                layoutScheme: "pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+			                //记录总数。
+			                total: total,
+			                //分页尺寸。指示每页最多显示的记录数量。
+			                pageSize: ps,
+			                //当前页索引编号。从0开始的整数。
+			                pageIndex: cp-1,
+			                //指示分页导航栏中最多显示的页索引数量。
+			                pageGroupSize: 10,
+			                //位于导航条左侧的输出信息格式化字符串
+			                //leftFormateString: "本页{count}条记录/共{total}条记录",
+			                //位于导航条右侧的输出信息格式化字符串
+			                rightFormateString: "共{totalPages}页",
+			                //页码文本格式化字符串。
+			                pageNumberFormateString: "{pageNumber}",
+			                //分页尺寸输出格式化字符串
+			                pageSizeListFormateString: "{pageSize}条/页",
+			                //上一页导航按钮文本。
+			                prevPageText: "上一页",
+			                //下一页导航按钮文本。
+			                nextPageText: "下一页",
+			                //上一组分页导航按钮文本。
+			                prevGroupPageText: "上一组",
+			                //下一组分页导航按钮文本。
+			                nextGroupPageText: "下一组",
+			                //首页导航按钮文本。
+			                firstPageText: "首页",
+			                //尾页导航按钮文本。
+			                lastPageText: "尾页",
+			                //设置页码输入框中显示的提示文本。
+			                pageInputPlaceholder: "go",
+			                //接受用户输入内容的延迟时间。单位：毫秒
+			                pageInputTimeout: 1000,
+			                //分页尺寸列表。
+			                pageSizeList: [15, 20, 30, 45, 50],
+			                //当分页更改后引发此事件。
+			                pageChanged: function (pageIndex, pageSize) {
+			                    submitSearch(pageIndex+1, pageSize, status);
+			                },
+			            });
+			            isPaginatorExist2 = true;
+					}
+		        } else {
+					parent.layer.msg(result.message, {
+						icon: 2,
+						time:1000
+					});
+				}
+	        }
+	    });
+	}
+}
+
+
+//监听模态窗口动作，手动添加、移除遮罩
+$(document).on("show.bs.modal", ".modal", function() {
+	$("body").append("<div class='modal-backdrop in' id='myBackdrop'></div>");
+});
+$(document).on("hide.bs.modal", ".modal", function() {
+	$("#myBackdrop").remove();
+});
+function closeModal() {
+	$("#myModal").modal('hide');
+	// 关闭时，检查是否修改了某篇文章摘要，改了则刷新页面
+	if($("#table_id").attr("modified")=="true") {
+//		window.location.reload();
+		if(_isSearch) {
+			window.setTimeout(function () {
+	            submitSearch(global_currentPage, global_pageSize, global_status);
+	        }, 1000);
+		} else {
+			window.setTimeout(function () {
+	            findByStatus(global_currentPage, global_pageSize, global_status);
+	        }, 1000);
+		}
+	}
+}
+
+
+function look(idx) {
+	var i = Number(idx);
+	var id = articles[i]['id'];
+	var title = articles[i]['title'];
+	var author = articles[i]['author'];
+	var brief = articles[i]['brief'];
+	var cname = articles[i]['cname'];
+	var fromWhere = articles[i]['fromWhere'];
+	var labels = articles[i]['labels'];
+	var publishTime = articles[i]['publishTime'];
+					
+	//保存文章的id
+	$("#table_id").attr("article-id", id);
+	//标识文章是否被改动过
+	$("#table_id").attr("modified", "false");
+
+	//先重置模态框
+	$("#small_title_id").removeAttr("class");
+    $("#small_labels_id").removeAttr("class");
+	$("#small_author_id").removeAttr("class");
+    $("#small_publishTime_id").removeAttr("class");
+    $("#small_cname_id").removeAttr("class");
+    $("#small_fromWhere_id").removeAttr("class");
+    $("#small_brief_id").removeAttr("class");
+	$("#title_id").attr("class", "sr-only");
+    $("#labels_id").attr("class", "sr-only");
+	$("#author_id").attr("class", "sr-only");
+	$("#publishTime_id").attr("class", "sr-only");
+    $("#cname_id").attr("class", "sr-only");
+    $("#fromWhere_id").attr("class", "sr-only");
+    $("#brief_id").attr("class", "sr-only");
+	
+	//再给模态框赋值
+	$("#small_title_id").html(title);
+    $("#small_labels_id").html(labels);
+	$("#small_author_id").html(author);
+	
+//  $("#small_publishTime_id").html(publishTime.substring(0, 19));
+	$("#small_publishTime_id").html(millisecondsToLocalDate(publishTime));
+	
+    $("#small_cname_id").html(cname);
+    $("#small_fromWhere_id").html(fromWhere);
+    $("#small_brief_id").html(brief);
+	$("#title_id").attr("value", title);
+    $("#labels_id").attr("value", labels);
+	$("#author_id").attr("value", author);
+	$("#publishTime_id").attr("value", publishTime);
+    $("#cname_id").val(cname);
+    $("#fromWhere_id").val(fromWhere);
+    $("#brief_id").val(brief);
+    
+    $("#edit_id").attr("onclick", "edit('')");
+    $("#edit_id").html("编辑");
+    $("#close_id").attr("onclick", "closeModal()");
+    $("#close_id").html("关闭");
+}
+    
+    
+function edit() {
+    //隐藏静态显示
+	$("#small_title_id").attr("class", "sr-only");
+    $("#small_labels_id").attr("class", "sr-only");
+	$("#small_author_id").attr("class", "sr-only");
+    $("#small_publishTime_id").attr("class", "sr-only");
+    $("#small_cname_id").attr("class", "sr-only");
+    $("#small_fromWhere_id").attr("class", "sr-only");
+    $("#small_brief_id").attr("class", "sr-only");
+    //初始化输入框    
+	$("#title_id").val($("#small_title_id").html().trim());
+    $("#labels_id").val($("#small_labels_id").html().trim());
+    $("#author_id").val($("#small_author_id").html().trim());
+    $("#publishTime_id").val($("#small_publishTime_id").html().trim());
+    $("#cname_id").val($("#small_cname_id").html().trim());
+    $("#fromWhere_id").val($("#small_fromWhere_id").html().trim());
+    $("#brief_id").val($("#small_brief_id").html().trim());
+    //显示输入框
+	$("#title_id").attr("class", "form-control");
+    $("#labels_id").attr("class", "form-control");
+	$("#author_id").attr("class", "form-control");
+	$("#publishTime_id").attr("class", "form-control");
+    $("#cname_id").attr("class", "form-control");
+    $("#fromWhere_id").attr("class", "form-control");
+    $("#brief_id").attr("class", "form-control");
+    
+    $("#edit_id").attr("onclick", "update()");
+    $("#edit_id").html("保存");
+    $("#close_id").attr("onclick", "cancelEdit()");
+    $("#close_id").html("取消");
+}
+    
+    
+function cancelEdit() {
+	$("#small_title_id").removeAttr("class");
+    $("#small_labels_id").removeAttr("class");
+	$("#small_author_id").removeAttr("class");
+    $("#small_publishTime_id").removeAttr("class");
+    $("#small_cname_id").removeAttr("class");
+    $("#small_fromWhere_id").removeAttr("class");
+    $("#small_brief_id").removeAttr("class");
+	$("#title_id").attr("class", "sr-only");
+    $("#labels_id").attr("class", "sr-only");
+	$("#author_id").attr("class", "sr-only");
+	$("#publishTime_id").attr("class", "sr-only");
+    $("#cname_id").attr("class", "sr-only");
+    $("#fromWhere_id").attr("class", "sr-only");
+    $("#brief_id").attr("class", "sr-only");
+	
+    $("#edit_id").attr("onclick", "edit()");
+    $("#edit_id").html("编辑");
+    $("#close_id").attr("onclick", "closeModal()");
+    $("#close_id").html("关闭");
+}
+
+
+function checkNull() {
+	var re1 = /(^\s*)|(\s*$)|( )/g; //空格正则表达式
+	var re2 = /<[^>]+>/g; //html标签正则表达式
+	var re3 = /&nbsp;/g; //&nbsp;正则表达式
+	
+	var title = $("#title_id").val();
+	var labels = $("#labels_id").val();
+	var author = $("#author_id").val();
+	var publishTime = $("#publishTime_id").val();
+	var cname = $("#cname_id").val();
+	var fromWhere = $("#fromWhere_id").val();
+	var brief = $("#brief_id").val();
+	
+	if(title.replace(re1,'')=='') {
+		parent.layer.msg('标题不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(labels.replace(re1,'')=='') {
+		parent.layer.msg('标签不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(author.replace(re1,'')=='') {
+		parent.layer.msg('作者不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(publishTime.replace(re1,'')=='') {
+		parent.layer.msg('时间不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(cname=='请选择...') {
+		parent.layer.msg('分类不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(fromWhere=='请选择...') {
+		parent.layer.msg('来源不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	if(brief.replace(re1,'').replace(re2,'').replace(re3,'')=='') {
+		parent.layer.msg('摘要不能为空！', {
+		    icon: 2,
+			time:1000
+		});
+		return false;
+	}
+	return true;
+}
+
+
+function update() {
+    if(checkNull() == true) {
+        $.ajax({
+            type : "POST",
+            url : base_domain+"/spartacus-article/article/update",
+            async : true,
+            data : { //使用Json格式进行透传
+            	"id" : $("#table_id").attr("article-id"),
+                "title" : $('#title_id').val(),
+                "author" : $('#author_id').val(),
+                "publishTime" : $('#publishTime_id').val(),
+                "cname" : $('#cname_id').val(),
+                "fromWhere" : $('#fromWhere_id').val(),
+                "labels" : $('#labels_id').val(),
+                "brief" : $("#brief_id").val()
+            },
+            dataType:"json",
+			headers: {
+				"clientId":"spartacus-friday",
+				"Authorization":"bearer " + jwt.access_token//自定义请求头
+			},
+            success : function(result) {
+                if (result.code==0) {
+					parent.layer.msg('保存成功！', {
+					    icon: 1,
+						time:1000
+					});
+					//标识文章是否被改动过
+    				$("#table_id").attr("modified", "true");
+					
+                    $("#title_id").attr("class", "sr-only");
+			        $("#author_id").attr("class", "sr-only");
+			        $("#publishTime_id").attr("class", "sr-only");
+			        $("#cname_id").attr("class", "sr-only");
+			        $("#fromWhere_id").attr("class", "sr-only");
+			        $("#labels_id").attr("class", "sr-only");
+			        $("#brief_id").attr("class", "sr-only");
+			        
+			        $("#small_title_id").removeAttr("class");
+			        $("#small_title_id").html($("#title_id").val().trim());
+			        $("#small_author_id").removeAttr("class");
+			        $("#small_author_id").html($("#author_id").val().trim());
+			        $("#small_publishTime_id").removeAttr("class");
+			        $("#small_publishTime_id").html($("#publishTime_id").val().trim());
+			        $("#small_cname_id").removeAttr("class");
+			        $("#small_cname_id").html($("#cname_id").val().trim());
+			        $("#small_fromWhere_id").removeAttr("class");
+			        $("#small_fromWhere_id").html($("#fromWhere_id").val().trim());
+			        $("#small_labels_id").removeAttr("class");
+			        $("#small_labels_id").html($("#labels_id").val().trim());
+			        $("#small_brief_id").removeAttr("class");
+			        $("#small_brief_id").html($("#brief_id").val().trim());
+			        
+			        $("#edit_id").attr("onclick", "edit()");
+			        $("#edit_id").html("编辑");
+			        $("#close_id").attr("onclick", "closeModal()");
+			        $("#close_id").html("关闭");
+			        
+                } else {
+					parent.layer.msg(result.message, {
+						icon: 2,
+						time:1000
+					});
+                }
+            }
+        });
+    }
+}
+
+    
+function setTop(isTop, elementId) {
+	var id = $(elementId).attr("article-id");
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-article/article/update",
+        async : true,
+        data : { //使用Json格式进行透传
+        	"id" : id,
+        	"isTop" : isTop
+        },
+        dataType:"json",
+		headers: {
+			"clientId":"spartacus-friday",
+			"Authorization":"bearer " + jwt.access_token//自定义请求头
+		},
+        success : function(result) {
+            if (result.code==0) {
+            	if(isTop==1) {
+					//信息框-例2
+					parent.layer.msg('置顶成功！', {
+					    icon: 1,
+						time:1000
+					});
+				} else {
+					//信息框-例2
+					parent.layer.msg('取消成功！', {
+					    icon: 1,
+						time:1000
+					});
+				}
+				if(_isSearch) {
+					window.setTimeout(function () {
+			            submitSearch(global_currentPage, global_pageSize, global_status);
+			        }, 1000);
+				} else {
+					window.setTimeout(function () {
+			            findByStatus(global_currentPage, global_pageSize, global_status);
+			        }, 1000);
+				}
+            } else {
+				parent.layer.msg(result.message, {
+					icon: 2,
+					time:1000
+				});
+            }
+        }
+    });
+}
+    
+    
+function confirmOperation(stat, elementId) {
+	var id = $(elementId).attr("article-id");
+	if(stat == 1) {
+		//询问框
+		parent.layer.confirm('确定发布吗？', {
+		  btn: ['确定','取消'] //按钮
+		}, function() {
+			setStatus(stat, id);
+		});
+	} else if(stat == 2) {
+		//询问框
+		parent.layer.confirm('确定撤回吗？', {
+		  btn: ['确定','取消'] //按钮
+		}, function() {
+			setStatus(stat, id);
+		});
+	} else if(stat == 3) {
+		//询问框
+		parent.layer.confirm('确定删除吗？', {
+		  btn: ['确定','取消'] //按钮
+		}, function() {
+			setStatus(stat, id);
+		});
+	} else {
+		//询问框
+		parent.layer.confirm('确定操作吗？', {
+		  btn: ['确定','取消'] //按钮
+		}, function() {
+			setStatus(stat, id);
+		});
+	}
+}
+    
+    
+function setStatus(stat, id) {
+    $.ajax({
+        type : "POST",
+        url : base_domain+"/spartacus-article/article/update",
+        async : true,
+        data : { //使用Json格式进行透传
+            "id" : id,
+            "status" : stat
+        },
+        dataType:"json",
+		headers: {
+			"clientId":"spartacus-friday",
+			"Authorization":"bearer " + jwt.access_token//自定义请求头
+		},
+        success : function(result) {
+            if (result.code==0) {
+				if(stat == 2) {
+					parent.layer.msg('撤回成功！', {
+					    icon: 1,
+						time:1000
+					});
+				} else if(stat == 3) {
+					parent.layer.msg('删除成功！', {
+					    icon: 1,
+						time:1000
+					});
+				} else {
+					parent.layer.msg('操作成功！', {
+					    icon: 1,
+						time:1000
+					});
+				}
+            	if(_isSearch) {
+					window.setTimeout(function () {
+			            submitSearch(global_currentPage, global_pageSize, global_status);
+			        }, 1000);
+				} else {
+					window.setTimeout(function () {
+			            findByStatus(global_currentPage, global_pageSize, global_status);
+			        }, 1000);
+				}
+        	} else {
+				parent.layer.msg(result.message, {
+					icon: 2,
+					time:1000
+				});
+        	}
+        }
+    });
+}
+</script>
+
+</body>
+</html>

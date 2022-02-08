@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>侧边滑出弹层插件--mSlider.js</title>
+    <style>
+        button:hover {
+            cursor: pointer;
+        }
+
+        h4 {
+            margin: 30px 0 10px 0;
+        }
+
+        .wrap>div {
+            opacity: 0;
+            padding: 10px;
+        }
+
+        @media screen and (max-width:640px) {
+            button {
+                width: 100%;
+                margin: 2% auto;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h4>方向：</h4>
+        <button id="btnRight">右</button>
+
+        <h4>关闭：</h4>
+        <button id="btnClose">手动</button>
+
+    </div>
+
+    <div class="wrap">
+        <div class="layer-right">
+            <h3>右侧弹层内容...</h3>
+        </div>
+    </div>
+
+    <script src="./mSlider.min.js"></script>
+    <script>
+        window.onload = function () {
+
+            //移动端使用touchend
+            var event = navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i) ? 'touchend' : 'click';
+
+            // 选择器
+            var Q = function (id) {
+                return document.getElementById(id)
+            };
+
+            var _right = new mSlider({
+                dom: ".layer-right",
+                direction: "right",
+                distance: "30%"
+            });
+
+            Q("btnRight").addEventListener(event, function (e) {
+                _right.open();
+            })
+
+            //关闭控制
+            Q("btnClose").addEventListener(event, function (e) {
+                _manualclose.close();
+            });
+
+        }
+    </script>
+</body>
+
+</html>
