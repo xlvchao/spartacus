@@ -209,7 +209,7 @@ spartacus
 
 关注不迷路，微信扫描下方二维码或搜索关键字“**spartacus**”，关注「**spartacus**」公众号，时刻收听**spartacus**更新通知！
 
-在公众号后台回复“**加群**”，即可加入「**spartacus**」扯淡交流群，回复“**体验账号**”，即可获取「**spartacus**」快速体验账号！
+在公众号后台回复“**加群**”，即可加入「**spartacus**」扯淡交流群！
 
 ![mp_qrcode](imgs/mp_qrcode.jpg)
 
