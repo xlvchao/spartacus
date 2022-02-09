@@ -43,7 +43,7 @@
 
 **spartacus**是一个基于Spring Boot 2.3.x、Spring Cloud Hoxton.SR5、Spring Security 2.3.x、OAuth2.0、Python3等开源框架构建的分布式系统，亦是一个功能完备的微服务脚手架。下图为体验服系统架构图（Chrome浏览器右键图片“**在新标签页中打开图片**”，即可展示**高清图**）：
 
-![Architecture](https://s4.ax1x.com/2022/02/10/HYiI78.png)
+![Architecture](https://tret-1251733385.cos.ap-chengdu.myqcloud.com/imgs/Architecture.png)
 
 **Redis Cluster**：Redis集群；认证/资源服务器、网关/资源服务器、业务集群的必须依赖，基于官方推荐的Redis Cluster集群部署架构，详情请看部署文档。
 
