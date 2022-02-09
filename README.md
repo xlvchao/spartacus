@@ -1,4 +1,4 @@
-<div align=center><img src="https://pic.imgdb.cn/item/620400a32ab3f51d91948414.png"></div>
+<div align=center><img src="https://s4.ax1x.com/2022/02/10/HYAETK.png"></div>
 <p align="center">Born To Freedom</p>
 
 ![](https://img.shields.io/badge/Spring%20Boot-2.3.x-blue.svg?logo=Spring%20Boot)  ![](https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR5-blue.svg?logo=Spring)  ![](https://img.shields.io/badge/Python-3.6.x-brightgreen.svg?logo=Python) ![](https://img.shields.io/badge/Docker%20Build-passing-brightgreen.svg?logo=Docker)  ![](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg?logo=Verizon)  ![](https://img.shields.io/badge/License-Apache2.0-000000.svg?logo=Apache)
@@ -43,7 +43,7 @@
 
 **spartacus**是一个基于Spring Boot 2.3.x、Spring Cloud Hoxton.SR5、Spring Security 2.3.x、OAuth2.0、Python3等开源框架构建的分布式系统，亦是一个功能完备的微服务脚手架。下图为体验服系统架构图（Chrome浏览器右键图片“**在新标签页中打开图片**”，即可展示**高清图**）：
 
-![Architecture](https://tret-1251733385.cos.ap-chengdu.myqcloud.com/imgs/Architecture.png)
+![Architecture](https://s4.ax1x.com/2022/02/10/HYiI78.png)
 
 **Redis Cluster**：Redis集群；认证/资源服务器、网关/资源服务器、业务集群的必须依赖，基于官方推荐的Redis Cluster集群部署架构，详情请看部署文档。
 
@@ -83,35 +83,35 @@
 
 **管理端**
 
-数据监控：支持流量总览、访问统计、封禁/解禁异常高频访问用户、实时查看服务器负载情况等功能，<a href="https://pic.imgdb.cn/item/620400cf2ab3f51d9194ae65.png" target="_blank">功能思维导图</a>
+数据监控：支持流量总览、访问统计、封禁/解禁异常高频访问用户、实时查看服务器负载情况等功能，<a href="https://s4.ax1x.com/2022/02/10/HYASW4.png" target="_blank">功能思维导图</a>
 
-文章管理：支持写文章、缓存到本地/从本地加载、发表文章、存草稿箱等功能，<a href="https://pic.imgdb.cn/item/620400e52ab3f51d9194c186.png" target="_blank">功能思维导图</a>
+文章管理：支持写文章、缓存到本地/从本地加载、发表文章、存草稿箱等功能，<a href="https://s4.ax1x.com/2022/02/10/HYkOe0.png" target="_blank">功能思维导图</a>
 
-评论管理：支持评论审核、回复评论、禁止/解禁用户评论等功能，<a href="https://pic.imgdb.cn/item/620400f62ab3f51d9194d097.png" target="_blank">功能思维导图</a>
+评论管理：支持评论审核、回复评论、禁止/解禁用户评论等功能，<a href="https://s4.ax1x.com/2022/02/10/HYA9SJ.png" target="_blank">功能思维导图</a>
 
-资源管理：支持照片/视频等资源的批量上传、资源重命名、设置资源访问权限等功能，<a href="https://pic.imgdb.cn/item/6204010b2ab3f51d9194e2d2.png" target="_blank">功能思维导图</a>
+资源管理：支持照片/视频等资源的批量上传、资源重命名、设置资源访问权限等功能，<a href="https://s4.ax1x.com/2022/02/10/HYkzYF.png" target="_blank">功能思维导图</a>
 
-系统设置：支持查看系统登录足迹，管理通知公告、友情链接、系统用户等功能，<a href="https://pic.imgdb.cn/item/6204011d2ab3f51d9194f3c9.png" target="_blank">功能思维导图</a>
+系统设置：支持查看系统登录足迹，管理通知公告、友情链接、系统用户等功能，<a href="https://s4.ax1x.com/2022/02/10/HYAAw6.png" target="_blank">功能思维导图</a>
 
-数据同步：支持全量/增量同步业务数据、实时聊天数据到Elasticsearch，<a href="https://pic.imgdb.cn/item/620401302ab3f51d91950e9c.png" target="_blank">功能思维导图</a>
+数据同步：支持全量/增量同步业务数据、实时聊天数据到Elasticsearch，<a href="https://s4.ax1x.com/2022/02/10/HYkxFU.png" target="_blank">功能思维导图</a>
 
-在线聊天：支持私聊、群聊、推送在线用户、上线时提示离线消息、保存联系人等功能，<a href="https://pic.imgdb.cn/item/620401422ab3f51d919523e2.png" target="_blank">功能思维导图</a>
+在线聊天：支持私聊、群聊、推送在线用户、上线时提示离线消息、保存联系人等功能，<a href="https://s4.ax1x.com/2022/02/10/HYkbyn.png" target="_blank">功能思维导图</a>
 
 **博客端**
 
-顶部菜单：首页、技术、算法、架构、职场、生活、归档，单击任一选项展示对应分类的文章列表，<a href="https://pic.imgdb.cn/item/620401522ab3f51d91953160.png" target="_blank">功能思维导图</a>
+顶部菜单：首页、技术、算法、架构、职场、生活、归档，单击任一选项展示对应分类的文章列表，<a href="https://s4.ax1x.com/2022/02/10/HYAkex.png" target="_blank">功能思维导图</a>
 
-文章列表：点击顶部菜单选项或搜索文章时则会返回对应的文章列表，用户可对文章点赞/取消点赞等，<a href="https://pic.imgdb.cn/item/620401602ab3f51d91953c3b.png" target="_blank">功能思维导图</a>
+文章列表：点击顶部菜单选项或搜索文章时则会返回对应的文章列表，用户可对文章点赞/取消点赞等，<a href="https://s4.ax1x.com/2022/02/10/HYkqLq.png" target="_blank">功能思维导图</a>
 
-左右边栏：左侧展示博主资料、通知公告列表，右侧展示阅读最多、点赞最多、最近评论等功能，<a href="https://pic.imgdb.cn/item/620401872ab3f51d91955f23.png" target="_blank">功能思维导图</a>
+左右边栏：左侧展示博主资料、通知公告列表，右侧展示阅读最多、点赞最多、最近评论等功能，<a href="https://s4.ax1x.com/2022/02/10/HYkjoT.png" target="_blank">功能思维导图</a>
 
-文章详情：用户点击文章列表页的文章超链接后进入文章详情，可对文章进行评论等功能，<a href="https://pic.imgdb.cn/item/6204019b2ab3f51d91956fc7.png" target="_blank">功能思维导图</a>
+文章详情：用户点击文章列表页的文章超链接后进入文章详情，可对文章进行评论等功能，<a href="https://s4.ax1x.com/2022/02/10/HYkWeP.png" target="_blank">功能思维导图</a>
 
-搜索文章：基于Elasticsearch实现的文章搜索功能，支持分词处理、按照相似度返回文章列表，<a href="https://pic.imgdb.cn/item/620401ad2ab3f51d91957de8.png" target="_blank">功能思维导图</a>
+搜索文章：基于Elasticsearch实现的文章搜索功能，支持分词处理、按照相似度返回文章列表，<a href="https://s4.ax1x.com/2022/02/10/HYAiO1.png" target="_blank">功能思维导图</a>
 
-在线聊天：同管理端的在线聊天，支持私聊、群聊等功能，<a href="https://pic.imgdb.cn/item/620401422ab3f51d919523e2.png" target="_blank">功能思维导图</a>
+在线聊天：同管理端的在线聊天，支持私聊、群聊等功能，<a href="https://s4.ax1x.com/2022/02/10/HYkbyn.png" target="_blank">功能思维导图</a>
 
-社交登陆：提供QQ登陆、微信登陆两种社交登陆方式，用户登录后才能进行聊天、评论、点赞等功能，<a href="https://pic.imgdb.cn/item/620401d42ab3f51d91959fb3.png" target="_blank">功能思维导图</a>
+社交登陆：提供QQ登陆、微信登陆两种社交登陆方式，用户登录后才能进行聊天、评论、点赞等功能，<a href="https://s4.ax1x.com/2022/02/10/HYAPyR.png" target="_blank">功能思维导图</a>
 
 
 
@@ -211,7 +211,7 @@ spartacus
 
 在公众号后台回复“**加群**”，即可加入「**spartacus**」扯淡交流群！
 
-![mp_qrcode](https://pic.imgdb.cn/item/620401eb2ab3f51d9195b140.jpg)
+![mp_qrcode](https://s4.ax1x.com/2022/02/10/HYkXwV.jpg)
 
 
 # 许可证
