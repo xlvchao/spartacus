@@ -622,7 +622,9 @@ function preview() {
  * @param target_is_directory 操作对象是否是目录，true/false
  */
 var stompClient = null;
-function connect_to_wb_server(notices, target_is_directory) {
+var target_is_directory = false;
+var notices = {};
+function connect_to_wb_server() {
 	var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
 	var accessToken = jwt.access_token;
 
@@ -676,7 +678,6 @@ function connect_to_wb_server(notices, target_is_directory) {
 				//TODO
 
 				response.ack();
-				stompClient.deactivate();
 			}, {ack:'client'});
 		};
 
@@ -684,6 +685,7 @@ function connect_to_wb_server(notices, target_is_directory) {
 			console.log('Broker reported error: ' + frame.headers['message']);
 			console.log('Additional details: ' + frame.body);
 		};
+
 		stompClient.activate();
 
 	} else {
@@ -694,6 +696,8 @@ function connect_to_wb_server(notices, target_is_directory) {
 		});
 	}
 }
+
+connect_to_wb_server();
 
 //关闭/刷新页面、关闭浏览器时，断开链接
 window.onbeforeunload = function(){
@@ -736,7 +740,9 @@ function rename() {
 	layer.prompt({
 		value: origin_name,
 		title: '重命名'}, function(val, index){
-		// var sub_address = '/notice/'+ genUuid();
+
+		target_is_directory = false;
+		notices = {0:'重命名成功！', 1:'重命名失败！', 2:'重命名失败！请手动修改mysql和es中该文件的名称！', 3:'重命名失败！请手动修改es中该文件的名称！'};
 
 		$.ajax({
 			type: "POST",
@@ -757,8 +763,6 @@ function rename() {
 						icon: 1,
 						time:1000
 					});
-					var notices = {0:'重命名成功！', 1:'重命名失败！', 2:'重命名失败！请手动修改mysql和es中该文件的名称！', 3:'重命名失败！请手动修改es中该文件的名称！'};
-					connect_to_wb_server(notices, false);
 
 				} else {
 					parent.layer.msg(result.message, {
@@ -780,6 +784,9 @@ function _delete() {
 	parent.layer.confirm('确定删除该文件吗？', {
 		btn: ['确定','取消'] //按钮
 	}, function() {
+		target_is_directory = false;
+		notices = {0:'删除成功！', 1:'删除失败！', 2:'删除失败！请确认mysql和es中是否已删除该文件！', 3:'删除失败！请确认es中是否已删除该文件！'};
+
 		var key = $(global_object).attr('key');
 
 		$.ajax({
@@ -800,8 +807,6 @@ function _delete() {
 						icon: 1,
 						time: 1000
 					});
-					var notices = {0:'删除成功！', 1:'删除失败！', 2:'删除失败！请确认mysql和es中是否已删除该文件！', 3:'删除失败！请确认es中是否已删除该文件！'};
-					connect_to_wb_server(notices, false);
 
 				} else {
 					parent.layer.msg(result.message, {
@@ -840,6 +845,9 @@ function batch_delete() {
 	parent.layer.confirm('确定删除吗？', {
 		btn: ['确定','取消'] //按钮
 	}, function() {
+		target_is_directory = false;
+		notices = {0:'删除成功！', 1:'删除失败！', 2:'删除失败！请确认mysql和es中是否已删除该文件！', 3:'删除失败！请确认es中是否已删除该文件！'};
+
 		$.ajax({
 			type: "POST",
 			url: base_domain+"/spartacus-resource/cos/batchDelete",
@@ -857,8 +865,6 @@ function batch_delete() {
 						icon: 1,
 						time:1000
 					});
-					var notices = {0:'删除成功！', 1:'删除失败！', 2:'删除失败！请确认mysql和es中是否已删除该文件！', 3:'删除失败！请确认es中是否已删除该文件！'};
-					connect_to_wb_server(notices, false);
 
 				} else {
 					parent.layer.msg(result.message, {
@@ -908,6 +914,9 @@ function batch_recycle() {
  *  批量移动
  */
 function batch_move(keysStr, destDirPath) {
+	target_is_directory = false;
+	notices = {0:'移动成功！', 1:'移动失败！', 2:'移动失败！请确认mysql和es中的记录是否已修改！', 3:'移动失败！请确认es中的记录是否已修改！'};
+
 	$.ajax({
 		type: "POST",
 		url: base_domain+"/spartacus-resource/cos/batchMove",
@@ -927,8 +936,6 @@ function batch_move(keysStr, destDirPath) {
 					icon: 1,
 					time:1000
 				});
-				var notices = {0:'移动成功！', 1:'移动失败！', 2:'移动失败！请确认mysql和es中的记录是否已修改！', 3:'移动失败！请确认es中的记录是否已修改！'};
-				connect_to_wb_server(notices, false);
 
 			} else {
 				parent.layer.msg(result.message, {
@@ -941,6 +948,9 @@ function batch_move(keysStr, destDirPath) {
 }
 
 function batchSetObjectAcl(keysStr, aclFlag) {
+	target_is_directory = keysStr.endsWith('/') ? true : false;
+	notices = {0:'设置成功！', 1:'设置失败！', 2:'设置失败！同步MYSQL及ES端权限失败！', 3:'设置失败！同步ES端权限失败！'};
+
 	$.ajax({
 		type: "POST",
 		url: base_domain+"/spartacus-resource/cos/batchSetObjectAcl",
@@ -960,12 +970,6 @@ function batchSetObjectAcl(keysStr, aclFlag) {
 					icon: 1,
 					time:1000
 				});
-				var notices = {0:'设置成功！', 1:'设置失败！', 2:'设置失败！同步MYSQL及ES端权限失败！', 3:'设置失败！同步ES端权限失败！'};
-				if(keysStr.endsWith('/')) {
-					connect_to_wb_server(notices, true);
-				} else {
-					connect_to_wb_server(notices, false);
-				}
 
 			} else {
 				parent.layer.msg(result.message, {
@@ -1630,6 +1634,9 @@ $(document).ready(function () {
                     		icon: 0,
 						  	btn: ['确定','取消'] //按钮
 						}, function() {
+                    		target_is_directory = true;
+							notices = {0:'删除成功！', 1:'删除失败！'};
+
 							$.ajax({
 								type: "POST",
 								url: base_domain+"/spartacus-resource/cos/deleteDirectory",
@@ -1648,8 +1655,6 @@ $(document).ready(function () {
 											icon: 1,
 											time:1000
 										});
-										var notices = {0:'删除成功！', 1:'删除失败！'};
-										connect_to_wb_server(notices, true);
 										/*var instance = $.jstree.reference(data.reference);
 										obj = instance.get_node(data.reference);
 										var isSuccess = instance.delete_node(obj);*/
