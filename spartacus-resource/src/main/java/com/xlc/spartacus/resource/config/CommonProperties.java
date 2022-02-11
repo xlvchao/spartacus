@@ -12,6 +12,21 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 public class CommonProperties {
+    @Value("${spartacus.broker.relayHost}")
+    private String relayHost;
+    @Value("${spartacus.broker.relayPort}")
+    private Integer relayPort;
+    @Value("${spartacus.broker.clientLogin}")
+    private String clientLogin;
+    @Value("${spartacus.broker.clientPasscode}")
+    private String clientPasscode;
+    @Value("${spartacus.broker.systemLogin}")
+    private String systemLogin;
+    @Value("${spartacus.broker.systemPasscode}")
+    private String systemPasscode;
+    @Value("${spartacus.broker.virtualHost}")
+    private String virtualHost;
+
 	//COS配置（机密）
     @Value("${spartacus.cos.secretId}")
     private String secretId;

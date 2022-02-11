@@ -92,7 +92,6 @@ public class BaseRequest {
 	
 	//删除COS目录
 	private String targetDirPath;
-	private String eventId;
 	private String subAddress;
 	
 	//设置COS对象的ACL

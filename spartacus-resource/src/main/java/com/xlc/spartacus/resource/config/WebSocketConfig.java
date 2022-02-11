@@ -7,6 +7,8 @@ import org.springframework.web.socket.config.annotation.AbstractWebSocketMessage
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
+import javax.annotation.Resource;
+
 
 /**
  * websocket配置
@@ -17,6 +19,8 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 @EnableWebSocketMessageBroker
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
 
+	@Resource
+	private CommonProperties commonProperties;
 
 	/**
 	 * 注册端点，发布或者订阅消息的时候需要连接此端点
@@ -36,9 +40,19 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		//基于内存的简单stomp消息代理
-		registry.enableSimpleBroker(ResourceConstant.FILE_READ_STATUS_CHANGE_NOTICE_DESCRIBE_ADDRESS);
+		//registry.enableSimpleBroker("/" + ResourceConstant.FILE_READ_STATUS_CHANGE_NOTICE_DESCRIBE_ADDRESS);
+		//基于rabbitmq的stomp消息代理
+		registry.enableStompBrokerRelay("/topic/")
+				.setRelayHost(commonProperties.getRelayHost())
+				.setRelayPort(commonProperties.getRelayPort())
+				.setClientLogin(commonProperties.getClientLogin())
+				.setClientPasscode(commonProperties.getClientPasscode())
+				.setSystemLogin(commonProperties.getSystemLogin())
+				.setSystemPasscode(commonProperties.getSystemPasscode())
+				.setVirtualHost(commonProperties.getVirtualHost());
 
 		//registry.setApplicationDestinationPrefixes("/send");
+
 	}
 
 

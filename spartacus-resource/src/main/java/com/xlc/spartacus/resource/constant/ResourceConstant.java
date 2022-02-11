@@ -24,5 +24,5 @@ public class ResourceConstant {
 		ACL_MAP.put(3, CannedAccessControlList.PublicReadWrite);
 	}
 
-	public static final String FILE_READ_STATUS_CHANGE_NOTICE_DESCRIBE_ADDRESS = "/fileReadStatusChangeNotice";
+	public static final String FILE_READ_STATUS_CHANGE_NOTICE_DESCRIBE_ADDRESS = "fileReadStatusChangeNotice";
 }

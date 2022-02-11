@@ -33,7 +33,7 @@ public interface CosService {
 	 * @param newFileName
 	 * @return
 	 */
-	BaseResponse rename(String key, String newFileName, String eventId);
+	BaseResponse rename(String key, String newFileName);
 
 
 	/**
@@ -43,7 +43,7 @@ public interface CosService {
 	 * @param destDirPath 目的目录的路径，比如 'image/111/222/'
 	 * @return
 	 */
-	BaseResponse batchMove(String keysStr, String destDirPath, String eventId);
+	BaseResponse batchMove(String keysStr, String destDirPath);
 
 	/**
 	 * 批量下载
@@ -99,7 +99,7 @@ public interface CosService {
 	 * @param aclFlag
 	 * @return
 	 */
-	BaseResponse batchSetObjectAcl(String keysStr, Integer aclFlag, String eventId);
+	BaseResponse batchSetObjectAcl(String keysStr, Integer aclFlag);
 
 	/**
 	 * 新建COS虚拟目录，默认设置权限为 公有读私有写
@@ -117,14 +117,14 @@ public interface CosService {
 	 *  
 	 * @return
 	 */
-	BaseResponse deleteDirectory(String targetDirPath, String eventId);
+	BaseResponse deleteDirectory(String targetDirPath);
 
 	/**
 	 * 异步批量删除 cos 对象
 	 * @param keysStr 多个key，用英文逗号分隔
 	 * @return
 	 */
-	BaseResponse batchDelete(String keysStr, String eventId);
+	BaseResponse batchDelete(String keysStr);
 
 	/**
 	 * 根据COS中某个bucket下的某个根目录，生成该根目录的目录树

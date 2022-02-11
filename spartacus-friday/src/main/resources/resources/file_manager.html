@@ -645,7 +645,7 @@ function connect_to_wb_server(notices, target_is_directory) {
 		};
 
 		stompClient.onConnect = function (frame) {
-			stompClient.subscribe('/fileReadStatusChangeNotice', function (response) {
+			stompClient.subscribe('/topic/fileReadStatusChangeNotice', function (response) {
 				console.log("收到提示信息：");
 				var resp = JSON.parse(response.body);
 				console.log(resp);
@@ -738,7 +738,6 @@ function rename() {
 		title: '重命名'}, function(val, index){
 		// var sub_address = '/notice/'+ genUuid();
 
-		var eventId = genUuid();
 		$.ajax({
 			type: "POST",
 			url: base_domain+"/spartacus-resource/cos/rename",
@@ -746,9 +745,7 @@ function rename() {
 			async: true,
 			data: {
 				"key": key,
-				"newFileName": val + file_extension,
-				// "subAddress": sub_address
-				"eventId" : eventId
+				"newFileName": val + file_extension
 			},
 			headers: {
 				"clientId":"spartacus-friday",
@@ -784,18 +781,14 @@ function _delete() {
 		btn: ['确定','取消'] //按钮
 	}, function() {
 		var key = $(global_object).attr('key');
-		// var sub_address = '/notice/'+ genUuid();
 
-		var eventId = genUuid();
 		$.ajax({
 			type: "POST",
 			url: base_domain+"/spartacus-resource/cos/batchDelete",
 			dataType: "json",
 			async: true,
 			data: {
-				"keysStr": key,
-				// "subAddress": sub_address
-				"eventId" : eventId
+				"keysStr": key
 			},
 			headers: {
 				"clientId":"spartacus-friday",
@@ -847,17 +840,13 @@ function batch_delete() {
 	parent.layer.confirm('确定删除吗？', {
 		btn: ['确定','取消'] //按钮
 	}, function() {
-		// var sub_address = '/notice/'+ genUuid();
-		var eventId = genUuid();
 		$.ajax({
 			type: "POST",
 			url: base_domain+"/spartacus-resource/cos/batchDelete",
 			dataType: "json",
 			async: true,
 			data: {
-				"keysStr": keysStr,
-				// "subAddress": sub_address
-				"eventId" : eventId
+				"keysStr": keysStr
 			},
 			headers: {
 				"Authorization":"bearer " + jwt.access_token//自定义请求头
@@ -919,8 +908,6 @@ function batch_recycle() {
  *  批量移动
  */
 function batch_move(keysStr, destDirPath) {
-	// var sub_address = '/notice/'+ genUuid();
-	var eventId = genUuid();
 	$.ajax({
 		type: "POST",
 		url: base_domain+"/spartacus-resource/cos/batchMove",
@@ -928,9 +915,7 @@ function batch_move(keysStr, destDirPath) {
 		async: true,
 		data: {
 			"keysStr": keysStr,
-			"destDirPath": destDirPath,
-			// "subAddress": sub_address
-			"eventId" : eventId
+			"destDirPath": destDirPath
 		},
 		headers: {
 			"clientId":"spartacus-friday",
@@ -956,8 +941,6 @@ function batch_move(keysStr, destDirPath) {
 }
 
 function batchSetObjectAcl(keysStr, aclFlag) {
-	// var sub_address = '/notice/'+ genUuid();
-	var eventId = genUuid();
 	$.ajax({
 		type: "POST",
 		url: base_domain+"/spartacus-resource/cos/batchSetObjectAcl",
@@ -965,9 +948,7 @@ function batchSetObjectAcl(keysStr, aclFlag) {
 		async: true,
 		data : {
 			"keysStr" : keysStr,
-			"aclFlag" : aclFlag,
-			// "subAddress": sub_address
-			"eventId" : eventId
+			"aclFlag" : aclFlag
 		},
 		headers: {
 			"clientId":"spartacus-friday",
@@ -1649,17 +1630,13 @@ $(document).ready(function () {
                     		icon: 0,
 						  	btn: ['确定','取消'] //按钮
 						}, function() {
-                    		var eventId = genUuid();
-							// var sub_address = '/notice/'+ genUuid();
 							$.ajax({
 								type: "POST",
 								url: base_domain+"/spartacus-resource/cos/deleteDirectory",
 								dataType: "json",
 								async: true,
 								data : {
-									"targetDirPath" : path + "/",
-									"eventId" : eventId
-									// "subAddress" : sub_address
+									"targetDirPath" : path + "/"
 								},
 								headers: {
 									"clientId":"spartacus-friday",
@@ -1781,6 +1758,7 @@ $(document).ready(function () {
 						"rootDirPath" : "image/",
 					},*/
 					headers: {
+						"clientId":"spartacus-friday",
 						"Authorization":"bearer " + jwt.access_token//自定义请求头
 					},
 					success: function(result) {

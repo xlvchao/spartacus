@@ -93,10 +93,10 @@ public class CosServiceImpl implements CosService {
 	}
 
 	@Override
-	public BaseResponse rename(String key, String newFileName, String eventId) {
+	public BaseResponse rename(String key, String newFileName) {
 		try {
-			logger.info("开始资源重命名：" + CommonUtils.concat(key, newFileName, eventId));
-			task.rename(key, newFileName, eventId);
+			logger.info("开始资源重命名：" + CommonUtils.concat(key, newFileName));
+			task.rename(key, newFileName);
 			logger.info("资源重命名成功！");
 			return new BaseResponse(RespConstant.CODE_0, RespConstant.MSG_0);
 
@@ -107,10 +107,10 @@ public class CosServiceImpl implements CosService {
 	}
 
 	@Override
-	public BaseResponse batchMove(String keysStr, String destDirPath, String eventId) {
+	public BaseResponse batchMove(String keysStr, String destDirPath) {
 		try {
-			logger.info("开始批量移动资源：" + CommonUtils.concat(keysStr, destDirPath, eventId));
-			task.batchMove(keysStr, destDirPath, eventId);
+			logger.info("开始批量移动资源：" + CommonUtils.concat(keysStr, destDirPath));
+			task.batchMove(keysStr, destDirPath);
 			logger.info("批量移动资源成功！");
 			return new BaseResponse(RespConstant.CODE_0, RespConstant.MSG_0);
 
@@ -372,10 +372,10 @@ public class CosServiceImpl implements CosService {
 	}
 
 	@Override
-	public BaseResponse batchSetObjectAcl(String keysStr, Integer aclFlag, String eventId) {
+	public BaseResponse batchSetObjectAcl(String keysStr, Integer aclFlag) {
 		try {
-			logger.info("开始异步执行批量设置权限命令：" + CommonUtils.concat(keysStr, aclFlag, eventId));
-			task.batchSetObjectAcl(keysStr, aclFlag, eventId);
+			logger.info("开始异步执行批量设置权限命令：" + CommonUtils.concat(keysStr, aclFlag));
+			task.batchSetObjectAcl(keysStr, aclFlag);
 			logger.info("异步执行批量设置权限命令成功！");
 			return new BaseResponse(RespConstant.CODE_0, RespConstant.MSG_0);
 
@@ -453,10 +453,10 @@ public class CosServiceImpl implements CosService {
 	}
 
 	@Override
-	public BaseResponse deleteDirectory(String targetDirPath, String eventId) {
+	public BaseResponse deleteDirectory(String targetDirPath) {
 		try {
-			logger.info("开始异步执行删除COS目录对象：" + CommonUtils.concat(targetDirPath, eventId));
-			task.deleteCosDirectory(targetDirPath, eventId);
+			logger.info("开始异步执行删除COS目录对象：" + CommonUtils.concat(targetDirPath));
+			task.deleteCosDirectory(targetDirPath);
 			logger.info("异步执行删除COS目录对象成功！");
 			return new BaseResponse(RespConstant.CODE_0, RespConstant.MSG_0);
 
@@ -467,10 +467,10 @@ public class CosServiceImpl implements CosService {
 	}
 
 	@Override
-	public BaseResponse batchDelete(String keysStr, String eventId) {
+	public BaseResponse batchDelete(String keysStr) {
 		try {
-			logger.info("开始异步批量删除COS对象：" + CommonUtils.concat(keysStr, eventId));
-			task.batchDelete(keysStr, eventId);
+			logger.info("开始异步批量删除COS对象：" + CommonUtils.concat(keysStr));
+			task.batchDelete(keysStr);
 			logger.info("异步批量删除COS对象成功！");
 			return new BaseResponse(RespConstant.CODE_0, RespConstant.MSG_0);
 

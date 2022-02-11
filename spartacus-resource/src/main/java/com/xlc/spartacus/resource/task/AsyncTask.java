@@ -1,17 +1,6 @@
 package com.xlc.spartacus.resource.task;
 
 import com.alibaba.fastjson.JSON;
-import com.xlc.spartacus.common.core.constant.RespConstant;
-import com.xlc.spartacus.common.core.pojo.BaseResponse;
-import com.xlc.spartacus.common.core.utils.CommonUtils;
-import com.xlc.spartacus.common.core.utils.Snowflake;
-import com.xlc.spartacus.resource.constant.ResourceConstant;
-import com.xlc.spartacus.resource.config.BeanConfig;
-import com.xlc.spartacus.resource.config.CommonProperties;
-import com.xlc.spartacus.resource.mapper.CosResourceMapper;
-import com.xlc.spartacus.resource.pojo.CosResource;
-import com.xlc.spartacus.resource.pojo.NoticeMessage;
-import com.xlc.spartacus.resource.pojo.WordFrequency;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.exception.CosClientException;
 import com.qcloud.cos.exception.CosServiceException;
@@ -20,6 +9,16 @@ import com.qcloud.cos.exception.MultiObjectDeleteException.DeleteError;
 import com.qcloud.cos.model.*;
 import com.qcloud.cos.model.DeleteObjectsRequest.KeyVersion;
 import com.qcloud.cos.model.DeleteObjectsResult.DeletedObject;
+import com.xlc.spartacus.common.core.constant.RespConstant;
+import com.xlc.spartacus.common.core.pojo.BaseResponse;
+import com.xlc.spartacus.common.core.utils.CommonUtils;
+import com.xlc.spartacus.common.core.utils.Snowflake;
+import com.xlc.spartacus.resource.config.CommonProperties;
+import com.xlc.spartacus.resource.constant.ResourceConstant;
+import com.xlc.spartacus.resource.mapper.CosResourceMapper;
+import com.xlc.spartacus.resource.pojo.CosResource;
+import com.xlc.spartacus.resource.pojo.NoticeMessage;
+import com.xlc.spartacus.resource.pojo.WordFrequency;
 import com.xlc.spartacus.resource.service.WebSocketService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,9 +41,6 @@ import java.util.stream.Collectors;
 @Component
 public class AsyncTask {
 	private static Logger logger = LoggerFactory.getLogger(AsyncTask.class);
-
-	@Resource
-	BeanConfig beanConfig;
 
 	@Resource
 	private CommonProperties commonProperties;
@@ -258,7 +254,7 @@ public class AsyncTask {
 
     /////////////////////COS///////////////////////
 	@Async("myAsync")
-	public void rename(String key, String newFileName, String eventId) {
+	public void rename(String key, String newFileName) {
 		try {
 			String bucketName = commonProperties.getBucketName();
 
@@ -323,7 +319,7 @@ public class AsyncTask {
 	}
 
 	@Async("myAsync")
-	public void batchMove(String keysStr, String destDirPath, String eventId) {
+	public void batchMove(String keysStr, String destDirPath) {
 		try {
 			String bucketName = commonProperties.getBucketName();
 
@@ -409,7 +405,7 @@ public class AsyncTask {
 	}
 
 	@Async("myAsync")
-	public void batchSetObjectAcl(String keysStr, Integer aclFlag, String eventId) {
+	public void batchSetObjectAcl(String keysStr, Integer aclFlag) {
 		String bucketName = null;
 		boolean flag = false;
 		try {
@@ -451,7 +447,7 @@ public class AsyncTask {
 	}
 
 	@Async("myAsync")
-	public void batchDelete(String keysStr, String eventId) {
+	public void batchDelete(String keysStr) {
 		try {
 			String bucketName = commonProperties.getBucketName();
 
@@ -544,7 +540,7 @@ public class AsyncTask {
 	}
 
 	@Async("myAsync")
-	public void deleteCosDirectory(String targetDirPath, String eventId) {
+	public void deleteCosDirectory(String targetDirPath) {
 		try {
 			String bucketName = commonProperties.getBucketName();
 

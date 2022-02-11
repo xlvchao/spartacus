@@ -29,12 +29,12 @@ public class CosController {
 
 	@RequestMapping(value = "/batchMove")
 	public BaseResponse batchMove(@ModelAttribute BaseRequest baseRequest) {
-		return cosService.batchMove(baseRequest.getKeysStr(), baseRequest.getDestDirPath(), baseRequest.getEventId());
+		return cosService.batchMove(baseRequest.getKeysStr(), baseRequest.getDestDirPath());
 	}
 
 	@RequestMapping(value = "/batchDelete")
 	public BaseResponse batchDelete(@ModelAttribute BaseRequest baseRequest) {
-		return cosService.batchDelete(baseRequest.getKeysStr(), baseRequest.getEventId());
+		return cosService.batchDelete(baseRequest.getKeysStr());
 	}
 
 	@RequestMapping(value = "/batchDownload")
@@ -44,7 +44,7 @@ public class CosController {
 
 	@RequestMapping(value = "/rename")
 	public BaseResponse rename(@ModelAttribute BaseRequest baseRequest) {
-		return cosService.rename(baseRequest.getKey(), baseRequest.getNewFileName(), baseRequest.getEventId());
+		return cosService.rename(baseRequest.getKey(), baseRequest.getNewFileName());
 	}
 
 	@RequestMapping(value = "/download")
@@ -69,12 +69,12 @@ public class CosController {
 	
 	@RequestMapping("/batchSetObjectAcl")
 	public BaseResponse batchSetObjectAcl(@ModelAttribute BaseRequest baseRequest) {
-		return cosService.batchSetObjectAcl(baseRequest.getKeysStr(), baseRequest.getAclFlag(), baseRequest.getEventId());
+		return cosService.batchSetObjectAcl(baseRequest.getKeysStr(), baseRequest.getAclFlag());
 	}
 	
 	@RequestMapping("/deleteDirectory")
 	public BaseResponse deleteDirectory(@ModelAttribute BaseRequest baseRequest) {
-		return cosService.deleteDirectory(baseRequest.getTargetDirPath(), baseRequest.getEventId());
+		return cosService.deleteDirectory(baseRequest.getTargetDirPath());
 	}
 	
 	@RequestMapping("/createDirectory")

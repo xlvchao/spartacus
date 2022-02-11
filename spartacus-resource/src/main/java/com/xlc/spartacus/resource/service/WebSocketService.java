@@ -22,7 +22,7 @@ public class WebSocketService {
 	
 	public void sendFileReadStatusChangeNotice(NoticeMessage message) throws InterruptedException{
 	
-		template.convertAndSend(ResourceConstant.FILE_READ_STATUS_CHANGE_NOTICE_DESCRIBE_ADDRESS, JSON.toJSONString(message));
+		template.convertAndSend("/topic/" +ResourceConstant.FILE_READ_STATUS_CHANGE_NOTICE_DESCRIBE_ADDRESS, JSON.toJSONString(message));
 	}
 
 }
