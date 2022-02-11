@@ -45,6 +45,8 @@
 
 ![Architecture](https://s4.ax1x.com/2022/02/10/HYiI78.png)
 
+<img src="https://s4.ax1x.com/2022/02/10/HYiI78.png" alt="Architecture" align=center />
+
 **Redis Cluster**：Redis集群；认证/资源服务器、网关/资源服务器、业务集群的必须依赖，基于官方推荐的Redis Cluster集群部署架构，详情请看部署文档。
 
 **Mysql Cluster**：Mysql集群；采用简单的读写分离的Master-slave主从集群部署架构，或者采用PXC的高可用集群部署架构，详情请看部署文档。
