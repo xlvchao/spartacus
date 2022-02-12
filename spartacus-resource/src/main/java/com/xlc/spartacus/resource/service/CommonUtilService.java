@@ -1,4 +1,4 @@
-package com.xlc.spartacus.chat.service;
+package com.xlc.spartacus.resource.service;
 
 import com.xlc.spartacus.common.core.common.CommonResponse;
 import com.xlc.spartacus.common.core.common.Response;

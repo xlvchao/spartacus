@@ -510,11 +510,11 @@
 var stompClient = null;
 function initConnect() {
     var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
-    var access_token = jwt.access_token;
+    var accessToken = jwt.access_token;
 
     stompClient = new StompJs.Client({
         connectHeaders: {
-            accessToken: access_token
+            accessToken: accessToken
         },
         debug: function (str) {
             console.log(str);

@@ -19,10 +19,10 @@ public class WebSocketService {
 
 	@Resource
 	private SimpMessagingTemplate template;
+
 	
-	public void sendFileReadStatusChangeNotice(NoticeMessage message) throws InterruptedException{
-	
-		template.convertAndSend("/topic/" +ResourceConstant.FILE_READ_STATUS_CHANGE_NOTICE_DESCRIBE_ADDRESS, JSON.toJSONString(message));
+	public void sendFileReadStatusChangeNotice(NoticeMessage message) {
+		template.convertAndSend("/topic/fileReadStatusChangeNotice", JSON.toJSONString(message));
 	}
 
 }

@@ -71,7 +71,7 @@ public class AsyncTask {
 
 		try {
 			webSocketService.sendFileReadStatusChangeNotice(noticeMessage);
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

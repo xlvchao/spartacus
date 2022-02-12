@@ -1,7 +1,8 @@
 package com.xlc.spartacus.resource.config;
 
-import com.xlc.spartacus.resource.constant.ResourceConstant;
+import com.xlc.spartacus.resource.intercepter.SocketChannelIntercepter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -22,6 +23,9 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
 	@Resource
 	private CommonProperties commonProperties;
 
+	@Resource
+	private SocketChannelIntercepter socketChannelIntercepter;
+
 	/**
 	 * 注册端点，发布或者订阅消息的时候需要连接此端点
 	 * setAllowedOrigins 非必须，*表示允许其他域进行连接
@@ -39,8 +43,6 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
 	 */
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
-		//基于内存的简单stomp消息代理
-		//registry.enableSimpleBroker("/" + ResourceConstant.FILE_READ_STATUS_CHANGE_NOTICE_DESCRIBE_ADDRESS);
 		//基于rabbitmq的stomp消息代理
 		registry.enableStompBrokerRelay("/topic/")
 				.setRelayHost(commonProperties.getRelayHost())
@@ -52,7 +54,16 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer{
 				.setVirtualHost(commonProperties.getVirtualHost());
 
 		//registry.setApplicationDestinationPrefixes("/send");
+	}
 
+	@Override
+	public void configureClientInboundChannel(ChannelRegistration registration) {
+		registration.interceptors(socketChannelIntercepter);
+	}
+
+	@Override
+	public void configureClientOutboundChannel(ChannelRegistration registration) {
+		registration.interceptors(socketChannelIntercepter);
 	}
 
 

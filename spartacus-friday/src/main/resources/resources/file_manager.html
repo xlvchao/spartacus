@@ -628,73 +628,63 @@ function connect_to_wb_server() {
 	var jwt = JSON.parse(window.localStorage.getItem('spartacus-jwt') || '{}');
 	var accessToken = jwt.access_token;
 
-	//先检查token是否有效，再创建连接
-	if(checkToken(accessToken)==true) {
-		stompClient = new StompJs.Client({
-			connectHeaders: {
-				Authorization:"bearer " + jwt.access_token//自定义请求头
-			},
-			debug: function (str) {
-				console.log(str);
-			},
-			reconnectDelay: 3000,
-			heartbeatIncoming: 4000,
-			heartbeatOutgoing: 4000,
-		});
+	stompClient = new StompJs.Client({
+		connectHeaders: {
+			accessToken: accessToken
+		},
+		debug: function (str) {
+			console.log(str);
+		},
+		reconnectDelay: 3000,
+		heartbeatIncoming: 4000,
+		heartbeatOutgoing: 4000,
+	});
 
-		stompClient.webSocketFactory = function () {
-			return new SockJS(base_domain+'/spartacus-resource/endpoint');
-		};
+	stompClient.webSocketFactory = function () {
+		return new SockJS(base_domain+'/spartacus-resource/endpoint');
+	};
 
-		stompClient.onConnect = function (frame) {
-			stompClient.subscribe('/topic/fileReadStatusChangeNotice', function (response) {
-				console.log("收到提示信息：");
-				var resp = JSON.parse(response.body);
-				console.log(resp);
+	stompClient.onConnect = function (frame) {
+		stompClient.subscribe('/topic/fileReadStatusChangeNotice', function (response) {
+			console.log("收到提示信息：");
+			var resp = JSON.parse(response.body);
+			console.log(resp);
 
-				//TODO
-				if(resp.payload.code == 0) {
-					bootoast({
-						message: notices[resp.payload.code],
-						type: 'success',
-						position:'right-top',
-						timeout:3
-					});
+			//TODO
+			if(resp.payload.code == 0) {
+				bootoast({
+					message: notices[resp.payload.code],
+					type: 'success',
+					position:'right-top',
+					timeout:3
+				});
 
-					if(target_is_directory) {
-						$('#jstree').jstree('refresh');
-					} else {
-						getPage(global_dir_path, global_currentPage, global_pageSize, null);
-					}
-
+				if(target_is_directory) {
+					$('#jstree').jstree('refresh');
 				} else {
-					bootoast({
-						message: notices[resp.payload.code],
-						type: 'danger',
-						position:'right-top',
-						timeout:3
-					});
+					getPage(global_dir_path, global_currentPage, global_pageSize, null);
 				}
-				//TODO
 
-				response.ack();
-			}, {ack:'client'});
-		};
+			} else {
+				bootoast({
+					message: notices[resp.payload.code],
+					type: 'danger',
+					position:'right-top',
+					timeout:3
+				});
+			}
+			//TODO
 
-		stompClient.onStompError = function (frame) {
-			console.log('Broker reported error: ' + frame.headers['message']);
-			console.log('Additional details: ' + frame.body);
-		};
+			response.ack();
+		}, {ack:'client'});
+	};
 
-		stompClient.activate();
+	stompClient.onStompError = function (frame) {
+		console.log('Broker reported error: ' + frame.headers['message']);
+		console.log('Additional details: ' + frame.body);
+	};
 
-	} else {
-		layer.msg('连接失败，请登录后再试试吧！', {
-			time: 1800
-		}, function(){
-			parent.layer.close(parent.global_chat_window_iframe_index);
-		});
-	}
+	stompClient.activate();
 }
 
 connect_to_wb_server();
@@ -706,28 +696,6 @@ window.onbeforeunload = function(){
 	}
 }
 
-//检查token是否有效
-function checkToken(accessToken) {
-	var valid = false;
-	if(!$.isEmptyObject(accessToken)) {
-		$.ajax({
-			url: base_domain+"/spartacus-gateway/jwt/decode/"+accessToken,
-			type: "GET",
-			dataType: "json",
-			async: false,
-			headers: {
-				"clientId":"spartacus-friday"
-			},
-			success: function (result) {
-				console.log(result);
-				if(result.code == 200) {
-					valid = true;
-				}
-			}
-		});
-	}
-	return valid;
-}
 
 /**
  * 重命名
