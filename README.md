@@ -41,7 +41,7 @@
 
 # 系统架构
 
-**spartacus**是一个基于Spring Boot 2.3.x、Spring Cloud Hoxton.SR5、Spring Security 2.3.x、OAuth2.0、Python3等开源框架构建的分布式系统，亦是一个功能完备的微服务脚手架。下图为体验服系统架构图 (**[高清图](https://s4.ax1x.com/2022/02/10/HYiI78.png){:target="_blank"}**)：
+**spartacus**是一个基于Spring Boot 2.3.x、Spring Cloud Hoxton.SR5、Spring Security 2.3.x、OAuth2.0、Python3等开源框架构建的分布式系统，亦是一个功能完备的微服务脚手架。下图为体验服系统架构图 ([**高清图**](https://s4.ax1x.com/2022/02/10/HYiI78.png){:target="_blank"})：
 
 ![Architecture](https://s4.ax1x.com/2022/02/10/HYiI78.png)
 
