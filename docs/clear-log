@@ -1,0 +1,4 @@
+注意，要经常清理掉容器log文件，否则磁盘很快会被占满！
+
+一般log文件路径如下：
+/var/lib/docker/containers/{containerId}/{containerId}-json.log

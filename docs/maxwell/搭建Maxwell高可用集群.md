@@ -124,7 +124,9 @@ grant select,replication client,replication slave on *.* to 'maxwell'@'%' identi
 grant all privileges on maxwell.* to 'maxwell'@'%' identified by 'maxwell';
 
 #创建全量同步任务（而后maxwell会自动触发执行）
+insert into maxwell.bootstrap (database_name, table_name, client_id) values ('spartacus', 'tb_article', 'maxwell');
 insert into maxwell.bootstrap (database_name, table_name, client_id) values ('spartacus', 'tb_cos_resource', 'maxwell');
+insert into maxwell.bootstrap (database_name, table_name, client_id) values ('spartacus', 'tb_login_record', 'maxwell');
 
 注意：此处client_id要与三中的入参client_id必须一样！
 ```

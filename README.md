@@ -215,7 +215,7 @@ spartacus
 
 在公众号后台回复“**加群**”，即可加入「**spartacus**」扯淡交流群！
 
-![mp_qrcode](https://s4.ax1x.com/2022/02/10/HYkXwV.jpg)
+![mp_qrcode](https://s1.ax1x.com/2022/05/29/XMN2qO.jpg)
 
 
 # 许可证
