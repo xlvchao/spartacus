@@ -215,7 +215,7 @@ spartacus
 
 在公众号后台回复“**加群**”，即可加入「**南山有一郎**」交流群！
 
-![mp_qrcode](https://s1.ax1x.com/2022/05/29/XMN2qO.jpg)
+![mp_qrcode](https://pic.imgdb.cn/item/6292fd820947543129eb4392.jpg)
 
 
 # 许可证
