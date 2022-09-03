@@ -64,6 +64,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.17.1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>commons-collections</groupId>

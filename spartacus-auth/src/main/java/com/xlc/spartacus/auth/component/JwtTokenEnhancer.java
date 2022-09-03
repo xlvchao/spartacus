@@ -7,6 +7,8 @@ import com.xlc.spartacus.auth.domain.User;
 import com.xlc.spartacus.auth.domain.UserSequence;
 import com.xlc.spartacus.auth.mapper.UserConnectionMapper;
 import lombok.SneakyThrows;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * JWT内容增强器
@@ -34,6 +37,9 @@ public class JwtTokenEnhancer implements TokenEnhancer {
 
     @Resource
     private UserConnectionMapper userConnectionMapper;
+
+    @Resource
+    private RedissonClient redissonClient;
 
     @SneakyThrows
     @Override
@@ -84,13 +90,26 @@ public class JwtTokenEnhancer implements TokenEnhancer {
     }
 
     private Integer getSequence(String userId) {
+        Integer sequence = null;
         UserSequence userSequence = userConnectionMapper.findUserSequence(userId);
         if(userSequence == null) {
-            Integer sequence = userConnectionMapper.getNewUserSequence();
-            userConnectionMapper.insertUserSequence(new UserSequence(userId, sequence));
-            return sequence;
+            RLock rLock = redissonClient.getLock("getSequence-lock");
+            try {
+                // 5s拿不到锁就认为获取锁失败，10s即锁失效时间
+                boolean tryLock = rLock.tryLock(5, 10, TimeUnit.SECONDS);
+                if(tryLock) {
+                    sequence = userConnectionMapper.getNewUserSequence();
+                    userConnectionMapper.insertUserSequence(new UserSequence(userId, sequence));
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                rLock.unlock(); //无论如何都要记得释放锁
+            }
         } else {
-            return userSequence.getUserSequence();
+            sequence = userSequence.getUserSequence();
         }
+        return sequence;
     }
+
 }
