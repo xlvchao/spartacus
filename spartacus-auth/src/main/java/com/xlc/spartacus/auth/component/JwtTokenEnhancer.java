@@ -90,7 +90,7 @@ public class JwtTokenEnhancer implements TokenEnhancer {
     }
 
     private Integer getSequence(String userId) {
-        Integer sequence = null;
+        Integer sequence = -1; //默认值-1
         UserSequence userSequence = userConnectionMapper.findUserSequence(userId);
         if(userSequence == null) {
             RLock rLock = redissonClient.getLock("getSequence-lock");
