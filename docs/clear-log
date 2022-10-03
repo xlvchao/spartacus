@@ -1,4 +1,36 @@
-注意，要经常清理掉容器log文件，否则磁盘很快会被占满！
+注意，要经常清理掉容器log文件、无用的数据和卷，否则磁盘很快会被占满！
+
+1、通过docker命令清理
+
+# 用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及无tag的镜像。
+docker system prune
+# 可以将没有容器使用 Docker 镜像都删掉。注意，这两个命令会把你暂时关闭的容器，以及暂时没有用到的Docker镜像都删掉了
+docker system prune -a
+
+
+
+
+2、自己手动定位清理
 
 一般log文件路径如下：
 /var/lib/docker/containers/{containerId}/{containerId}-json.log
+
+
+如果删除上述log文件磁盘还是占满，列出占满磁盘的目录：df -h
+
+逐级排查（单位: mb）：du -sh -m /var/lib/docker/* | sort -nr
+
+一般占用磁盘的大文件就在以下两个目录中：
+/var/lib/docker/overlay2
+/var/lib/docker/containers
+
+
+删除上述找到的大文件后，磁盘空间依然没有释放，因为对应的进程还在运行，所以并没有真正的被删除，这是正常的！
+
+好像只能重启进程才能解决了！
+
+
+根据上述containerId查看对应容器信息
+docker ps -q | xargs docker inspect --format '{{.State.Pid}}, {{.Id}}, {{.Name}}, {{.GraphDriver.Data.WorkDir}}' | grep {containerId}
+
+输出依次为：进程pid、容器ID、容器名、存储work路径
