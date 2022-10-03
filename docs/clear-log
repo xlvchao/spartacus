@@ -1,5 +1,6 @@
 注意，要经常清理掉容器log文件、无用的数据和卷，否则磁盘很快会被占满！
 
+
 1、通过docker命令清理
 
 # 用于清理磁盘，删除关闭的容器、无用的数据卷和网络，以及无tag的镜像。
@@ -8,9 +9,12 @@ docker system prune
 docker system prune -a
 
 
+2、使用脚本手动清理
+chmod +x clean_docker_log.sh
+./clean_docker_log.sh
 
 
-2、自己手动定位清理
+3、自己手动定位清理
 
 一般log文件路径如下：
 /var/lib/docker/containers/{containerId}/{containerId}-json.log
