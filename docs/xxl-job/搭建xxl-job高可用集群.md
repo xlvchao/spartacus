@@ -23,7 +23,7 @@ services:
     container_name: xxl-job-admin-1
     restart: always
     environment:
-      - PARAMS="--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver --spring.datasource.url=jdbc:mysql://10.0.0.5:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=Pwd@123 --spring.mail.host=smtp.exmail.qq.com --spring.mail.port=465 --spring.mail.username=notice@baoxue123.com --spring.mail.password=Exmail@011101"
+      - PARAMS="--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver --spring.datasource.url=jdbc:mysql://10.0.0.5:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=Pwd@123 --spring.mail.host=smtp.exmail.qq.com --spring.mail.port=465 --spring.mail.username=notice@baoxue123.com --spring.mail.password=Pwd@123"
     ports:
       - 1111:8080
     networks:
@@ -33,7 +33,7 @@ services:
     container_name: xxl-job-admin-2
     restart: always
     environment:
-      - PARAMS="--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver --spring.datasource.url=jdbc:mysql://10.0.0.5:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=Pwd@123 --spring.mail.host=smtp.exmail.qq.com --spring.mail.port=465 --spring.mail.username=notice@baoxue123.com --spring.mail.password=Exmail@011101"
+      - PARAMS="--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver --spring.datasource.url=jdbc:mysql://10.0.0.5:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=Pwd@123 --spring.mail.host=smtp.exmail.qq.com --spring.mail.port=465 --spring.mail.username=notice@baoxue123.com --spring.mail.password=Pwd@123"
     ports:
       - 1112:8080
     networks:
@@ -43,7 +43,7 @@ services:
     container_name: xxl-job-admin-3
     restart: always
     environment:
-      - PARAMS="--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver --spring.datasource.url=jdbc:mysql://10.0.0.5:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=Pwd@123 --spring.mail.host=smtp.exmail.qq.com --spring.mail.port=465 --spring.mail.username=notice@baoxue123.com --spring.mail.password=Exmail@011101"
+      - PARAMS="--spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver --spring.datasource.url=jdbc:mysql://10.0.0.5:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=Pwd@123 --spring.mail.host=smtp.exmail.qq.com --spring.mail.port=465 --spring.mail.username=notice@baoxue123.com --spring.mail.password=Pwd@123"
     ports:
       - 1113:8080
     networks:

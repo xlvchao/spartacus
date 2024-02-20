@@ -22,7 +22,7 @@ flush privileges;
 show variables like '%log_bin%';
 
 #添加用于同步的账号backup（此时可通过远程登录主库执行以下脚本）
-GRANT REPLICATION SLAVE ON *.* to 'backup'@'%' identified by 'Backup@011101';
+GRANT REPLICATION SLAVE ON *.* to 'backup'@'%' identified by 'Pwd@123';
 #刷新权限生效
 flush privileges;
 #查看用户是否创建成功
@@ -63,7 +63,7 @@ change master to
 master_host='10.0.0.5',
 master_port=3306,
 master_user='backup',
-master_password='Backup@011101',
+master_password='Pwd@123',
 master_log_file='mysql-bin.000001',
 master_log_pos=0;
 #开启同步
@@ -108,7 +108,7 @@ change master to
 master_host='10.0.0.5',
 master_port=3306,
 master_user='backup',
-master_password='Backup@011101',
+master_password='Pwd@123',
 master_log_file='mysql-bin.000001',
 master_log_pos=0;
 #开启同步
